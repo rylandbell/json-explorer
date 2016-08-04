@@ -1,0 +1,63 @@
+.column-view {
+	margin-top: 30px;
+}
+
+.level-column {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+
+	border: 1px solid lightgrey;
+	border-top-width: 0;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-radius: 5px;
+}
+
+.list-group {
+	margin-bottom: 36px;
+	height: 300px;
+	min-width: 100px;
+	max-width: 200px;
+	overflow: auto;
+}
+
+.list-group-item {
+	border-left-width: 0;
+	border-right-width: 0;
+}
+
+.level-column-caption-container {
+	position: absolute;
+	bottom: 0;
+	clear: both;
+	display: block;
+	width: 100%;
+	background-color: lightgrey;
+	padding: 8px;
+	margin-top: 5px;
+}
+
+.level-column-caption {
+	font-weight: bold;
+	font-color: #777;
+	text-align: center;
+}
+
+.key-row {
+	font-weight: bold;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.path-view {
+	margin-top: 20px;
+}
+
+.path-caption {
+	font-size: 1.2em;
+}
+
+.current-path {
+	font-size: 2em;
+}
