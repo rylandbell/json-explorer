@@ -1,3 +1,4 @@
+/*Column View*/
 .column-view {
 	margin-top: 30px;
 }
@@ -8,10 +9,21 @@
 	vertical-align: top;
 
 	border: 1px solid lightgrey;
-	border-top-width: 0;
-	border-right-width: 1px;
-	border-left-width: 1px;
+	border-top-width: 1px;
 	border-radius: 5px;
+}
+
+.level-column-caption-container {
+	position: absolute;
+	bottom: 0;
+	clear: both;
+	display: block;
+
+	width: 100%;
+	padding: 8px;
+	margin-top: 5px;
+
+	background-color: lightgrey;
 }
 
 .list-group {
@@ -27,21 +39,8 @@
 	border-right-width: 0;
 }
 
-.level-column-caption-container {
-	position: absolute;
-	bottom: 0;
-	clear: both;
-	display: block;
-	width: 100%;
-	background-color: lightgrey;
-	padding: 8px;
-	margin-top: 5px;
-}
-
-.level-column-caption {
-	font-weight: bold;
-	font-color: #777;
-	text-align: center;
+.list-group-item:first-child {
+	border-top-width: 0;
 }
 
 .key-row {
@@ -50,6 +49,13 @@
 	padding-bottom: 3px;
 }
 
+.level-column-caption {
+	font-weight: bold;
+	font-color: #777;
+	text-align: center;
+}
+
+/*Column View*/
 .path-view {
 	margin-top: 20px;
 }
