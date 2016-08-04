@@ -1,18 +1,24 @@
 var fudge = JSON.parse('{"name":"Ryland","age":34,"cities":["Portland","Eugene"],"myObj":{"magic":35}}');
-var initialPath = ['cities',0];
+// var initialPath = ['myObj','magic'];
 
 var JSONExplorer = React.createClass({
+  getInitialState: function() {
+    return {
+      currentPath: []
+    };
+  },
+
   render: function() {
     return (
       <div className="container">
         <div className="row">
           <div className="col-xs-12 col-md-8">
-            <ColumnView data={this.props.data} currentPath={this.props.currentPath}/>
+            <ColumnView data={this.props.data} currentPath={this.state.currentPath}/>
           </div>
         </div>
         <div className="row">
           <div className="col-xs-12 col-md-8">
-            <PathView currentPath={this.props.currentPath}/>
+            <PathView currentPath={this.state.currentPath}/>
           </div>
         </div>
       </div>
@@ -81,7 +87,7 @@ var LevelColumn = React.createClass({
 var KeyRow = React.createClass({
   render: function() {
     return (
-      <a className={
+      <a href='/' className={
         "list-group-item key-row "
         +(this.props.isDisabled ? 'disabled' : '')
         +(this.props.isActive ? 'active' : '')}
@@ -116,7 +122,7 @@ var PathView = React.createClass({
 });
 
 ReactDOM.render(
-  <JSONExplorer data={fudge} currentPath={initialPath}/>, document.getElementById('app-container')
+  <JSONExplorer data={fudge} />, document.getElementById('app-container')
 );
 
 // Helper functions:
@@ -131,7 +137,9 @@ function getAllLevels (data, path){
       addLevelAndChildren(subData[nextKey],newSubPath);
     }
   }
-  addLevelAndChildren (data,path);
+  if (path.length > 0) {
+    addLevelAndChildren (data,path);
+  }
 
   return allLevels;
 }
