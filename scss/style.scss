@@ -1,0 +1,180 @@
+/*~~~~~~~~~~~~~~~~~~~~~COLOR~~~~~~~~~~~~~~~~
+/*Base colors: */
+
+/* $primary: #036564;
+$highlight: #CC2A41; */
+$greyish: #222526;
+$primary: lighten(#182A34,10%);
+$highlight: #E2321B;
+$light-text: #ddd;
+$dark-text: black;
+
+/*Computed colors: */
+
+$primary-bland: lighten(desaturate($primary,60%),15%);
+$primary-blander: lighten(desaturate($primary,80%),25%);
+$primary-blandest: lighten(desaturate($primary,80%),35%);
+
+$primary-bold: darken(desaturate($primary,30%),10%);
+
+$greyish-light: lighten($greyish,10%);
+$greyish-lighter: lighten($greyish,25%);
+
+/*Assigned colors: */
+body {
+	background-color: $greyish;
+	color: $light-text;
+}
+
+.app-container {
+	background-color: $greyish-light;
+}
+
+.column-view {
+	background-color: $primary-bland;
+}
+
+.column-view>* {
+	background-color: $primary-blandest;
+}
+
+.level-column {
+	border-right: 1px solid $primary-bold;
+}
+
+.key-row {
+	background-color: $primary;
+	border-color: $primary-bold;
+	color: $dark-text !important;
+}
+
+.key-row.active, .key-row.active:hover {
+	background-color: $highlight;
+	border-color: $primary-bold;
+}
+
+.level-column-caption-container {
+	border-top: 1px solid $primary-bold;
+	background-color: $greyish-lighter;
+}
+
+/*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
+
+/*Big pieces*/
+
+.app-container {
+	border-radius: 5px;
+	padding-top: 14px;
+	min-height: 525px;
+}
+
+#explorer-app {
+	margin-top: 50px;
+}
+
+/*Input pane*/
+.input-pane textarea {
+	resize: none;
+	height: 398px !important;
+	border-radius: 5px;
+}
+
+.btn {
+	margin-top: 20px;
+}
+
+/*Column View*/
+.column-view {
+	height: 398px;
+	border-radius: 5px;
+	
+	white-space:nowrap;
+	overflow-x: auto;
+}
+
+.level-column {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	height: 100%;
+
+	border-top-width: 0px;
+}
+
+.level-column:first-child {
+	border-left-width: 0;
+}
+
+.level-column-caption-container {
+	position: absolute;
+	bottom: 0;
+	clear: both;
+	display: block;
+
+	width: 100%;
+	padding: 8px;
+	margin-top: 5px;
+}
+
+.list-group {
+	margin-bottom: 36px;
+	min-width: 100px;
+	max-width: 200px;
+	height: 360px;
+	overflow: auto;
+}
+
+.list-group-item {
+	border-left-width: 0;
+	border-right-width: 0;
+}
+
+.list-group-item:first-child {
+	border-top-width: 0;
+}
+
+.key-row {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border-radius: 0 !important;
+}
+
+.level-column-caption {
+	text-align: center;
+}
+
+/*Column View*/
+.path-view {
+	margin-top: 20px;
+}
+
+/*Sample Data Modal*/
+.modal-body pre{
+	white-space:pre-wrap;
+	word-wrap: break-word;
+}
+
+/*Smaller screens: */
+@media (max-width: 991px){
+	.input-pane textarea{
+		height: 200px !important;
+	}
+}
+
+/*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
+
+body {
+	font-size: 1.6em;
+}
+
+.key-row, .level-column-caption {
+	font-weight: bold;
+}
+
+.path-caption {
+	font-size: 1.2em;
+}
+
+.current-path {
+	font-size: 2em;
+}

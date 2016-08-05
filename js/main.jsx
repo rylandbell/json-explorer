@@ -24,19 +24,23 @@ var ExplorerApp = React.createClass({
   },
   render: function() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-xs-12">
-            <p>Don't have any JSON strings handy? <a href="" data-toggle="modal" data-target="#sample-strings">Click here</a> for a few samples to copy and paste.</p>
+      <div>
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12 col-md-12">
+              <p>Don't have any JSON strings handy? <a href="" data-toggle="modal" data-target="#sample-strings">Click here</a> for a few samples to copy and paste.</p>
+            </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-xs-12 col-md-4">
-            <InputPane changeData={this.changeData}/>
-          </div> 
-          <div className="col-xs-12 col-md-8">
-            <ExplorerPane data= {this.state.data} currentPath= {this.state.currentPath} updatePath= {this.updatePath}/>
-          </div>  
+        <div className="container app-container">
+          <div className="row">
+            <div className="col-xs-12 col-md-4">
+              <InputPane changeData={this.changeData}/>
+            </div> 
+            <div className="col-xs-12 col-md-8">
+              <ExplorerPane data= {this.state.data} currentPath= {this.state.currentPath} updatePath= {this.updatePath}/>
+            </div>  
+          </div>
         </div>
       </div>
     );
