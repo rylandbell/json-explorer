@@ -1,24 +1,50 @@
+/*Big pieces*/
+#explorer-app {
+	margin-top: 50px;
+	// border: 1px solid blue;
+}
 
+.explorer-pane {
+	// border: 1px solid darkgrey;
+}
+
+.input-pane {
+	// border: 1px solid green;
+}
+
+/*Input pane*/
+textarea {
+	resize: none;
+	height: 338px !important;
+	border-radius: 5px;
+}
+
+.btn {
+	margin-top: 20px;
+}
 
 /*Column View*/
 .column-view {
-	margin-top: 30px;
-	// border: 1px solid darkgrey;
+	background-color: #eee;
+	border-radius: 5px;
 	
 	white-space:nowrap;
 	overflow-x: auto;
-	// max-width: 400px;
+}
+
+.column-view>* {
+	background-color: white;
 }
 
 .level-column {
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
-	margin-right: 3px;
+	margin-right: 1px;
 
 	border: 1px solid lightgrey;
 	border-top-width: 1px;
-	border-radius: 5px;
+	// border-radius: 5px;
 }
 
 .level-column-caption-container {
@@ -55,6 +81,7 @@
 	font-weight: bold;
 	padding-top: 3px;
 	padding-bottom: 3px;
+	border-radius: 0 !important;
 }
 
 .level-column-caption {
