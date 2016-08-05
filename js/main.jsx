@@ -8,7 +8,8 @@ var ExplorerApp = React.createClass({
   changeData: function(inputString) {
     try {
       this.setState({
-        data: inputString
+        data: inputString,
+        currentPath: []
       });
     } catch(err) {
       console.log(err);
