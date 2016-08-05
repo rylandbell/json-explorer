@@ -17,6 +17,11 @@ var ExplorerApp = React.createClass({
     return (
       <div className="container">
         <div className="row">
+          <div className="col-xs-12">
+            <p>Don't have any JSON strings handy? <a href="" data-toggle="modal" data-target="#sample-strings">Click here</a> for a few samples to copy and paste.</p>
+          </div>
+        </div>
+        <div className="row">
           <div className="col-xs-12 col-md-4">
             <InputPane changeData={this.changeData}/>
           </div> 
@@ -182,6 +187,10 @@ var LevelColumnCaption = React.createClass({
     if(Array.isArray(this.props.data)){
       caption="array";
     }
+    if(!isNaN(this.props.data)){
+      caption="number";
+    }
+    
     return (
       <div className="level-column-caption-container">
         <div className="level-column-caption">{caption}</div>
