@@ -13,7 +13,7 @@
 }
 
 /*Input pane*/
-textarea {
+.input-pane textarea {
 	resize: none;
 	height: 338px !important;
 	border-radius: 5px;
@@ -101,4 +101,17 @@ textarea {
 
 .current-path {
 	font-size: 2em;
+}
+
+/*Sample Data Modal*/
+.modal-body pre{
+	white-space:pre-wrap;
+	word-wrap: break-word;
+}
+
+/*Smaller screens: */
+@media (max-width: 991px){
+	.input-pane textarea{
+		height: 200px !important;
+	}
 }
