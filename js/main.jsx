@@ -1,7 +1,8 @@
 var ExplorerApp = React.createClass({
   getInitialState: function() {
     return {
-      data: {}
+      data: {},
+      currentPath: []
     };
   },
   changeData: function(inputString) {
@@ -12,6 +13,13 @@ var ExplorerApp = React.createClass({
     } catch(err) {
       console.log(err);
     }
+  },
+  updatePath: function(level,newKey){
+    var newPath = this.state.currentPath.slice(0,level);
+    newPath.push(newKey);
+    this.setState({
+      currentPath: newPath
+    });
   },
   render: function() {
     return (
@@ -26,7 +34,7 @@ var ExplorerApp = React.createClass({
             <InputPane changeData={this.changeData}/>
           </div> 
           <div className="col-xs-12 col-md-8">
-            <ExplorerPane data= {this.state.data} />
+            <ExplorerPane data= {this.state.data} currentPath= {this.state.currentPath} updatePath= {this.updatePath}/>
           </div>  
         </div>
       </div>
@@ -71,30 +79,17 @@ var InputPane = React.createClass({
 });
 
 var ExplorerPane = React.createClass({
-  getInitialState: function() {
-    return {
-      currentPath: []
-    };
-  },
-  updatePath: function(level,newKey){
-    var newPath = this.state.currentPath.slice(0,level);
-    newPath.push(newKey);
-    this.setState({
-      currentPath: newPath
-    });
-  },
-
   render: function() {
     return (
       <div className="explorer-pane">
         <div className="row">
           <div className="col-xs-12">
-            <ColumnView data={this.props.data} currentPath={this.state.currentPath} updatePath={this.updatePath}/>
+            <ColumnView data={this.props.data} currentPath={this.props.currentPath} updatePath={this.props.updatePath}/>
           </div>
         </div>
         <div className="row">
           <div className="col-xs-12">
-            <PathView currentPath={this.state.currentPath}/>
+            <PathView currentPath={this.props.currentPath}/>
           </div>
         </div>
       </div>
