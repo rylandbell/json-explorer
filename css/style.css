@@ -25,6 +25,7 @@
 
 /*Column View*/
 .column-view {
+	height: 338px;
 	background-color: #eee;
 	border: 1px solid lightgrey;
 	border-radius: 5px;
@@ -42,6 +43,7 @@
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 1px;
+	height: 100%;
 
 	border: 1px solid lightgrey;
 	border-top-width: 0px;
@@ -67,7 +69,6 @@
 
 .list-group {
 	margin-bottom: 36px;
-	height: 300px;
 	min-width: 100px;
 	max-width: 200px;
 	overflow: auto;

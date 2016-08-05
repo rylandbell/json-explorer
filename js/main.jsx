@@ -188,7 +188,8 @@ var LevelColumnCaption = React.createClass({
     if(Array.isArray(this.props.data)){
       caption="array";
     }
-    if(!isNaN(this.props.data)){
+    if(!isNaN(this.props.data) && ! (typeof this.props.data==='object')){
+      console.log(this.props.data);
       caption="number";
     }
 
@@ -235,7 +236,11 @@ ReactDOM.render(
 
 //returns an array of objects getting iteratively finer as it traces the given path
 function getAllLevels (data, path){
-  var allLevels = [data];
+  if(Object.keys(data).length === 0 && data.constructor === Object){
+    var allLevels = [];
+  } else {
+    var allLevels = [data];
+  }
 
   function addLevelAndChildren (subData, subPath){
     var nextKey = subPath[0];
