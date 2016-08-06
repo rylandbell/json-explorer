@@ -60,6 +60,11 @@ a {
 #btn-data-submit:hover {
   background-color: #416071; }
 
+.error-msg {
+  color: #cf412e;
+  background-color: #eee;
+  font-weight: bold; }
+
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
 /*Big pieces*/
 .app-container {
@@ -133,6 +138,9 @@ a {
 
 .level-column-caption {
   text-align: center; }
+
+.error-msg {
+  margin-top: 20px; }
 
 /*Column View*/
 .path-view {

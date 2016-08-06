@@ -17,6 +17,9 @@ $primary-blandest: lighten(desaturate($primary,80%),35%);
 
 $primary-bold: darken(desaturate($primary,30%),10%);
 
+$highlight-bland: lighten(desaturate($highlight,10%),10%);
+$highlight-bold: darken(desaturate($highlight,30%),30%);
+
 $greyish-light: lighten($greyish,10%);
 $greyish-lighter: lighten($greyish,25%);
 
@@ -90,6 +93,12 @@ a {
 
 #btn-data-submit:hover {
 	background-color: lighten(desaturate($primary,10%),10%);
+}
+
+.error-msg {
+	color: $highlight;
+	background-color: $light-text;
+	font-weight: bold;
 }
 
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
@@ -183,6 +192,10 @@ a {
 
 .level-column-caption {
 	text-align: center;
+}
+
+.error-msg {
+	margin-top: 20px;
 }
 
 /*Column View*/

@@ -2,17 +2,23 @@ var ExplorerApp = React.createClass({
   getInitialState: function() {
     return {
       data: {},
-      currentPath: []
+      currentPath: [],
+      showError: false
     };
   },
   changeData: function(inputString) {
     try {
       this.setState({
-        data: inputString,
+        showError: false,
+        data: JSON.parse(inputString),
         currentPath: []
       });
     } catch(err) {
-      console.log(err);
+      this.setState({
+        showError: true,
+        data: {},
+        currentPath: []
+      });
     }
   },
   updatePath: function(level,newKey){
@@ -42,7 +48,13 @@ var ExplorerApp = React.createClass({
             </div>  
           </div>
         </div>
-        <div className={"alert alert-warning "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string.</div>
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-122 col-md-36">
+              <div className={"error-msg alert alert-danger "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string. Please try again.</div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -51,8 +63,7 @@ var ExplorerApp = React.createClass({
 var InputPane = React.createClass({
   getInitialState: function() {
     return {
-      textContent: '',
-      showError: false
+      textContent: ''
     };
   },
   handleTextChange: function(e){
@@ -61,12 +72,7 @@ var InputPane = React.createClass({
   },
   handleFormSubmit: function(e){
     e.preventDefault();
-    this.setState({showError: false});
-    try{
-      this.props.changeData(JSON.parse(this.state.textContent));
-    } catch(err) {
-      this.setState({showError: true});
-    }
+    this.props.changeData(this.state.textContent);
   },
   render: function() {
     return (
@@ -94,7 +100,7 @@ var ExplorerPane = React.createClass({
         </div>
         <div className="row">
           <div className="col-xs-12">
-            <PathView currentPath={this.props.currentPath}/>
+            <PathView currentPath={this.props.currentPath} data={this.props.data}/>
           </div>
         </div>
       </div>
@@ -213,15 +219,23 @@ var PathView = React.createClass({
       }
     });
 
-    //only show the caption if the path is non-empty:
-    var showPath = false;
+    //only show helpText if user data has been submitted:
+    var showHelpText;
+    if(Object.keys(this.props.data).length === 0 && this.props.data.constructor === Object){
+      showHelpText = false;
+    } else {
+      showHelpText = true;
+    }
+    
+    //Show appropriate message, depending on if path is empty:
+    var helpText = 'Click on a row to view its contents.';
     if(this.props.currentPath.length>0){
-      showPath=true;
+      helpText = 'Selected path: '
     }
 
     return (
       <div className="path-view">
-        <div className={"path-caption " + (showPath? "":"hidden")}>Selected path:</div>
+        <div className={"path-caption " + (showHelpText? "":"hidden")}>{helpText}</div>
         <div className="current-path lead">{pathNames.join('')}</div>
       </div>
     );
