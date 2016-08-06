@@ -28,7 +28,7 @@ var ExplorerApp = React.createClass({
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-md-12">
-              <p>Don't have any JSON strings handy? <a href="" data-toggle="modal" data-target="#sample-strings">Click here</a> for a few samples to copy and paste.</p>
+              <p className="non-app-text">Don't have any JSON strings handy? <a href="" data-toggle="modal" data-target="#sample-strings">Click here</a> for a few samples to copy and paste.</p>
             </div>
           </div>
         </div>

@@ -26,6 +26,10 @@ body {
 	color: $light-text;
 }
 
+.modal {
+	color: $dark-text;
+}
+
 a {
 	color: $highlight;
 }
@@ -126,6 +130,7 @@ a {
 
 .level-column:first-child {
 	border-left-width: 0;
+	border-top-left-radius: 20px;
 }
 
 .level-column-caption-container {
@@ -193,7 +198,7 @@ body {
 	font-size: 1.6em;
 }
 
-.key-row, .level-column-caption {
+.level-column-caption {
 	font-weight: bold;
 }
 

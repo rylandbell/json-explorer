@@ -8,6 +8,9 @@ body {
   background-color: #222526;
   color: #eee; }
 
+.modal {
+  color: black; }
+
 a {
   color: #cf412e; }
 
@@ -85,7 +88,8 @@ a {
   border-top-width: 0px; }
 
 .level-column:first-child {
-  border-left-width: 0; }
+  border-left-width: 0;
+  border-top-left-radius: 20px; }
 
 .level-column-caption-container {
   position: absolute;
@@ -138,7 +142,7 @@ a {
 body {
   font-size: 1.6em; }
 
-.key-row, .level-column-caption {
+.level-column-caption {
   font-weight: bold; }
 
 .path-caption {
