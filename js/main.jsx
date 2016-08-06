@@ -30,29 +30,23 @@ var ExplorerApp = React.createClass({
   },
   render: function() {
     return (
-      <div>
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-12 col-md-12">
-              <p className="non-app-text">Don't have any JSON strings handy? <a href="" data-toggle="modal" data-target="#sample-strings">Click here</a> for a few samples to copy and paste.</p>
-            </div>
+      <div className="container ">
+        <div className="row">
+          <div className="col-xs-12 col-md-12">
+            <p className="non-app-text">Don't have any JSON strings handy? <a href="" data-toggle="modal" data-target="#sample-strings">Click here</a> for a few samples to copy and paste.</p>
           </div>
         </div>
-        <div className="container app-container">
-          <div className="row">
-            <div className="col-xs-12 col-md-4">
-              <InputPane changeData={this.changeData}/>
-            </div> 
-            <div className="col-xs-12 col-md-8">
-              <ExplorerPane data= {this.state.data} currentPath= {this.state.currentPath} updatePath= {this.updatePath}/>
-            </div>  
-          </div>
+        <div className="row main-app-row">
+          <div className="col-xs-12 col-md-4">
+            <InputPane changeData={this.changeData}/>
+          </div> 
+          <div className="col-xs-12 col-md-8">
+            <ExplorerPane data= {this.state.data} currentPath= {this.state.currentPath} updatePath= {this.updatePath}/>
+          </div>  
         </div>
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-122 col-md-36">
-              <div className={"error-msg alert alert-danger "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string. Please try again.</div>
-            </div>
+        <div className="row">
+          <div className="col-xs-122 col-md-36">
+            <div className={"error-msg alert alert-danger "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string. Please try again.</div>
           </div>
         </div>
       </div>
@@ -60,6 +54,7 @@ var ExplorerApp = React.createClass({
   }
 });
 
+//Contains the text input and left 1/3 of the app
 var InputPane = React.createClass({
   getInitialState: function() {
     return {
@@ -89,6 +84,7 @@ var InputPane = React.createClass({
   }
 });
 
+//Contains the path navigation and path display, right-most 2/3 of app
 var ExplorerPane = React.createClass({
   render: function() {
     return (
@@ -227,7 +223,7 @@ var PathView = React.createClass({
       showHelpText = true;
     }
     
-    //Show appropriate message, depending on if path is empty:
+    //Show appropriate helpText message, depending on if path is empty:
     var helpText = 'Click on a row to view its contents.';
     if(this.props.currentPath.length>0){
       helpText = 'Selected path: '
@@ -248,7 +244,7 @@ ReactDOM.render(
 
 // Helper functions:
 
-//returns an array of objects getting iteratively finer as it traces the given path
+//returns an array of objects, getting iteratively finer as it traces the given path
 function getAllLevels (data, path){
   if(Object.keys(data).length === 0 && data.constructor === Object){
     var allLevels = [];
