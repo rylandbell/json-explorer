@@ -42,6 +42,7 @@ var ExplorerApp = React.createClass({
             </div>  
           </div>
         </div>
+        <div className={"alert alert-warning "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string.</div>
       </div>
     );
   }
@@ -74,10 +75,9 @@ var InputPane = React.createClass({
           <div className="form-group" >
             <textarea className="form-control" rows="15" value={this.state.textContent} onChange={this.handleTextChange} placeholder="Paste a JSON string here (without any surrounding quote marks).">
             </textarea>
-            <input className="btn btn-default" id="btn-data-submit" type="submit" value="Update" />
+            <input className="btn btn-primary" id="btn-data-submit" type="submit" value="Submit Data" />
           </div>
         </form>
-        <div className={"alert alert-warning "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string.</div>
       </div>
     );
   }
@@ -174,7 +174,7 @@ var KeyRow = React.createClass({
 
     return (
       <a className={"list-group-item key-row "+disabledClass+activeClass}>
-        {this.props.keyName}
+        {this.props.keyName.toString()}
       </a>
     );
   }
@@ -188,7 +188,7 @@ var LevelColumnCaption = React.createClass({
     if(Array.isArray(this.props.data)){
       caption="array";
     }
-    if(!isNaN(this.props.data) && ! (typeof this.props.data==='object')){
+    if(!isNaN(this.props.data) && (typeof this.props.data!=='object') && (typeof this.props.data!=='boolean')){
       console.log(this.props.data);
       caption="number";
     }

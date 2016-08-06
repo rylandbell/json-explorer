@@ -6,6 +6,8 @@ $highlight: #CC2A41; */
 /*Assigned colors: */
 body {
   background-color: #222526;
+  background: url(/footer_lodyas.png) repeat 0 0;
+  background-attachment: fixed;
   color: #eee; }
 
 .modal {
@@ -51,6 +53,13 @@ a {
   border: 0px;
   color: black; }
 
+#btn-data-submit {
+  background-color: #284657;
+  border-color: #232729; }
+
+#btn-data-submit:hover {
+  background-color: #416071; }
+
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
 /*Big pieces*/
 .app-container {
@@ -68,7 +77,10 @@ a {
   border-radius: 5px; }
 
 #btn-data-submit {
-  position: absolute; }
+  position: absolute;
+  height: 50px;
+  width: 150px;
+  bottom: -80px; }
 
 .btn {
   margin-top: 20px; }

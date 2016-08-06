@@ -4,8 +4,8 @@
 /* $primary: #036564;
 $highlight: #CC2A41; */
 $greyish: #222526;
-$primary: lighten(#182A34,10%);
-$highlight: desaturate(#E2321B,15%);
+$primary: #284657;
+$highlight: #cf412e;
 $light-text: #eee;
 $dark-text: black;
 
@@ -23,6 +23,8 @@ $greyish-lighter: lighten($greyish,25%);
 /*Assigned colors: */
 body {
 	background-color: $greyish;
+	background: url(/footer_lodyas.png) repeat 0 0;
+	background-attachment: fixed;
 	color: $light-text;
 }
 
@@ -81,6 +83,15 @@ a {
 	color: $dark-text;
 }
 
+#btn-data-submit {
+	background-color: $primary;
+	border-color: $primary-bold;
+}
+
+#btn-data-submit:hover {
+	background-color: lighten(desaturate($primary,10%),10%);
+}
+
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
 
 /*Big pieces*/
@@ -104,6 +115,9 @@ a {
 
 #btn-data-submit {
 	position: absolute;
+	height: 50px;
+	width: 150px;
+	bottom: -80px;
 }
 
 .btn {
