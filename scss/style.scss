@@ -5,8 +5,8 @@
 $highlight: #CC2A41; */
 $greyish: #222526;
 $primary: lighten(#182A34,10%);
-$highlight: #E2321B;
-$light-text: #ddd;
+$highlight: desaturate(#E2321B,15%);
+$light-text: #eee;
 $dark-text: black;
 
 /*Computed colors: */
@@ -24,6 +24,10 @@ $greyish-lighter: lighten($greyish,25%);
 body {
 	background-color: $greyish;
 	color: $light-text;
+}
+
+a {
+	color: $highlight;
 }
 
 .app-container {
@@ -45,17 +49,32 @@ body {
 .key-row {
 	background-color: $primary;
 	border-color: $primary-bold;
+	color: $light-text !important;
+}
+
+.key-row:hover {
 	color: $dark-text !important;
 }
 
 .key-row.active, .key-row.active:hover {
 	background-color: $highlight;
 	border-color: $primary-bold;
+	color: $light-text !important;
+}
+
+.key-row.disabled {
+	color: $dark-text !important;
 }
 
 .level-column-caption-container {
 	border-top: 1px solid $primary-bold;
 	background-color: $greyish-lighter;
+}
+
+.input-pane textarea {
+	background-color: $light-text;
+	border: 0px;
+	color: $dark-text;
 }
 
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
@@ -77,6 +96,10 @@ body {
 	resize: none;
 	height: 398px !important;
 	border-radius: 5px;
+}
+
+#btn-data-submit {
+	position: absolute;
 }
 
 .btn {
@@ -159,6 +182,9 @@ body {
 	.input-pane textarea{
 		height: 200px !important;
 	}
+	#explorer-app {
+		margin-bottom: 50px;
+	}
 }
 
 /*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
@@ -177,4 +203,8 @@ body {
 
 .current-path {
 	font-size: 2em;
+}
+
+.input-pane textarea{
+	font-size: 1.2em;
 }

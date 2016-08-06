@@ -6,7 +6,10 @@ $highlight: #CC2A41; */
 /*Assigned colors: */
 body {
   background-color: #222526;
-  color: #ddd; }
+  color: #eee; }
+
+a {
+  color: #cf412e; }
 
 .app-container {
   background-color: #3a3f41; }
@@ -23,15 +26,27 @@ body {
 .key-row {
   background-color: #284657;
   border-color: #232729;
+  color: #eee !important; }
+
+.key-row:hover {
   color: black !important; }
 
 .key-row.active, .key-row.active:hover {
-  background-color: #E2321B;
-  border-color: #232729; }
+  background-color: #cf412e;
+  border-color: #232729;
+  color: #eee !important; }
+
+.key-row.disabled {
+  color: black !important; }
 
 .level-column-caption-container {
   border-top: 1px solid #232729;
   background-color: #5e6769; }
+
+.input-pane textarea {
+  background-color: #eee;
+  border: 0px;
+  color: black; }
 
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
 /*Big pieces*/
@@ -48,6 +63,9 @@ body {
   resize: none;
   height: 398px !important;
   border-radius: 5px; }
+
+#btn-data-submit {
+  position: absolute; }
 
 .btn {
   margin-top: 20px; }
@@ -112,7 +130,10 @@ body {
 /*Smaller screens: */
 @media (max-width: 991px) {
   .input-pane textarea {
-    height: 200px !important; } }
+    height: 200px !important; }
+
+  #explorer-app {
+    margin-bottom: 50px; } }
 /*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
 body {
   font-size: 1.6em; }
@@ -125,5 +146,8 @@ body {
 
 .current-path {
   font-size: 2em; }
+
+.input-pane textarea {
+  font-size: 1.2em; }
 
 /*# sourceMappingURL=style.css.map */

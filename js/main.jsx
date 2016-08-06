@@ -74,7 +74,7 @@ var InputPane = React.createClass({
           <div className="form-group" >
             <textarea className="form-control" rows="15" value={this.state.textContent} onChange={this.handleTextChange} placeholder="Paste a JSON string here (without any surrounding quote marks).">
             </textarea>
-            <input className="btn btn-primary" type="submit" value="Update" />
+            <input className="btn btn-default" id="btn-data-submit" type="submit" value="Update" />
           </div>
         </form>
         <div className={"alert alert-warning "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string.</div>
