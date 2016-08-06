@@ -124,9 +124,10 @@ a {
 
 #btn-data-submit {
 	position: absolute;
+	bottom: -80px;
+
 	height: 50px;
 	width: 150px;
-	bottom: -80px;
 }
 
 .btn {
@@ -217,6 +218,11 @@ a {
 	#explorer-app {
 		margin-bottom: 50px;
 	}
+	#btn-data-submit {
+		position: relative;
+		bottom: 10px;
+		float: right;
+	}
 }
 
 /*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
@@ -237,6 +243,18 @@ body {
 	font-size: 2em;
 }
 
-.input-pane textarea{
-	font-size: 1.2em;
+textarea::-webkit-input-placeholder {
+    font-size: 1.5em;
+}
+textarea:-moz-placeholder {
+    /* FF 4-18 */
+    font-size: 1.5em;
+}
+textarea::-moz-placeholder {
+    /* FF 19+ */
+    font-size: 1.5em;
+}
+textarea:-ms-input-placeholder {
+    /* IE 10+ */
+    font-size: 1.5em;
 }

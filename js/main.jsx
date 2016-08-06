@@ -124,7 +124,7 @@ var ColumnView = React.createClass({
 
     //draw all of the LevelColumn components:
     return (
-      <div className="column-view">
+      <div className="column-view clearfix">
         {visibleLevels}
       </div>
     );
