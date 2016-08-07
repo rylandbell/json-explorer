@@ -47,11 +47,12 @@ a {
 	background-color: $primary-bland;
 }
 
-.column-view>* {
-	background-color: $primary-blandest;
+.explorer-help-text {
+	color: $light-text;
 }
 
 .level-column {
+	background-color: $primary-blandest;
 	border-right: 1px solid $primary-bold;
 }
 
@@ -195,6 +196,14 @@ a {
 	text-align: center;
 }
 
+.explorer-help-text {
+	margin: 6px 12px;
+
+	position: absolute !important;
+	bottom: 0;
+	right: 12px;
+}
+
 .error-msg {
 	margin-top: 20px;
 }
@@ -235,12 +244,20 @@ body {
 	font-weight: bold;
 }
 
-.path-caption {
+.help-text-small {
 	font-size: 1.2em;
 }
 
 .current-path {
 	font-size: 2em;
+}
+
+.explorer-help-text {
+	font-size: 1.5em;
+}
+
+#btn-data-submit {
+	font-size: 1.2em;
 }
 
 textarea::-webkit-input-placeholder {

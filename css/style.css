@@ -6,7 +6,7 @@ $highlight: #CC2A41; */
 /*Assigned colors: */
 body {
   background-color: #222526;
-  background: url(/footer_lodyas.png) repeat 0 0;
+  background: url(../images/footer_lodyas.png) repeat 0 0;
   background-attachment: fixed;
   color: #eee; }
 
@@ -22,10 +22,11 @@ a {
 .column-view {
   background-color: #666666; }
 
-.column-view > * {
-  background-color: #999999; }
+.explorer-help-text {
+  color: #eee; }
 
 .level-column {
+  background-color: #999999;
   border-right: 1px solid #232729; }
 
 .key-row {
@@ -139,6 +140,12 @@ a {
 .level-column-caption {
   text-align: center; }
 
+.explorer-help-text {
+  margin: 6px 12px;
+  position: absolute !important;
+  bottom: 0;
+  right: 12px; }
+
 .error-msg {
   margin-top: 20px; }
 
@@ -170,11 +177,17 @@ body {
 .level-column-caption {
   font-weight: bold; }
 
-.path-caption {
+.help-text-small {
   font-size: 1.2em; }
 
 .current-path {
   font-size: 2em; }
+
+.explorer-help-text {
+  font-size: 1.5em; }
+
+#btn-data-submit {
+  font-size: 1.2em; }
 
 textarea::-webkit-input-placeholder {
   font-size: 1.5em; }

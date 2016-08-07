@@ -45,8 +45,13 @@ var ExplorerApp = React.createClass({
           </div>  
         </div>
         <div className="row">
-          <div className="col-xs-122 col-md-36">
+          <div>
             <div className={"error-msg alert alert-danger "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string. Please try again.</div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <ContentPane data= {this.state.data} currentPath= {this.state.currentPath} />
           </div>
         </div>
       </div>
@@ -74,9 +79,9 @@ var InputPane = React.createClass({
       <div className="input-pane">
         <form action="" onSubmit={this.handleFormSubmit}>
           <div className="form-group" >
-            <textarea className="form-control" rows="15" value={this.state.textContent} onChange={this.handleTextChange} placeholder="Paste a JSON string here (without any surrounding quote marks).">
+            <textarea className="form-control" rows="15" value={this.state.textContent} onChange={this.handleTextChange} placeholder="Paste a JSON string here (without any surrounding quote marks)...">
             </textarea>
-            <input className="btn btn-primary" id="btn-data-submit" type="submit" value="Submit Data" />
+            <input className="btn btn-primary" id="btn-data-submit" type="submit" value="Go!" />
           </div>
         </form>
       </div>
@@ -121,6 +126,8 @@ var ColumnView = React.createClass({
     //draw all of the LevelColumn components:
     return (
       <div className="column-view clearfix">
+        <div className={"explorer-help-text "+ (!isNonEmpty(this.props.data)? "":"hidden")}>...and then explore its nested structure in this pane.
+        </div>
         {visibleLevels}
       </div>
     );
@@ -214,14 +221,6 @@ var PathView = React.createClass({
         return '['+keyName+']';
       }
     });
-
-    //only show helpText if user data has been submitted:
-    var showHelpText;
-    if(Object.keys(this.props.data).length === 0 && this.props.data.constructor === Object){
-      showHelpText = false;
-    } else {
-      showHelpText = true;
-    }
     
     //Show appropriate helpText message, depending on if path is empty:
     var helpText = 'Click on a row to view its contents.';
@@ -231,8 +230,24 @@ var PathView = React.createClass({
 
     return (
       <div className="path-view">
-        <div className={"path-caption " + (showHelpText? "":"hidden")}>{helpText}</div>
+        <div className={"help-text-small " + (isNonEmpty(this.props.data)? "":"hidden")}>{helpText}</div>
         <div className="current-path lead">{pathNames.join('')}</div>
+      </div>
+    );
+  }
+});
+
+var ContentPane = React.createClass({
+  render: function() {
+    var displayedData = this.props.data;
+    for (var i = 0; i < this.props.currentPath.length; i++){
+      displayedData = displayedData[this.props.currentPath[i]];
+    }
+    return (
+      <div className={"content-pane "+(isNonEmpty(this.props.data)? "":"hidden")}>
+        <br />
+        <p className="help-text-small"> Contents of selected path: </p>
+        <pre>{JSON.stringify(displayedData,null,2)}</pre>
       </div>
     );
   }
@@ -265,5 +280,10 @@ function getAllLevels (data, path){
   }
 
   return allLevels;
+}
+
+//tests if an object has contents or is empty
+function isNonEmpty(obj){
+  return !(Object.keys(obj).length === 0 && obj.constructor === Object)
 }
 
