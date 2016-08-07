@@ -17,6 +17,8 @@ $primary-blandest: lighten(desaturate($primary,80%),35%);
 
 $primary-bold: darken(desaturate($primary,30%),10%);
 
+$primary-washed: desaturate(lighten($primary,20%),20%);
+
 $highlight-bland: lighten(desaturate($highlight,10%),10%);
 $highlight-bold: darken(desaturate($highlight,30%),30%);
 
@@ -72,8 +74,9 @@ a {
 	color: $light-text !important;
 }
 
-.key-row.disabled {
-	color: $dark-text !important;
+.key-row.disabled, .key-row.disabled:hover {
+	color: $light-text !important;
+	background-color: $primary-washed;
 }
 
 .level-column-caption-container {
@@ -208,9 +211,13 @@ a {
 	margin-top: 20px;
 }
 
-/*Column View*/
 .path-view {
 	margin-top: 20px;
+}
+
+/*Content Pane*/
+.content-pane {
+	margin-bottom: 200px;
 }
 
 /*Sample Data Modal*/

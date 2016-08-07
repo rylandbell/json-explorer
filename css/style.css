@@ -42,8 +42,9 @@ a {
   border-color: #232729;
   color: #eee !important; }
 
-.key-row.disabled {
-  color: black !important; }
+.key-row.disabled, .key-row.disabled:hover {
+  color: #eee !important;
+  background-color: #5f7886; }
 
 .level-column-caption-container {
   border-top: 1px solid #232729;
@@ -149,9 +150,12 @@ a {
 .error-msg {
   margin-top: 20px; }
 
-/*Column View*/
 .path-view {
   margin-top: 20px; }
+
+/*Content Pane*/
+.content-pane {
+  margin-bottom: 200px; }
 
 /*Sample Data Modal*/
 .modal-body pre {

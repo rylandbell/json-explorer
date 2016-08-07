@@ -6,18 +6,18 @@ var ExplorerApp = React.createClass({
       showError: false
     };
   },
-  changeData: function(inputString) {
+  updateData: function(inputString) {
     try {
       this.setState({
-        showError: false,
         data: JSON.parse(inputString),
-        currentPath: []
+        currentPath: [],
+        showError: false
       });
     } catch(err) {
       this.setState({
-        showError: true,
         data: {},
-        currentPath: []
+        currentPath: [],
+        showError: true
       });
     }
   },
@@ -38,7 +38,7 @@ var ExplorerApp = React.createClass({
         </div>
         <div className="row main-app-row">
           <div className="col-xs-12 col-md-4">
-            <InputPane changeData={this.changeData}/>
+            <InputPane updateData={this.updateData}/>
           </div> 
           <div className="col-xs-12 col-md-8">
             <ExplorerPane data= {this.state.data} currentPath= {this.state.currentPath} updatePath= {this.updatePath}/>
@@ -72,7 +72,7 @@ var InputPane = React.createClass({
   },
   handleFormSubmit: function(e){
     e.preventDefault();
-    this.props.changeData(this.state.textContent);
+    this.props.updateData(this.state.textContent);
   },
   render: function() {
     return (
