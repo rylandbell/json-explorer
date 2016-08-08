@@ -92,6 +92,7 @@ var InputPane = React.createClass({
   }
 });
 
+//Contains all of the columns, captions, and path displays.
 var ExplorerPane = ({data, currentPath, updatePath}) => {
   return (
     <div className="explorer-pane">
@@ -115,11 +116,11 @@ var ColumnView = ({data, currentPath, updatePath}) => {
   var visibleLevels = getAllLevels(data,currentPath);
 
   //convert the levels from JS values to LevelColumn components
-  visibleLevels = visibleLevels.map(function(levelContent,levelDepth){
-    return (
-      <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={currentPath} updatePath={updatePath}/>
-    );
-  }.bind(this));
+  visibleLevels = visibleLevels.map(
+    (levelContent,levelDepth) => {
+      return <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={currentPath} updatePath={updatePath}/>
+    }
+  );
 
   //draw all of the LevelColumn components:
   return (
@@ -171,6 +172,7 @@ var LevelColumn = React.createClass({
   }
 });
 
+//Displays a single key name for the chosen object or array; for non-objects, displays the value and is not clickable
 var KeyRow = ({keyName, isActive, isDisabled}) => {
   var disabledClass = (isDisabled ? 'disabled' : '');
   var activeClass = (isActive ? 'active': '');
@@ -182,33 +184,17 @@ var KeyRow = ({keyName, isActive, isDisabled}) => {
   );
 };
 
+//assign a caption depending on the type of the value represented in the column
 var LevelColumnCaption = ({data}) => {
-  //assign a caption depending on the type of the value represented in the column
-  var caption=typeof data;
-  if(Array.isArray(data)){
-    caption="array";
-  }
-  if(!isNaN(data) && (typeof data!=='object') && (typeof data!=='boolean')){
-    caption="number";
-  }
-
   return (
     <div className="level-column-caption-container">
-      <div className="level-column-caption">{caption}</div>
+      <div className="level-column-caption">{getType(data)}</div>
     </div>
   );
 };
 
-var PathView = ({data, currentPath}) => {
-  //translate an array of path steps into a JS-syntax path string
-  var pathNames = currentPath.map(function(keyName){
-    if(isNaN(keyName)){
-      return '.'+keyName;
-    } else {
-      return '['+keyName+']';
-    }
-  });
-  
+//Displays the path string needed to reference the chosen path:
+var PathView = ({data, currentPath}) => {  
   //Show appropriate helpText message, depending on if path is empty:
   var helpText = 'Click on a row to view its contents.';
   if(currentPath.length>0){
@@ -218,11 +204,12 @@ var PathView = ({data, currentPath}) => {
   return (
     <div className="path-view">
       <div className={"help-text-small " + (isNonEmpty(data)? "":"hidden")}>{helpText}</div>
-      <div className="current-path lead">{pathNames.join('')}</div>
+      <div className="current-path lead">{pathArrayToString(currentPath)}</div>
     </div>
   );
 };
 
+//displays the JSON-encoded content of the chosen path, with whitespace for readability:
 var ContentPane = ({data, currentPath}) => {
   var displayedData = data;
   for (var i = 0; i < currentPath.length; i++){
@@ -271,3 +258,26 @@ function isNonEmpty(obj){
   return !(Object.keys(obj).length === 0 && obj.constructor === Object)
 }
 
+function getType(data) {
+  var type = typeof data;
+  if(Array.isArray(data)){
+    type="array";
+  }
+  if(!isNaN(data) && (typeof data!=='object') && (typeof data!=='boolean')){
+    type="number";
+  }
+  return type;
+}
+
+//converts the arrays used to represent paths in state to a JS-valid path string.
+function pathArrayToString(pathArray) {
+  return pathArray
+    .map(function(keyName){
+      if(isNaN(keyName)){
+        return '.'+keyName;
+      } else {
+        return '['+keyName+']';
+      }
+    })
+    .join('');
+}
