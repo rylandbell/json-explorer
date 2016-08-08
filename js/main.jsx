@@ -1,3 +1,6 @@
+//I'm just including Redux as a UMD module via a script tag, meaning that it's equal to window.Redux;
+var _createStore = Redux.createStore;
+
 var ExplorerApp = React.createClass({
   getInitialState: function() {
     return {
@@ -89,50 +92,44 @@ var InputPane = React.createClass({
   }
 });
 
-//Contains the path navigation and path display, right-most 2/3 of app
-var ExplorerPane = React.createClass({
-  render: function() {
-    return (
-      <div className="explorer-pane">
-        <div className="row">
-          <div className="col-xs-12">
-            <ColumnView data={this.props.data} currentPath={this.props.currentPath} updatePath={this.props.updatePath}/>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <PathView currentPath={this.props.currentPath} data={this.props.data}/>
-          </div>
+var ExplorerPane = ({data, currentPath, updatePath}) => {
+  return (
+    <div className="explorer-pane">
+      <div className="row">
+        <div className="col-xs-12">
+          <ColumnView data={data} currentPath={currentPath} updatePath={updatePath}/>
         </div>
       </div>
-    );
-  }
-});
+      <div className="row">
+        <div className="col-xs-12">
+          <PathView currentPath={currentPath} data={data}/>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 //Container for all of the LevelColumns
-var ColumnView = React.createClass({
-  render: function() {
+var ColumnView = ({data, currentPath, updatePath}) => {
+  //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath
+  var visibleLevels = getAllLevels(data,currentPath);
 
-    //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath
-    var visibleLevels = getAllLevels(this.props.data,this.props.currentPath);
-
-    //convert the levels from JS values to LevelColumn components
-    visibleLevels = visibleLevels.map(function(levelContent,levelDepth){
-      return (
-        <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={this.props.currentPath} updatePath={this.props.updatePath}/>
-      );
-    }.bind(this));
-
-    //draw all of the LevelColumn components:
+  //convert the levels from JS values to LevelColumn components
+  visibleLevels = visibleLevels.map(function(levelContent,levelDepth){
     return (
-      <div className="column-view clearfix">
-        <div className={"explorer-help-text "+ (!isNonEmpty(this.props.data)? "":"hidden")}>...and then explore its nested structure in this pane.
-        </div>
-        {visibleLevels}
-      </div>
+      <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={currentPath} updatePath={updatePath}/>
     );
-  }
-});
+  }.bind(this));
+
+  //draw all of the LevelColumn components:
+  return (
+    <div className="column-view clearfix">
+      <div className={"explorer-help-text "+ (!isNonEmpty(data)? "":"hidden")}>...and then explore its nested structure in this pane.
+      </div>
+      {visibleLevels}
+    </div>
+  );
+};
 
 //Column with all keys for a single level in the current path
 var LevelColumn = React.createClass({
@@ -174,84 +171,71 @@ var LevelColumn = React.createClass({
   }
 });
 
-var KeyRow = React.createClass({
-  render: function() {
+var KeyRow = ({keyName, isActive, isDisabled}) => {
+  var disabledClass = (isDisabled ? 'disabled' : '');
+  var activeClass = (isActive ? 'active': '');
 
-    //assign DOM classes for disabled and active keyRows:
-    var disabledClass = (this.props.isDisabled ? 'disabled' : '');
-    var activeClass = (this.props.isActive ? 'active': '');
+  return (
+    <a className={"list-group-item key-row "+disabledClass+activeClass}>
+      {keyName.toString()}
+    </a>
+  );
+};
 
-    return (
-      <a className={"list-group-item key-row "+disabledClass+activeClass}>
-        {this.props.keyName.toString()}
-      </a>
-    );
+var LevelColumnCaption = ({data}) => {
+  //assign a caption depending on the type of the value represented in the column
+  var caption=typeof data;
+  if(Array.isArray(data)){
+    caption="array";
   }
-});
-
-var LevelColumnCaption = React.createClass({
-  render: function() {
-
-    //assign a caption depending on the type of the value represented in the column
-    var caption=typeof this.props.data;
-    if(Array.isArray(this.props.data)){
-      caption="array";
-    }
-    if(!isNaN(this.props.data) && (typeof this.props.data!=='object') && (typeof this.props.data!=='boolean')){
-      console.log(this.props.data);
-      caption="number";
-    }
-
-    return (
-      <div className="level-column-caption-container">
-        <div className="level-column-caption">{caption}</div>
-      </div>
-    );
+  if(!isNaN(data) && (typeof data!=='object') && (typeof data!=='boolean')){
+    caption="number";
   }
-});
 
-var PathView = React.createClass({
-  render: function() {
+  return (
+    <div className="level-column-caption-container">
+      <div className="level-column-caption">{caption}</div>
+    </div>
+  );
+};
 
-    //translate an array of path steps into a JS-syntax path string
-    var pathNames = this.props.currentPath.map(function(keyName){
-      if(isNaN(keyName)){
-        return '.'+keyName;
-      } else {
-        return '['+keyName+']';
-      }
-    });
-    
-    //Show appropriate helpText message, depending on if path is empty:
-    var helpText = 'Click on a row to view its contents.';
-    if(this.props.currentPath.length>0){
-      helpText = 'Selected path: '
+var PathView = ({data, currentPath}) => {
+  //translate an array of path steps into a JS-syntax path string
+  var pathNames = currentPath.map(function(keyName){
+    if(isNaN(keyName)){
+      return '.'+keyName;
+    } else {
+      return '['+keyName+']';
     }
-
-    return (
-      <div className="path-view">
-        <div className={"help-text-small " + (isNonEmpty(this.props.data)? "":"hidden")}>{helpText}</div>
-        <div className="current-path lead">{pathNames.join('')}</div>
-      </div>
-    );
+  });
+  
+  //Show appropriate helpText message, depending on if path is empty:
+  var helpText = 'Click on a row to view its contents.';
+  if(currentPath.length>0){
+    helpText = 'Selected path: '
   }
-});
 
-var ContentPane = React.createClass({
-  render: function() {
-    var displayedData = this.props.data;
-    for (var i = 0; i < this.props.currentPath.length; i++){
-      displayedData = displayedData[this.props.currentPath[i]];
-    }
-    return (
-      <div className={"content-pane "+(isNonEmpty(this.props.data)? "":"hidden")}>
-        <br />
-        <p className="help-text-small"> Contents of selected path: </p>
-        <pre>{JSON.stringify(displayedData,null,2)}</pre>
-      </div>
-    );
+  return (
+    <div className="path-view">
+      <div className={"help-text-small " + (isNonEmpty(data)? "":"hidden")}>{helpText}</div>
+      <div className="current-path lead">{pathNames.join('')}</div>
+    </div>
+  );
+};
+
+var ContentPane = ({data, currentPath}) => {
+  var displayedData = data;
+  for (var i = 0; i < currentPath.length; i++){
+    displayedData = displayedData[currentPath[i]];
   }
-});
+  return (
+    <div className={"content-pane "+(isNonEmpty(data)? "":"hidden")}>
+      <br />
+      <p className="help-text-small"> Contents of selected path: </p>
+      <pre>{JSON.stringify(displayedData,null,2)}</pre>
+    </div>
+  );
+};
 
 ReactDOM.render(
   <ExplorerApp />, document.getElementById('explorer-app')
