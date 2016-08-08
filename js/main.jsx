@@ -6,8 +6,17 @@ var ExplorerApp = React.createClass({
     return {
       data: {},
       currentPath: [],
-      showError: false
+      showError: false,
+      textContent: ''
     };
+  },
+  handleTextChange: function(e){
+    e.preventDefault();
+    this.setState({textContent: e.target.value});
+  },
+  handleFormSubmit: function(e){
+    e.preventDefault();
+    this.updateData(this.state.textContent);
   },
   updateData: function(inputString) {
     try {
@@ -41,7 +50,7 @@ var ExplorerApp = React.createClass({
         </div>
         <div className="row main-app-row">
           <div className="col-xs-12 col-md-4">
-            <InputPane updateData={this.updateData}/>
+            <InputPane textContent={this.state.textContent} handleTextChange={this.handleTextChange} handleFormSubmit={this.handleFormSubmit}/>
           </div> 
           <div className="col-xs-12 col-md-8">
             <ExplorerPane data= {this.state.data} currentPath= {this.state.currentPath} updatePath= {this.updatePath}/>
@@ -63,34 +72,19 @@ var ExplorerApp = React.createClass({
 });
 
 //Contains the text input and left 1/3 of the app
-var InputPane = React.createClass({
-  getInitialState: function() {
-    return {
-      textContent: ''
-    };
-  },
-  handleTextChange: function(e){
-    e.preventDefault();
-    this.setState({textContent: e.target.value});
-  },
-  handleFormSubmit: function(e){
-    e.preventDefault();
-    this.props.updateData(this.state.textContent);
-  },
-  render: function() {
-    return (
-      <div className="input-pane">
-        <form action="" onSubmit={this.handleFormSubmit}>
-          <div className="form-group" >
-            <textarea className="form-control" rows="15" value={this.state.textContent} onChange={this.handleTextChange} placeholder="Paste a JSON string here (without any surrounding quote marks)...">
-            </textarea>
-            <input className="btn btn-primary" id="btn-data-submit" type="submit" value="Go!" />
-          </div>
-        </form>
-      </div>
-    );
-  }
-});
+var InputPane = ({textContent,handleTextChange,handleFormSubmit}) => {
+  return (
+    <div className="input-pane">
+      <form action="" onSubmit={handleFormSubmit}>
+        <div className="form-group" >
+          <textarea className="form-control" rows="15" value={textContent} onChange={handleTextChange} placeholder="Paste a JSON string here (without any surrounding quote marks)...">
+          </textarea>
+          <input className="btn btn-primary" id="btn-data-submit" type="submit" value="Go!" />
+        </div>
+      </form>
+    </div>
+  );
+};
 
 //Contains all of the columns, captions, and path displays.
 var ExplorerPane = ({data, currentPath, updatePath}) => {
@@ -228,7 +222,7 @@ ReactDOM.render(
   <ExplorerApp />, document.getElementById('explorer-app')
 );
 
-// Helper functions:
+//-------------------- Helper functions: --------------------
 
 //returns an array of objects, getting iteratively finer as it traces the given path
 function getAllLevels (data, path){
