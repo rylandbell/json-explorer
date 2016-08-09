@@ -1,29 +1,5 @@
 // ------------------React components:-------------------
 var ExplorerApp = React.createClass({
-  getInitialState: function() {
-    return {
-      data: {}
-    };
-  },
-  handleFormSubmit: function(e){
-    e.preventDefault();
-    this.updateData(this.props.reduxState.textContent);
-  },
-  updateData: function(inputString) {
-    try {
-      reduxStore.dispatch({type: 'HIDE_ERROR'});
-      this.setState({
-        data: JSON.parse(inputString),
-        // this.props.reduxState.currentPath: []
-      });
-    } catch(err) {
-      reduxStore.dispatch({type: 'SHOW_ERROR'});
-      this.setState({
-        data: {},
-        // this.props.reduxState.currentPath: []
-      });
-    }
-  },
   render: function() {
     return (
       <div className="container ">
@@ -34,10 +10,10 @@ var ExplorerApp = React.createClass({
         </div>
         <div className="row main-app-row">
           <div className="col-xs-12 col-md-4">
-            <InputPane textContent={this.props.reduxState.textContent} handleTextChange={this.props.handleTextChange} handleFormSubmit={this.handleFormSubmit}/>
+            <InputPane textContent={this.props.reduxState.textContent} handleTextChange={this.props.handleTextChange} handleFormSubmit={this.props.handleFormSubmit}/>
           </div> 
           <div className="col-xs-12 col-md-8">
-            <ExplorerPane data= {this.state.data} currentPath= {this.props.reduxState.currentPath} updatePath= {this.props.updatePath}/>
+            <ExplorerPane data= {this.props.reduxState.data} currentPath= {this.props.reduxState.currentPath} updatePath= {this.props.updatePath}/>
           </div>  
         </div>
         <div className="row">
@@ -47,7 +23,7 @@ var ExplorerApp = React.createClass({
         </div>
         <div className="row">
           <div className="col-xs-12">
-            <ContentPane data= {this.state.data} currentPath= {this.props.reduxState.currentPath} />
+            <ContentPane data= {this.props.reduxState.data} currentPath= {this.props.reduxState.currentPath} />
           </div>
         </div>
       </div>
@@ -226,7 +202,7 @@ var defaultState = {
 
 var reduxReducer = (state = defaultState,action) => {
   switch(action.type){
-    case 'DATA_SUBMIT':
+    case 'UPDATE_DATA':
       state.data = action.data;
       return state;
     case 'TEXT_ENTRY':
@@ -241,7 +217,9 @@ var reduxReducer = (state = defaultState,action) => {
     case 'UPDATE_PATH':
       var newPath = state.currentPath
         .slice(0,action.level)
-        .concat([action.newKey]);
+      if(action.newKey){
+        newPath = newPath.concat([action.newKey]);
+      }
       state.currentPath = newPath;
       return state;
     default:
@@ -259,6 +237,7 @@ function render () {
       reduxState = {reduxStore.getState()}
       handleTextChange = {
         (e) => {
+          e.preventDefault();
           reduxStore.dispatch({
             type:'TEXT_ENTRY', 
             textContent: e.target.value
@@ -273,6 +252,20 @@ function render () {
             newKey: newKey
           });
         }
+      }
+      handleFormSubmit = {
+        (e) => {
+          e.preventDefault();
+          var dataString = reduxStore.getState().textContent;
+          reduxStore.dispatch({type: 'HIDE_ERROR'});
+          reduxStore.dispatch({type: 'UPDATE_PATH', level: 0});
+          try {
+            reduxStore.dispatch({type: 'UPDATE_DATA', data: JSON.parse(dataString)});
+          } catch(err) {
+            reduxStore.dispatch({type: 'SHOW_ERROR'});
+            reduxStore.dispatch({type: 'UPDATE_DATA', data: {}});
+          }
+        }  
       }
     />, 
     document.getElementById('explorer-app')
