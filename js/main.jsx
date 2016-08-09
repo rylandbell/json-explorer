@@ -1,44 +1,28 @@
-//I'm just including Redux as a UMD module via a script tag, meaning that it's equal to window.Redux;
-var _createStore = Redux.createStore;
-
+// ------------------React components:-------------------
 var ExplorerApp = React.createClass({
   getInitialState: function() {
     return {
-      data: {},
-      currentPath: [],
-      showError: false,
-      textContent: ''
+      data: {}
     };
-  },
-  handleTextChange: function(e){
-    e.preventDefault();
-    this.setState({textContent: e.target.value});
   },
   handleFormSubmit: function(e){
     e.preventDefault();
-    this.updateData(this.state.textContent);
+    this.updateData(this.props.reduxState.textContent);
   },
   updateData: function(inputString) {
     try {
+      reduxStore.dispatch({type: 'HIDE_ERROR'});
       this.setState({
         data: JSON.parse(inputString),
-        currentPath: [],
-        showError: false
+        // this.props.reduxState.currentPath: []
       });
     } catch(err) {
+      reduxStore.dispatch({type: 'SHOW_ERROR'});
       this.setState({
         data: {},
-        currentPath: [],
-        showError: true
+        // this.props.reduxState.currentPath: []
       });
     }
-  },
-  updatePath: function(level,newKey){
-    var newPath = this.state.currentPath.slice(0,level);
-    newPath.push(newKey);
-    this.setState({
-      currentPath: newPath
-    });
   },
   render: function() {
     return (
@@ -50,20 +34,20 @@ var ExplorerApp = React.createClass({
         </div>
         <div className="row main-app-row">
           <div className="col-xs-12 col-md-4">
-            <InputPane textContent={this.state.textContent} handleTextChange={this.handleTextChange} handleFormSubmit={this.handleFormSubmit}/>
+            <InputPane textContent={this.props.reduxState.textContent} handleTextChange={this.props.handleTextChange} handleFormSubmit={this.handleFormSubmit}/>
           </div> 
           <div className="col-xs-12 col-md-8">
-            <ExplorerPane data= {this.state.data} currentPath= {this.state.currentPath} updatePath= {this.updatePath}/>
+            <ExplorerPane data= {this.state.data} currentPath= {this.props.reduxState.currentPath} updatePath= {this.props.updatePath}/>
           </div>  
         </div>
         <div className="row">
           <div>
-            <div className={"error-msg alert alert-danger "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string. Please try again.</div>
+            <div className={"error-msg alert alert-danger "+(this.props.reduxState.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string. Please try again.</div>
           </div>
         </div>
         <div className="row">
           <div className="col-xs-12">
-            <ContentPane data= {this.state.data} currentPath= {this.state.currentPath} />
+            <ContentPane data= {this.state.data} currentPath= {this.props.reduxState.currentPath} />
           </div>
         </div>
       </div>
@@ -218,9 +202,84 @@ var ContentPane = ({data, currentPath}) => {
   );
 };
 
-ReactDOM.render(
-  <ExplorerApp />, document.getElementById('explorer-app')
-);
+// ----------------------Redux:--------------------------
+
+
+
+
+
+
+
+
+
+
+
+//I'm just including Redux as a UMD module via a script tag, meaning that its reference is window.Redux;
+var _createStore = Redux.createStore;
+
+var defaultState = {
+  data: {},
+  currentPath: [],
+  showError: false,
+  textContent: ''
+};
+
+var reduxReducer = (state = defaultState,action) => {
+  switch(action.type){
+    case 'DATA_SUBMIT':
+      state.data = action.data;
+      return state;
+    case 'TEXT_ENTRY':
+      state.textContent = action.textContent;
+      return state;
+    case 'SHOW_ERROR':
+      state.showError = true;
+      return state;
+    case 'HIDE_ERROR':
+      state.showError = false;
+      return state;
+    case 'UPDATE_PATH':
+      var newPath = state.currentPath
+        .slice(0,action.level)
+        .concat([action.newKey]);
+      state.currentPath = newPath;
+      return state;
+    default:
+      return state;
+  }
+};
+
+var reduxStore = _createStore(reduxReducer);
+
+reduxStore.subscribe(render);
+
+function render () {
+  ReactDOM.render(
+    <ExplorerApp 
+      reduxState = {reduxStore.getState()}
+      handleTextChange = {
+        (e) => {
+          reduxStore.dispatch({
+            type:'TEXT_ENTRY', 
+            textContent: e.target.value
+          });
+        }
+      }
+      updatePath = {
+        (level,newKey) => {
+          reduxStore.dispatch({
+            type: 'UPDATE_PATH',
+            level: level,
+            newKey: newKey
+          });
+        }
+      }
+    />, 
+    document.getElementById('explorer-app')
+  );
+}
+
+render();
 
 //-------------------- Helper functions: --------------------
 
