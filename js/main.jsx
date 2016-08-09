@@ -85,44 +85,37 @@ var ColumnView = ({data, currentPath, updatePath}) => {
 };
 
 //Column with all keys for a single level in the current path
-var LevelColumn = React.createClass({
-  // handleClick: function(e){
-  //   if(e.target.className.search('disabled')<0 && e.target.className.search('key-row')>=0){
-  //     this.props.updatePath(this.props.levelDepth,e.target.firstChild.nodeValue);
-  //   }
-  // },
+var LevelColumn = ({data,currentPath,levelDepth,updatePath}) => {
+  var keyRows = [];
 
-  render: function() {
-    var keyRows = [];
+  //if the column represents an object, print its keys as rows
+  if (typeof data === 'object'){
+    var markActive;
 
-    //if the column represents an object, print its keys as rows
-    if (typeof this.props.data === 'object'){
-      var markActive;
-
-      //test if each entry is part of the currently selected path
-      for (var key in this.props.data){
-        markActive = false;
-        if (this.props.currentPath[this.props.levelDepth] == key){
-          markActive = true;
-        }
-        keyRows.push(<ClickableKeyRow keyName={key} levelDepth={this.props.levelDepth} isActive={markActive} updatePath={this.props.updatePath}/>);
+    //test if each entry is part of the currently selected path
+    for (var key in data){
+      markActive = false;
+      if (currentPath[levelDepth] == key){
+        markActive = true;
       }
-
-    //for non-object columns, just print the value as a single, click-disabled row
-    } else {
-      keyRows.push(<TerminalKeyRow keyName={this.props.data} />);
+      keyRows.push(<ClickableKeyRow keyName={key} levelDepth={levelDepth} isActive={markActive} updatePath={updatePath}/>);
     }
 
-    return (
-      <div className="level-column">
-        <div className="list-group">
-          {keyRows}
-        </div>
-        <LevelColumnCaption data={this.props.data}/>
-      </div>
-    );
+  //for non-object columns, just print the value as a single, click-disabled row
+  } else {
+    keyRows.push(<TerminalKeyRow keyName={data} />);
   }
-});
+
+  return (
+    <div className="level-column">
+      <div className="list-group">
+        {keyRows}
+      </div>
+      <LevelColumnCaption data={data}/>
+    </div>
+  );
+
+}
 
 //Displays a single key name for the chosen object or array
 var ClickableKeyRow = ({keyName, levelDepth, isActive, updatePath}) => {
@@ -213,12 +206,10 @@ var reduxReducer = (state = defaultState,action) => {
       state.showError = false;
       return state;
     case 'UPDATE_PATH':
-      var newPath = state.currentPath
-        .slice(0,action.level)
+      state.currentPath = (state.currentPath).slice(0,action.level);
       if(action.newKey){
-        newPath = newPath.concat([action.newKey]);
+        state.currentPath = (state.currentPath).concat([action.newKey]);
       }
-      state.currentPath = newPath;
       return state;
     default:
       return state;
