@@ -67,6 +67,9 @@ a {
   background-color: #eee;
   font-weight: bold; }
 
+.content-pane > pre {
+  background-color: #eee; }
+
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
 /*Big pieces*/
 .main-app-row {
@@ -136,7 +139,8 @@ a {
 .key-row {
   padding-top: 3px;
   padding-bottom: 3px;
-  border-radius: 0 !important; }
+  border-radius: 0 !important;
+  cursor: default; }
 
 .level-column-caption {
   text-align: center; }

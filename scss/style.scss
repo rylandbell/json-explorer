@@ -105,6 +105,10 @@ a {
 	font-weight: bold;
 }
 
+.content-pane>pre {
+	background-color: $light-text;
+}
+
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
 
 /*Big pieces*/
@@ -193,6 +197,7 @@ a {
 	padding-top: 3px;
 	padding-bottom: 3px;
 	border-radius: 0 !important;
+	cursor: default;
 }
 
 .level-column-caption {

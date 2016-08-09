@@ -1,263 +1,269 @@
-var ExplorerApp = React.createClass({
-  getInitialState: function() {
-    return {
-      data: {},
-      currentPath: [],
-      showError: false
-    };
-  },
-  updateData: function(inputString) {
-    try {
-      this.setState({
-        data: JSON.parse(inputString),
-        currentPath: [],
-        showError: false
-      });
-    } catch(err) {
-      this.setState({
-        data: {},
-        currentPath: [],
-        showError: true
-      });
-    }
-  },
-  updatePath: function(level,newKey){
-    var newPath = this.state.currentPath.slice(0,level);
-    newPath.push(newKey);
-    this.setState({
-      currentPath: newPath
-    });
-  },
-  render: function() {
-    return (
-      <div className="container ">
-        <div className="row">
-          <div className="col-xs-12 col-md-12">
-            <p className="non-app-text">Don't have any JSON strings handy? <a href="" data-toggle="modal" data-target="#sample-strings">Click here</a> for a few samples to copy and paste.</p>
-          </div>
-        </div>
-        <div className="row main-app-row">
-          <div className="col-xs-12 col-md-4">
-            <InputPane updateData={this.updateData}/>
-          </div> 
-          <div className="col-xs-12 col-md-8">
-            <ExplorerPane data= {this.state.data} currentPath= {this.state.currentPath} updatePath= {this.updatePath}/>
-          </div>  
-        </div>
-        <div className="row">
-          <div>
-            <div className={"error-msg alert alert-danger "+(this.state.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string. Please try again.</div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <ContentPane data= {this.state.data} currentPath= {this.state.currentPath} />
-          </div>
+// ------------------React components:-------------------
+var ExplorerApp = ({reduxState,handleTextChange,handleFormSubmit,updatePath}) => {
+  return (
+    <div className="container ">
+      <div className="row">
+        <div className="col-xs-12 col-md-12">
+          <p className="non-app-text">Don't have any JSON strings handy? <a href="" data-toggle="modal" data-target="#sample-strings">Click here</a> for a few samples to copy and paste.</p>
         </div>
       </div>
-    );
-  }
-});
+      <div className="row main-app-row">
+        <div className="col-xs-12 col-md-4">
+          <InputPane textContent={reduxState.textContent} handleTextChange={handleTextChange} handleFormSubmit={handleFormSubmit}/>
+        </div> 
+        <div className="col-xs-12 col-md-8">
+          <ExplorerPane data= {reduxState.data} currentPath= {reduxState.currentPath} updatePath= {updatePath} />
+        </div>  
+      </div>
+      <div className="row">
+        <div>
+          <div className={"error-msg alert alert-danger "+(reduxState.showError ? "":"hidden")} role="alert">Sorry, but that doesn't appear to be a valid JSON string. Please try again.</div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-xs-12">
+          <ContentPane data= {reduxState.data} currentPath= {reduxState.currentPath} />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 //Contains the text input and left 1/3 of the app
-var InputPane = React.createClass({
-  getInitialState: function() {
-    return {
-      textContent: ''
-    };
-  },
-  handleTextChange: function(e){
-    e.preventDefault();
-    this.setState({textContent: e.target.value});
-  },
-  handleFormSubmit: function(e){
-    e.preventDefault();
-    this.props.updateData(this.state.textContent);
-  },
-  render: function() {
-    return (
-      <div className="input-pane">
-        <form action="" onSubmit={this.handleFormSubmit}>
-          <div className="form-group" >
-            <textarea className="form-control" rows="15" value={this.state.textContent} onChange={this.handleTextChange} placeholder="Paste a JSON string here (without any surrounding quote marks)...">
-            </textarea>
-            <input className="btn btn-primary" id="btn-data-submit" type="submit" value="Go!" />
-          </div>
-        </form>
-      </div>
-    );
-  }
-});
+var InputPane = ({textContent,handleTextChange,handleFormSubmit}) => {
+  return (
+    <div className="input-pane">
+      <form action="" onSubmit={handleFormSubmit}>
+        <div className="form-group" >
+          <textarea className="form-control" rows="15" value={textContent} onChange={handleTextChange} placeholder="Paste a JSON string here (without any surrounding quote marks)...">
+          </textarea>
+          <input className="btn btn-primary" id="btn-data-submit" type="submit" value="Go!" />
+        </div>
+      </form>
+    </div>
+  );
+};
 
-//Contains the path navigation and path display, right-most 2/3 of app
-var ExplorerPane = React.createClass({
-  render: function() {
-    return (
-      <div className="explorer-pane">
-        <div className="row">
-          <div className="col-xs-12">
-            <ColumnView data={this.props.data} currentPath={this.props.currentPath} updatePath={this.props.updatePath}/>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <PathView currentPath={this.props.currentPath} data={this.props.data}/>
-          </div>
+//Contains all of the columns, captions, and path displays.
+var ExplorerPane = ({data, currentPath, updatePath}) => {
+  return (
+    <div className="explorer-pane">
+      <div className="row">
+        <div className="col-xs-12">
+          <ColumnView data={data} currentPath={currentPath} updatePath={updatePath} />
         </div>
       </div>
-    );
-  }
-});
+      <div className="row">
+        <div className="col-xs-12">
+          <PathView currentPath={currentPath} data={data}/>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 //Container for all of the LevelColumns
-var ColumnView = React.createClass({
-  render: function() {
+var ColumnView = ({data, currentPath, updatePath}) => {
+  //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath
+  var visibleLevels = getAllLevels(data,currentPath);
 
-    //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath
-    var visibleLevels = getAllLevels(this.props.data,this.props.currentPath);
+  //convert the levels from JS values to LevelColumn components
+  visibleLevels = visibleLevels.map(
+    (levelContent,levelDepth) => {
+      return <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={currentPath} updatePath={updatePath} />
+    }
+  );
 
-    //convert the levels from JS values to LevelColumn components
-    visibleLevels = visibleLevels.map(function(levelContent,levelDepth){
-      return (
-        <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={this.props.currentPath} updatePath={this.props.updatePath}/>
-      );
-    }.bind(this));
-
-    //draw all of the LevelColumn components:
-    return (
-      <div className="column-view clearfix">
-        <div className={"explorer-help-text "+ (!isNonEmpty(this.props.data)? "":"hidden")}>...and then explore its nested structure in this pane.
-        </div>
-        {visibleLevels}
+  //draw all of the LevelColumn components:
+  return (
+    <div className="column-view clearfix">
+      <div className={"explorer-help-text "+ (!isNonEmpty(data)? "":"hidden")}>...and then explore its nested structure in this pane.
       </div>
-    );
-  }
-});
+      {visibleLevels}
+    </div>
+  );
+};
 
 //Column with all keys for a single level in the current path
-var LevelColumn = React.createClass({
-  handleClick: function(e){
-    if(e.target.className.search('disabled')<0 && e.target.className.search('key-row')>=0){
-      this.props.updatePath(this.props.levelDepth,e.target.firstChild.nodeValue);
+var LevelColumn = ({data,currentPath,levelDepth,updatePath}) => {
+  var keyRows = [];
+
+  //if the column represents an object, print its keys as rows
+  if (typeof data === 'object'){
+    var markActive;
+
+    //test if each entry is part of the currently selected path
+    for (var key in data){
+      markActive = false;
+      if (currentPath[levelDepth] == key){
+        markActive = true;
+      }
+      keyRows.push(<ClickableKeyRow keyName={key} levelDepth={levelDepth} isActive={markActive} updatePath={updatePath}/>);
     }
-  },
 
-  render: function() {
-    var keyRows = [];
+  //for non-object columns, just print the value as a single, click-disabled row
+  } else {
+    keyRows.push(<TerminalKeyRow keyName={data} />);
+  }
 
-    //if the column represents an object, print its keys as rows
-    if (typeof this.props.data === 'object'){
-      var markActive;
+  return (
+    <div className="level-column">
+      <div className="list-group">
+        {keyRows}
+      </div>
+      <LevelColumnCaption data={data}/>
+    </div>
+  );
 
-      //test if each entry is part of the currently selected path
-      for (var key in this.props.data){
-        markActive = false;
-        if (this.props.currentPath[this.props.levelDepth] == key){
-          markActive = true;
+}
+
+//Displays a single key name for the chosen object or array
+var ClickableKeyRow = ({keyName, levelDepth, isActive, updatePath}) => {
+  var activeClass = (isActive ? 'active': '');
+  function handleClick(){
+    updatePath(levelDepth,keyName.toString());
+  }
+  return (
+    <a className={"list-group-item key-row "+activeClass} onClick={handleClick}>
+      {keyName.toString()}
+    </a>
+  );
+};
+
+//Displays a value for non-objects at the end of the tree; is not clickable
+var TerminalKeyRow = ({keyName, isActive}) => {
+  return (
+    <a className={"list-group-item key-row disabled"}>
+      {keyName.toString()}
+    </a>
+  );
+};
+
+//assign a caption depending on the type of the value represented in the column
+var LevelColumnCaption = ({data}) => {
+  return (
+    <div className="level-column-caption-container">
+      <div className="level-column-caption">{getType(data)}</div>
+    </div>
+  );
+};
+
+//Displays the path string needed to reference the chosen path:
+var PathView = ({data, currentPath}) => {  
+  //Show appropriate helpText message, depending on if path is empty:
+  var helpText = 'Click on a row to view its contents.';
+  if(currentPath.length>0){
+    helpText = 'Selected path: '
+  }
+
+  return (
+    <div className="path-view">
+      <div className={"help-text-small " + (isNonEmpty(data)? "":"hidden")}>{helpText}</div>
+      <div className="current-path lead">{pathArrayToString(currentPath)}</div>
+    </div>
+  );
+};
+
+//displays the JSON-encoded content of the chosen path, with whitespace for readability:
+var ContentPane = ({data, currentPath}) => {
+  var displayedData = data;
+  for (var i = 0; i < currentPath.length; i++){
+    displayedData = displayedData[currentPath[i]];
+  }
+  return (
+    <div className={"content-pane "+(isNonEmpty(data)? "":"hidden")}>
+      <br />
+      <p className="help-text-small"> Contents of selected path: </p>
+      <pre>{JSON.stringify(displayedData,null,2)}</pre>
+    </div>
+  );
+};
+
+// ----------------------Redux:--------------------------
+
+//I'm just including Redux as a UMD module via a script tag, meaning that its reference is window.Redux;
+var _createStore = Redux.createStore;
+
+var defaultState = {
+  data: {},
+  currentPath: [],
+  showError: false,
+  textContent: ''
+};
+
+var reduxReducer = (state = defaultState,action) => {
+  switch(action.type){
+    case 'UPDATE_DATA':
+      state.data = action.data;
+      return state;
+    case 'TEXT_ENTRY':
+      state.textContent = action.textContent;
+      return state;
+    case 'SHOW_ERROR':
+      state.showError = true;
+      return state;
+    case 'HIDE_ERROR':
+      state.showError = false;
+      return state;
+    case 'UPDATE_PATH':
+      state.currentPath = (state.currentPath).slice(0,action.level);
+      if(action.newKey){
+        state.currentPath = (state.currentPath).concat([action.newKey]);
+      }
+      return state;
+    default:
+      return state;
+  }
+};
+
+var reduxStore = _createStore(reduxReducer);
+
+reduxStore.subscribe(render);
+
+function render () {
+  ReactDOM.render(
+    <ExplorerApp 
+      reduxState = {reduxStore.getState()}
+      handleTextChange = {
+        (e) => {
+          e.preventDefault();
+          reduxStore.dispatch({
+            type:'TEXT_ENTRY', 
+            textContent: e.target.value
+          });
         }
-        keyRows.push(<KeyRow keyName={key} isActive={markActive} isDisabled={false}/>);
       }
-
-    //for non-object columns, just print the value as a single, click-disabled row
-    } else {
-      keyRows.push(<KeyRow keyName={this.props.data} isActive={false} isDisabled={true} />);
-    }
-
-    return (
-      <div className="level-column" onClick={this.handleClick}>
-        <div className="list-group">
-          {keyRows}
-        </div>
-        <LevelColumnCaption data={this.props.data}/>
-      </div>
-    );
-  }
-});
-
-var KeyRow = React.createClass({
-  render: function() {
-
-    //assign DOM classes for disabled and active keyRows:
-    var disabledClass = (this.props.isDisabled ? 'disabled' : '');
-    var activeClass = (this.props.isActive ? 'active': '');
-
-    return (
-      <a className={"list-group-item key-row "+disabledClass+activeClass}>
-        {this.props.keyName.toString()}
-      </a>
-    );
-  }
-});
-
-var LevelColumnCaption = React.createClass({
-  render: function() {
-
-    //assign a caption depending on the type of the value represented in the column
-    var caption=typeof this.props.data;
-    if(Array.isArray(this.props.data)){
-      caption="array";
-    }
-    if(!isNaN(this.props.data) && (typeof this.props.data!=='object') && (typeof this.props.data!=='boolean')){
-      console.log(this.props.data);
-      caption="number";
-    }
-
-    return (
-      <div className="level-column-caption-container">
-        <div className="level-column-caption">{caption}</div>
-      </div>
-    );
-  }
-});
-
-var PathView = React.createClass({
-  render: function() {
-
-    //translate an array of path steps into a JS-syntax path string
-    var pathNames = this.props.currentPath.map(function(keyName){
-      if(isNaN(keyName)){
-        return '.'+keyName;
-      } else {
-        return '['+keyName+']';
+      updatePath = {
+        (level,newKey) => {
+          reduxStore.dispatch({
+            type: 'UPDATE_PATH',
+            level: level,
+            newKey: newKey
+          });
+        }
       }
-    });
-    
-    //Show appropriate helpText message, depending on if path is empty:
-    var helpText = 'Click on a row to view its contents.';
-    if(this.props.currentPath.length>0){
-      helpText = 'Selected path: '
-    }
+      handleFormSubmit = {
+        (e) => {
+          e.preventDefault();
+          var dataString = reduxStore.getState().textContent;
+          reduxStore.dispatch({type: 'HIDE_ERROR'});
+          reduxStore.dispatch({type: 'UPDATE_PATH', level: 0});
+          try {
+            reduxStore.dispatch({type: 'UPDATE_DATA', data: JSON.parse(dataString)});
+          } catch(err) {
+            reduxStore.dispatch({type: 'SHOW_ERROR'});
+            reduxStore.dispatch({type: 'UPDATE_DATA', data: {}});
+          }
+        }  
+      }
+    />, 
+    document.getElementById('explorer-app')
+  );
+}
 
-    return (
-      <div className="path-view">
-        <div className={"help-text-small " + (isNonEmpty(this.props.data)? "":"hidden")}>{helpText}</div>
-        <div className="current-path lead">{pathNames.join('')}</div>
-      </div>
-    );
-  }
-});
+render();
 
-var ContentPane = React.createClass({
-  render: function() {
-    var displayedData = this.props.data;
-    for (var i = 0; i < this.props.currentPath.length; i++){
-      displayedData = displayedData[this.props.currentPath[i]];
-    }
-    return (
-      <div className={"content-pane "+(isNonEmpty(this.props.data)? "":"hidden")}>
-        <br />
-        <p className="help-text-small"> Contents of selected path: </p>
-        <pre>{JSON.stringify(displayedData,null,2)}</pre>
-      </div>
-    );
-  }
-});
-
-ReactDOM.render(
-  <ExplorerApp />, document.getElementById('explorer-app')
-);
-
-// Helper functions:
+//-------------------- Helper functions: --------------------
 
 //returns an array of objects, getting iteratively finer as it traces the given path
 function getAllLevels (data, path){
@@ -287,3 +293,26 @@ function isNonEmpty(obj){
   return !(Object.keys(obj).length === 0 && obj.constructor === Object)
 }
 
+function getType(data) {
+  var type = typeof data;
+  if(Array.isArray(data)){
+    type="array";
+  }
+  if(!isNaN(data) && (typeof data!=='object') && (typeof data!=='boolean')){
+    type="number";
+  }
+  return type;
+}
+
+//converts the arrays used to represent paths in state to a JS-valid path string.
+function pathArrayToString(pathArray) {
+  return pathArray
+    .map(function(keyName){
+      if(isNaN(keyName)){
+        return '.'+keyName;
+      } else {
+        return '['+keyName+']';
+      }
+    })
+    .join('');
+}
