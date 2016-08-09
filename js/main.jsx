@@ -12,7 +12,7 @@ var ExplorerApp = ({reduxState,handleTextChange,handleFormSubmit,updatePath}) =>
           <InputPane textContent={reduxState.textContent} handleTextChange={handleTextChange} handleFormSubmit={handleFormSubmit}/>
         </div> 
         <div className="col-xs-12 col-md-8">
-          <ExplorerPane data= {reduxState.data} currentPath= {reduxState.currentPath} updatePath= {updatePath}/>
+          <ExplorerPane data= {reduxState.data} currentPath= {reduxState.currentPath} updatePath= {updatePath} />
         </div>  
       </div>
       <div className="row">
@@ -50,7 +50,7 @@ var ExplorerPane = ({data, currentPath, updatePath}) => {
     <div className="explorer-pane">
       <div className="row">
         <div className="col-xs-12">
-          <ColumnView data={data} currentPath={currentPath} updatePath={updatePath}/>
+          <ColumnView data={data} currentPath={currentPath} updatePath={updatePath} />
         </div>
       </div>
       <div className="row">
@@ -70,7 +70,7 @@ var ColumnView = ({data, currentPath, updatePath}) => {
   //convert the levels from JS values to LevelColumn components
   visibleLevels = visibleLevels.map(
     (levelContent,levelDepth) => {
-      return <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={currentPath} updatePath={updatePath}/>
+      return <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={currentPath} updatePath={updatePath} />
     }
   );
 
@@ -86,11 +86,11 @@ var ColumnView = ({data, currentPath, updatePath}) => {
 
 //Column with all keys for a single level in the current path
 var LevelColumn = React.createClass({
-  handleClick: function(e){
-    if(e.target.className.search('disabled')<0 && e.target.className.search('key-row')>=0){
-      this.props.updatePath(this.props.levelDepth,e.target.firstChild.nodeValue);
-    }
-  },
+  // handleClick: function(e){
+  //   if(e.target.className.search('disabled')<0 && e.target.className.search('key-row')>=0){
+  //     this.props.updatePath(this.props.levelDepth,e.target.firstChild.nodeValue);
+  //   }
+  // },
 
   render: function() {
     var keyRows = [];
@@ -105,7 +105,7 @@ var LevelColumn = React.createClass({
         if (this.props.currentPath[this.props.levelDepth] == key){
           markActive = true;
         }
-        keyRows.push(<ClickableKeyRow keyName={key} isActive={markActive} />);
+        keyRows.push(<ClickableKeyRow keyName={key} levelDepth={this.props.levelDepth} isActive={markActive} updatePath={this.props.updatePath}/>);
       }
 
     //for non-object columns, just print the value as a single, click-disabled row
@@ -114,7 +114,7 @@ var LevelColumn = React.createClass({
     }
 
     return (
-      <div className="level-column" onClick={this.handleClick}>
+      <div className="level-column">
         <div className="list-group">
           {keyRows}
         </div>
@@ -125,10 +125,13 @@ var LevelColumn = React.createClass({
 });
 
 //Displays a single key name for the chosen object or array
-var ClickableKeyRow = ({keyName, isActive}) => {
+var ClickableKeyRow = ({keyName, levelDepth, isActive, updatePath}) => {
   var activeClass = (isActive ? 'active': '');
+  function handleClick(){
+    updatePath(levelDepth,keyName.toString());
+  }
   return (
-    <a className={"list-group-item key-row "+activeClass}>
+    <a className={"list-group-item key-row "+activeClass} onClick={handleClick}>
       {keyName.toString()}
     </a>
   );
@@ -184,16 +187,6 @@ var ContentPane = ({data, currentPath}) => {
 };
 
 // ----------------------Redux:--------------------------
-
-
-
-
-
-
-
-
-
-
 
 //I'm just including Redux as a UMD module via a script tag, meaning that its reference is window.Redux;
 var _createStore = Redux.createStore;
