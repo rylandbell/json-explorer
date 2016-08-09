@@ -107,12 +107,12 @@ var LevelColumn = React.createClass({
         if (this.props.currentPath[this.props.levelDepth] == key){
           markActive = true;
         }
-        keyRows.push(<KeyRow keyName={key} isActive={markActive} isDisabled={false}/>);
+        keyRows.push(<ClickableKeyRow keyName={key} isActive={markActive} />);
       }
 
     //for non-object columns, just print the value as a single, click-disabled row
     } else {
-      keyRows.push(<KeyRow keyName={this.props.data} isActive={false} isDisabled={true} />);
+      keyRows.push(<TerminalKeyRow keyName={this.props.data} />);
     }
 
     return (
@@ -126,13 +126,20 @@ var LevelColumn = React.createClass({
   }
 });
 
-//Displays a single key name for the chosen object or array; for non-objects, displays the value and is not clickable
-var KeyRow = ({keyName, isActive, isDisabled}) => {
-  var disabledClass = (isDisabled ? 'disabled' : '');
+//Displays a single key name for the chosen object or array
+var ClickableKeyRow = ({keyName, isActive}) => {
   var activeClass = (isActive ? 'active': '');
-
   return (
-    <a className={"list-group-item key-row "+disabledClass+activeClass}>
+    <a className={"list-group-item key-row "+activeClass}>
+      {keyName.toString()}
+    </a>
+  );
+};
+
+//Displays a value for non-objects at the end of the tree; is not clickable
+var TerminalKeyRow = ({keyName, isActive}) => {
+  return (
+    <a className={"list-group-item key-row disabled"}>
       {keyName.toString()}
     </a>
   );
