@@ -4,22 +4,22 @@
 var React = require('react');
 var Helper = require('./helper.jsx');
 
-//Displays a single key name for the chosen object or array
+//Displays a single property name for the chosen object or array
 module.exports = function (_ref) {
-  var keyName = _ref.keyName;
+  var propertyName = _ref.propertyName;
   var levelDepth = _ref.levelDepth;
   var isActive = _ref.isActive;
   var updatePath = _ref.updatePath;
 
   var activeClass = isActive ? 'active' : '';
   function handleClick() {
-    updatePath(levelDepth, keyName.toString());
+    updatePath(levelDepth, propertyName.toString());
   }
 
   return React.createElement(
     'a',
-    { className: 'list-group-item key-row ' + activeClass, onClick: handleClick },
-    keyName.toString()
+    { className: 'list-group-item property-row ' + activeClass, onClick: handleClick },
+    propertyName.toString()
   );
 };
 
@@ -222,11 +222,11 @@ module.exports.getAllLevels = function (data, path) {
   }
 
   function addLevelAndChildren(subData, subPath) {
-    var nextKey = subPath[0];
-    allLevels.push(subData[nextKey]);
+    var nextProperty = subPath[0];
+    allLevels.push(subData[nextProperty]);
     if (subPath.length > 1) {
       var newSubPath = subPath.slice(1);
-      addLevelAndChildren(subData[nextKey], newSubPath);
+      addLevelAndChildren(subData[nextProperty], newSubPath);
     }
   }
 
@@ -257,11 +257,11 @@ module.exports.getType = function (data) {
 
 //converts the arrays used to represent paths in state to a JS-valid path string.
 module.exports.pathArrayToString = function (pathArray) {
-  return pathArray.map(function (keyName) {
-    if (isNaN(keyName)) {
-      return '.' + keyName;
+  return pathArray.map(function (propertyName) {
+    if (isNaN(propertyName)) {
+      return '.' + propertyName;
     } else {
-      return '[' + keyName + ']';
+      return '[' + propertyName + ']';
     }
   }).join('');
 };
@@ -321,36 +321,36 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var React = require('react');
 var Helper = require('./helper.jsx');
 
-var ClickableKeyRow = require('./clickable-key-row.jsx');
-var TerminalKeyRow = require('./terminal-key-row.jsx');
+var ClickablePropertyRow = require('./clickable-property-row.jsx');
+var TerminalPropertyRow = require('./terminal-property-row.jsx');
 var LevelColumnCaption = require('./level-column-caption.jsx');
 
-//Column with all keys for a single level in the current path
+//Column with all properties for a single level in the current path
 module.exports = function (_ref) {
   var data = _ref.data;
   var currentPath = _ref.currentPath;
   var levelDepth = _ref.levelDepth;
   var updatePath = _ref.updatePath;
 
-  var keyRows = [];
+  var propertyRows = [];
 
-  //if the column represents an object, print its keys as rows
+  //if the column represents an object, print its properties as rows
   if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object') {
     var markActive;
 
     //test if each entry is part of the currently selected path
-    for (var key in data) {
+    for (var property in data) {
       markActive = false;
-      if (currentPath[levelDepth] == key) {
+      if (currentPath[levelDepth] == property) {
         markActive = true;
       }
 
-      keyRows.push(React.createElement(ClickableKeyRow, { keyName: key, levelDepth: levelDepth, isActive: markActive, updatePath: updatePath }));
+      propertyRows.push(React.createElement(ClickablePropertyRow, { propertyName: property, levelDepth: levelDepth, isActive: markActive, updatePath: updatePath }));
     }
 
     //for non-object columns, just print the value as a single, click-disabled row
   } else {
-    keyRows.push(React.createElement(TerminalKeyRow, { keyName: data }));
+    propertyRows.push(React.createElement(TerminalPropertyRow, { propertyName: data }));
   }
 
   return React.createElement(
@@ -359,13 +359,13 @@ module.exports = function (_ref) {
     React.createElement(
       'div',
       { className: 'list-group' },
-      keyRows
+      propertyRows
     ),
     React.createElement(LevelColumnCaption, { data: data })
   );
 };
 
-},{"./clickable-key-row.jsx":1,"./helper.jsx":6,"./level-column-caption.jsx":8,"./terminal-key-row.jsx":12,"react":"react"}],10:[function(require,module,exports){
+},{"./clickable-property-row.jsx":1,"./helper.jsx":6,"./level-column-caption.jsx":8,"./terminal-property-row.jsx":12,"react":"react"}],10:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -404,8 +404,8 @@ var stateReducer = function stateReducer() {
       return state;
     case 'UPDATE_PATH':
       state.currentPath = state.currentPath.slice(0, action.level);
-      if (action.newKey) {
-        state.currentPath = state.currentPath.concat([action.newKey]);
+      if (action.newProperty) {
+        state.currentPath = state.currentPath.concat([action.newProperty]);
       }
 
       return state;
@@ -428,11 +428,11 @@ function render() {
         textContent: e.target.value
       });
     },
-    updatePath: function updatePath(level, newKey) {
+    updatePath: function updatePath(level, newProperty) {
       reduxStore.dispatch({
         type: 'UPDATE_PATH',
         level: level,
-        newKey: newKey
+        newProperty: newProperty
       });
     },
     handleFormSubmit: function handleFormSubmit(e) {
@@ -492,12 +492,12 @@ var Helper = require('./helper.jsx');
 
 //Displays a value for non-objects at the end of the tree; is not clickable
 module.exports = function (_ref) {
-  var keyName = _ref.keyName;
+  var propertyName = _ref.propertyName;
   var isActive = _ref.isActive;
   return React.createElement(
     'a',
-    { className: 'list-group-item key-row disabled' },
-    keyName.toString()
+    { className: 'list-group-item property-row disabled' },
+    propertyName.toString()
   );
 };
 

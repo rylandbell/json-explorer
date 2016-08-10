@@ -9,11 +9,11 @@ module.exports.getAllLevels = function (data, path) {
   }
 
   function addLevelAndChildren(subData, subPath) {
-    var nextKey = subPath[0];
-    allLevels.push(subData[nextKey]);
+    var nextProperty = subPath[0];
+    allLevels.push(subData[nextProperty]);
     if (subPath.length > 1) {
       var newSubPath = subPath.slice(1);
-      addLevelAndChildren(subData[nextKey], newSubPath);
+      addLevelAndChildren(subData[nextProperty], newSubPath);
     }
   }
 
@@ -45,11 +45,11 @@ module.exports.getType = function (data) {
 //converts the arrays used to represent paths in state to a JS-valid path string.
 module.exports.pathArrayToString = function (pathArray) {
   return pathArray
-    .map(function (keyName) {
-      if (isNaN(keyName)) {
-        return '.' + keyName;
+    .map(function (propertyName) {
+      if (isNaN(propertyName)) {
+        return '.' + propertyName;
       } else {
-        return '[' + keyName + ']';
+        return '[' + propertyName + ']';
       }
     })
     .join('');

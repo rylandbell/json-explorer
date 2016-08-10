@@ -31,8 +31,8 @@ var stateReducer = (state = defaultState, action) => {
       return state;
     case 'UPDATE_PATH':
       state.currentPath = (state.currentPath).slice(0, action.level);
-      if (action.newKey) {
-        state.currentPath = (state.currentPath).concat([action.newKey]);
+      if (action.newProperty) {
+        state.currentPath = (state.currentPath).concat([action.newProperty]);
       }
 
       return state;
@@ -59,11 +59,11 @@ function render() {
         }
       }
       updatePath = {
-        (level, newKey) => {
+        (level, newProperty) => {
           reduxStore.dispatch({
             type: 'UPDATE_PATH',
             level: level,
-            newKey: newKey
+            newProperty: newProperty
           });
         }
       }

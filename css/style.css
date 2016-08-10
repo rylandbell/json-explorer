@@ -29,20 +29,20 @@ a {
   background-color: #999999;
   border-right: 1px solid #232729; }
 
-.key-row {
+.property-row {
   background-color: #284657;
   border-color: #232729;
   color: #eee !important; }
 
-.key-row:hover {
+.property-row:hover {
   color: black !important; }
 
-.key-row.active, .key-row.active:hover {
+.property-row.active, .property-row.active:hover {
   background-color: #cf412e;
   border-color: #232729;
   color: #eee !important; }
 
-.key-row.disabled, .key-row.disabled:hover {
+.property-row.disabled, .property-row.disabled:hover {
   color: #eee !important;
   background-color: #5f7886; }
 
@@ -136,7 +136,7 @@ a {
 .list-group-item:first-child {
   border-top-width: 0; }
 
-.key-row {
+.property-row {
   padding-top: 3px;
   padding-bottom: 3px;
   border-radius: 0 !important;

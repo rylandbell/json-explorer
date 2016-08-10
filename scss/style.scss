@@ -58,23 +58,23 @@ a {
 	border-right: 1px solid $primary-bold;
 }
 
-.key-row {
+.property-row {
 	background-color: $primary;
 	border-color: $primary-bold;
 	color: $light-text !important;
 }
 
-.key-row:hover {
+.property-row:hover {
 	color: $dark-text !important;
 }
 
-.key-row.active, .key-row.active:hover {
+.property-row.active, .property-row.active:hover {
 	background-color: $highlight;
 	border-color: $primary-bold;
 	color: $light-text !important;
 }
 
-.key-row.disabled, .key-row.disabled:hover {
+.property-row.disabled, .property-row.disabled:hover {
 	color: $light-text !important;
 	background-color: $primary-washed;
 }
@@ -193,7 +193,7 @@ a {
 	border-top-width: 0;
 }
 
-.key-row {
+.property-row {
 	padding-top: 3px;
 	padding-bottom: 3px;
 	border-radius: 0 !important;
