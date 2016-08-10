@@ -43,7 +43,7 @@ module.exports = function (_ref) {
 
   //convert the levels from JS values to LevelColumn components
   visibleLevels = visibleLevels.map(function (levelContent, levelDepth) {
-    return React.createElement(LevelColumn, { data: levelContent, levelDepth: levelDepth, currentPath: currentPath, updatePath: updatePath });
+    return React.createElement(LevelColumn, { data: levelContent, levelDepth: levelDepth, currentPath: currentPath, updatePath: updatePath, key: levelDepth });
   });
 
   //draw all of the LevelColumn components:
@@ -339,18 +339,20 @@ module.exports = function (_ref) {
     var markActive;
 
     //test if each entry is part of the currently selected path
+    var keyCounter = 0;
     for (var property in data) {
       markActive = false;
       if (currentPath[levelDepth] == property) {
         markActive = true;
       }
 
-      propertyRows.push(React.createElement(ClickablePropertyRow, { propertyName: property, levelDepth: levelDepth, isActive: markActive, updatePath: updatePath }));
+      propertyRows.push(React.createElement(ClickablePropertyRow, { propertyName: property, levelDepth: levelDepth, isActive: markActive, updatePath: updatePath, key: keyCounter }));
+      keyCounter++;
     }
 
     //for non-object columns, just print the value as a single, click-disabled row
   } else {
-    propertyRows.push(React.createElement(TerminalPropertyRow, { propertyName: data }));
+    propertyRows.push(React.createElement(TerminalPropertyRow, { propertyName: data, key: 0 }));
   }
 
   return React.createElement(

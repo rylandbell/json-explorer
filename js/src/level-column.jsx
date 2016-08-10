@@ -14,18 +14,20 @@ module.exports = ({ data, currentPath, levelDepth, updatePath }) => {
     var markActive;
 
     //test if each entry is part of the currently selected path
+    var keyCounter = 0;
     for (var property in data) {
       markActive = false;
       if (currentPath[levelDepth] == property) {
         markActive = true;
       }
 
-      propertyRows.push(<ClickablePropertyRow propertyName={property} levelDepth={levelDepth} isActive={markActive} updatePath={updatePath}/>);
+      propertyRows.push(<ClickablePropertyRow propertyName={property} levelDepth={levelDepth} isActive={markActive} updatePath={updatePath} key={keyCounter}/>);
+      keyCounter++;
     }
 
   //for non-object columns, just print the value as a single, click-disabled row
   } else {
-    propertyRows.push(<TerminalPropertyRow propertyName={data} />);
+    propertyRows.push(<TerminalPropertyRow propertyName={data} key={0}/>);
   }
 
   return (

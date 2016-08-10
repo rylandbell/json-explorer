@@ -12,7 +12,7 @@ module.exports = ({ data, currentPath, updatePath }) => {
   //convert the levels from JS values to LevelColumn components
   visibleLevels = visibleLevels.map(
     (levelContent, levelDepth) => (
-      <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={currentPath} updatePath={updatePath} />
+      <LevelColumn data={levelContent} levelDepth={levelDepth} currentPath={currentPath} updatePath={updatePath} key={levelDepth} />
     )
   );
 
