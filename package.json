@@ -14,7 +14,8 @@
     "redux": "^3.5.2"
   },
   "scripts": {
-    "build": "browserify -t [babelify] js/src/main.jsx -o js/build/main-bundle.js"
+    "build": "browserify -t [babelify] -x react -x react-dom -x redux js/src/main.jsx -o js/build/main.js",
+    "build-vendor": "browserify -t [babelify] -r react -r react-dom -r redux -o js/build/vendor.js"
   },
   "babel": {
     "presets": ["react","es2015"]
