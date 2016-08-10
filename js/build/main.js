@@ -15,9 +15,10 @@ module.exports = function (_ref) {
   function handleClick() {
     updatePath(levelDepth, keyName.toString());
   }
+
   return React.createElement(
     'a',
-    { className: "list-group-item key-row " + activeClass, onClick: handleClick },
+    { className: 'list-group-item key-row ' + activeClass, onClick: handleClick },
     keyName.toString()
   );
 };
@@ -36,6 +37,7 @@ module.exports = function (_ref) {
   var currentPath = _ref.currentPath;
   var updatePath = _ref.updatePath;
 
+
   //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath
   var visibleLevels = Helper.getAllLevels(data, currentPath);
 
@@ -50,7 +52,7 @@ module.exports = function (_ref) {
     { className: 'column-view clearfix' },
     React.createElement(
       'div',
-      { className: "explorer-help-text " + (!Helper.isNonEmpty(data) ? "" : "hidden") },
+      { className: 'explorer-help-text ' + (!Helper.isNonEmpty(data) ? '' : 'hidden') },
       '...and then explore its nested structure in this pane.'
     ),
     visibleLevels
@@ -72,9 +74,10 @@ module.exports = function (_ref) {
   for (var i = 0; i < currentPath.length; i++) {
     displayedData = displayedData[currentPath[i]];
   }
+
   return React.createElement(
     'div',
-    { className: "content-pane " + (Helper.isNonEmpty(data) ? "" : "hidden") },
+    { className: 'content-pane ' + (Helper.isNonEmpty(data) ? '' : 'hidden') },
     React.createElement('br', null),
     React.createElement(
       'p',
@@ -104,7 +107,6 @@ module.exports = function (_ref) {
   var handleTextChange = _ref.handleTextChange;
   var handleFormSubmit = _ref.handleFormSubmit;
   var updatePath = _ref.updatePath;
-
   return React.createElement(
     'div',
     { className: 'container ' },
@@ -149,7 +151,7 @@ module.exports = function (_ref) {
         null,
         React.createElement(
           'div',
-          { className: "error-msg alert alert-danger " + (reduxState.showError ? "" : "hidden"), role: 'alert' },
+          { className: 'error-msg alert alert-danger ' + (reduxState.showError ? '' : 'hidden'), role: 'alert' },
           'Sorry, but that doesn\'t appear to be a valid JSON string. Please try again.'
         )
       )
@@ -180,7 +182,6 @@ module.exports = function (_ref) {
   var data = _ref.data;
   var currentPath = _ref.currentPath;
   var updatePath = _ref.updatePath;
-
   return React.createElement(
     'div',
     { className: 'explorer-pane' },
@@ -228,6 +229,7 @@ module.exports.getAllLevels = function (data, path) {
       addLevelAndChildren(subData[nextKey], newSubPath);
     }
   }
+
   if (path.length > 0) {
     addLevelAndChildren(data, path);
   }
@@ -243,11 +245,13 @@ module.exports.isNonEmpty = function (obj) {
 module.exports.getType = function (data) {
   var type = typeof data === 'undefined' ? 'undefined' : _typeof(data);
   if (Array.isArray(data)) {
-    type = "array";
+    type = 'array';
   }
+
   if (!isNaN(data) && (typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== 'object' && typeof data !== 'boolean') {
-    type = "number";
+    type = 'number';
   }
+
   return type;
 };
 
@@ -273,7 +277,6 @@ module.exports = function (_ref) {
   var textContent = _ref.textContent;
   var handleTextChange = _ref.handleTextChange;
   var handleFormSubmit = _ref.handleFormSubmit;
-
   return React.createElement(
     'div',
     { className: 'input-pane' },
@@ -299,7 +302,6 @@ var Helper = require('./helper.jsx');
 //assign a caption depending on the type of the value represented in the column
 module.exports = function (_ref) {
   var data = _ref.data;
-
   return React.createElement(
     'div',
     { className: 'level-column-caption-container' },
@@ -342,6 +344,7 @@ module.exports = function (_ref) {
       if (currentPath[levelDepth] == key) {
         markActive = true;
       }
+
       keyRows.push(React.createElement(ClickableKeyRow, { keyName: key, levelDepth: levelDepth, isActive: markActive, updatePath: updatePath }));
     }
 
@@ -366,17 +369,14 @@ module.exports = function (_ref) {
 'use strict';
 
 var React = require('react');
-
-var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
+var expect = require('expect');
 
 var ExplorerApp = require('./explorer-app.jsx');
 var Helper = require('./helper.jsx');
 
-// All Redux in this file
-
-var _createStore = Redux.createStore;
+// Reducer:
 
 var defaultState = {
   data: {},
@@ -385,7 +385,7 @@ var defaultState = {
   textContent: ''
 };
 
-var reduxReducer = function reduxReducer() {
+var stateReducer = function stateReducer() {
   var state = arguments.length <= 0 || arguments[0] === undefined ? defaultState : arguments[0];
   var action = arguments[1];
 
@@ -407,15 +407,16 @@ var reduxReducer = function reduxReducer() {
       if (action.newKey) {
         state.currentPath = state.currentPath.concat([action.newKey]);
       }
+
       return state;
     default:
       return state;
   }
 };
 
-var reduxStore = _createStore(reduxReducer);
-
+var reduxStore = Redux.createStore(stateReducer);
 reduxStore.subscribe(render);
+render();
 
 function render() {
   ReactDOM.render(React.createElement(ExplorerApp, {
@@ -449,9 +450,7 @@ function render() {
   }), document.getElementById('explorer-app'));
 }
 
-render();
-
-},{"./explorer-app.jsx":4,"./helper.jsx":6,"react":"react","react-dom":"react-dom","redux":"redux"}],11:[function(require,module,exports){
+},{"./explorer-app.jsx":4,"./helper.jsx":6,"expect":"expect","react":"react","react-dom":"react-dom","redux":"redux"}],11:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -461,6 +460,7 @@ var Helper = require('./helper.jsx');
 module.exports = function (_ref) {
   var data = _ref.data;
   var currentPath = _ref.currentPath;
+
 
   //Show appropriate helpText message, depending on if path is empty:
   var helpText = 'Click on a row to view its contents.';
@@ -473,7 +473,7 @@ module.exports = function (_ref) {
     { className: 'path-view' },
     React.createElement(
       'div',
-      { className: "help-text-small " + (Helper.isNonEmpty(data) ? "" : "hidden") },
+      { className: 'help-text-small ' + (Helper.isNonEmpty(data) ? '' : 'hidden') },
       helpText
     ),
     React.createElement(
@@ -494,10 +494,9 @@ var Helper = require('./helper.jsx');
 module.exports = function (_ref) {
   var keyName = _ref.keyName;
   var isActive = _ref.isActive;
-
   return React.createElement(
     'a',
-    { className: "list-group-item key-row disabled" },
+    { className: 'list-group-item key-row disabled' },
     keyName.toString()
   );
 };

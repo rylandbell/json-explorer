@@ -2,16 +2,17 @@ var React = require('react');
 var Helper = require('./helper.jsx');
 
 //displays the JSON-encoded content of the chosen path, with whitespace for readability:
-module.exports = ({data, currentPath}) => {
+module.exports = ({ data, currentPath }) => {
   var displayedData = data;
-  for (var i = 0; i < currentPath.length; i++){
+  for (var i = 0; i < currentPath.length; i++) {
     displayedData = displayedData[currentPath[i]];
   }
+
   return (
-    <div className={"content-pane "+(Helper.isNonEmpty(data)? "":"hidden")}>
+    <div className={'content-pane ' + (Helper.isNonEmpty(data) ? '' : 'hidden')}>
       <br />
-      <p className="help-text-small"> Contents of selected path: </p>
-      <pre>{JSON.stringify(displayedData,null,2)}</pre>
+      <p className='help-text-small'> Contents of selected path: </p>
+      <pre>{JSON.stringify(displayedData, null, 2)}</pre>
     </div>
   );
 };
