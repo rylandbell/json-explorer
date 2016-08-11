@@ -2,7 +2,6 @@
 'use strict';
 
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 //Displays a single property name for the chosen object or array
 module.exports = function (_ref) {
@@ -23,7 +22,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":6,"react":"react"}],2:[function(require,module,exports){
+},{"react":"react"}],2:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -96,7 +95,6 @@ module.exports = function (_ref) {
 'use strict';
 
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 var InputPane = require('./input-pane.jsx');
 var ExplorerPane = require('./explorer-pane.jsx');
@@ -168,11 +166,10 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./content-pane.jsx":3,"./explorer-pane.jsx":5,"./helper.jsx":6,"./input-pane.jsx":7,"react":"react"}],5:[function(require,module,exports){
+},{"./content-pane.jsx":3,"./explorer-pane.jsx":5,"./input-pane.jsx":7,"react":"react"}],5:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 var ColumnView = require('./column-view.jsx');
 var PathView = require('./path-view.jsx');
@@ -206,7 +203,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./column-view.jsx":2,"./helper.jsx":6,"./path-view.jsx":11,"react":"react"}],6:[function(require,module,exports){
+},{"./column-view.jsx":2,"./path-view.jsx":11,"react":"react"}],6:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -215,10 +212,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 //returns an array of objects, getting iteratively finer as it traces the given path
 module.exports.getAllLevels = function (data, path) {
+  var allLevels;
   if (Object.keys(data).length === 0 && data.constructor === Object) {
-    var allLevels = [];
+    allLevels = [];
   } else {
-    var allLevels = [data];
+    allLevels = [data];
   }
 
   function addLevelAndChildren(subData, subPath) {
@@ -270,7 +268,6 @@ module.exports.pathArrayToString = function (pathArray) {
 'use strict';
 
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 //Contains the text input and left 1/3 of the app
 module.exports = function (_ref) {
@@ -293,7 +290,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":6,"react":"react"}],8:[function(require,module,exports){
+},{"react":"react"}],8:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -319,7 +316,6 @@ module.exports = function (_ref) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 var ClickablePropertyRow = require('./clickable-property-row.jsx');
 var TerminalPropertyRow = require('./terminal-property-row.jsx');
@@ -367,16 +363,14 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./clickable-property-row.jsx":1,"./helper.jsx":6,"./level-column-caption.jsx":8,"./terminal-property-row.jsx":12,"react":"react"}],10:[function(require,module,exports){
+},{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":8,"./terminal-property-row.jsx":12,"react":"react"}],10:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
-var expect = require('expect');
 
 var ExplorerApp = require('./explorer-app.jsx');
-var Helper = require('./helper.jsx');
 
 // Reducer:
 
@@ -452,7 +446,7 @@ function render() {
   }), document.getElementById('explorer-app'));
 }
 
-},{"./explorer-app.jsx":4,"./helper.jsx":6,"expect":"expect","react":"react","react-dom":"react-dom","redux":"redux"}],11:[function(require,module,exports){
+},{"./explorer-app.jsx":4,"react":"react","react-dom":"react-dom","redux":"redux"}],11:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -490,12 +484,10 @@ module.exports = function (_ref) {
 'use strict';
 
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 //Displays a value for non-objects at the end of the tree; is not clickable
 module.exports = function (_ref) {
   var propertyName = _ref.propertyName;
-  var isActive = _ref.isActive;
   return React.createElement(
     'a',
     { className: 'list-group-item property-row disabled' },
@@ -503,4 +495,4 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":6,"react":"react"}]},{},[10]);
+},{"react":"react"}]},{},[10]);

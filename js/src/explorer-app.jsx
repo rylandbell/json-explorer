@@ -1,5 +1,4 @@
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 var InputPane = require('./input-pane.jsx');
 var ExplorerPane = require('./explorer-pane.jsx');

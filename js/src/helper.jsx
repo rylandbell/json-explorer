@@ -2,10 +2,11 @@
 
 //returns an array of objects, getting iteratively finer as it traces the given path
 module.exports.getAllLevels = function (data, path) {
+  var allLevels;
   if (Object.keys(data).length === 0 && data.constructor === Object) {
-    var allLevels = [];
+    allLevels = [];
   } else {
-    var allLevels = [data];
+    allLevels = [data];
   }
 
   function addLevelAndChildren(subData, subPath) {

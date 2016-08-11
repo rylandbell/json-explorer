@@ -1,5 +1,4 @@
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 //Contains the text input and left 1/3 of the app
 module.exports = ({ textContent, handleTextChange, handleFormSubmit }) => (

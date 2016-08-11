@@ -1,10 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
-var expect = require('expect');
-
+ 
 var ExplorerApp = require('./explorer-app.jsx');
-var Helper = require('./helper.jsx');
 
 // Reducer:
 

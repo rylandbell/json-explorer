@@ -14,38 +14,13 @@ module.exports = function (grunt) {
   //load plugins
   // grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-eslint');
+
 
   //configure plugins
   grunt.initConfig({
-    jshint: {
-      options: {
-
-        //environments:
-        browser: true,
-        jquery: true,
-        devel: true,
-
-        //other options:
-        bitwise: true,
-        curly: true,
-        eqeqeq: true,
-        esversion: 5,
-        forin: true,
-        globals: {
-          Modernizr: false,
-          gapi: false,
-          google: false,
-          define: false,
-          requirejs: false
-        },
-        latedef: 'nofunc',
-        nocomma: true,
-        nonbsp: true,
-        singleGroups: true,
-        undef: true,
-        unused: 'vars'
-      },
-      browser: browserPaths
+    eslint: {
+      target: jsxPaths
     },
     jscs: {
       options: {
@@ -103,6 +78,6 @@ module.exports = function (grunt) {
   });
 
   //register tasks:
-  grunt.registerTask('default', ['jscs:autoFix', 'jscs:showErrors']);
+  grunt.registerTask('default', ['jscs:autoFix', 'jscs:showErrors', 'eslint']);
 
 };

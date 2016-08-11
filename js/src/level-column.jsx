@@ -1,5 +1,4 @@
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 var ClickablePropertyRow = require('./clickable-property-row.jsx');
 var TerminalPropertyRow = require('./terminal-property-row.jsx');

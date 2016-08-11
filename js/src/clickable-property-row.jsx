@@ -1,5 +1,4 @@
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 //Displays a single property name for the chosen object or array
 module.exports = ({ propertyName, levelDepth, isActive, updatePath }) => {

@@ -1,5 +1,4 @@
 var React = require('react');
-var Helper = require('./helper.jsx');
 
 var ColumnView = require('./column-view.jsx');
 var PathView = require('./path-view.jsx');
