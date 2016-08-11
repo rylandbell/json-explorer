@@ -4,7 +4,7 @@ var InputPane = require('./input-pane.jsx');
 var ExplorerPane = require('./explorer-pane.jsx');
 var ContentPane = require('./content-pane.jsx');
 
-module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath }) => (
+module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, resetState }) => (
   <div className='container '>
     <div className='row'>
       <div className='col-xs-12 col-md-12'>
@@ -13,7 +13,7 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath }
     </div>
     <div className='row main-app-row'>
       <div className='col-xs-12 col-md-4'>
-        <InputPane textContent={reduxState.textContent} handleTextChange={handleTextChange} handleFormSubmit={handleFormSubmit}/>
+        <InputPane textContent={reduxState.textContent} handleTextChange={handleTextChange} handleFormSubmit={handleFormSubmit} resetState={resetState}/>
       </div> 
       <div className='col-xs-12 col-md-8'>
         <ExplorerPane data= {reduxState.data} currentPath= {reduxState.currentPath} updatePath= {updatePath} />

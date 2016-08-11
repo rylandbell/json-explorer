@@ -1,19 +1,12 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
- 
+
 var ExplorerApp = require('./explorer-app.jsx');
 
 // Reducer:
 
-var defaultState = {
-  data: {},
-  currentPath: [],
-  showError: false,
-  textContent: ''
-};
-
-var stateReducer = (state = defaultState, action) => {
+var stateReducer = (state = { data: {}, currentPath: [], showError: false, textContent: '' }, action) => {
   switch (action.type){
     case 'UPDATE_DATA':
       state.data = action.data;
@@ -33,6 +26,14 @@ var stateReducer = (state = defaultState, action) => {
         state.currentPath = (state.currentPath).concat([action.newProperty]);
       }
 
+      return state;
+    case 'RESET_STATE':
+      state = {
+        data: {},
+        currentPath: [],
+        showError: false,
+        textContent: ''
+      };
       return state;
     default:
       return state;
@@ -79,7 +80,19 @@ function render() {
           }
         }
       }
+      resetState = {
+        (e) => {
+          e.preventDefault();
+          reduxStore.dispatch({ type: 'RESET_STATE' });
+        }
+      }
     />,
     document.getElementById('explorer-app')
   );
 }
+
+$(document).ready(function () {
+
+  $('body').css('backgroundImage', 'url(../images/footer_lodyas.png)');
+
+});

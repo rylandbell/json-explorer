@@ -105,6 +105,7 @@ module.exports = function (_ref) {
   var handleTextChange = _ref.handleTextChange;
   var handleFormSubmit = _ref.handleFormSubmit;
   var updatePath = _ref.updatePath;
+  var resetState = _ref.resetState;
   return React.createElement(
     'div',
     { className: 'container ' },
@@ -133,7 +134,7 @@ module.exports = function (_ref) {
       React.createElement(
         'div',
         { className: 'col-xs-12 col-md-4' },
-        React.createElement(InputPane, { textContent: reduxState.textContent, handleTextChange: handleTextChange, handleFormSubmit: handleFormSubmit })
+        React.createElement(InputPane, { textContent: reduxState.textContent, handleTextChange: handleTextChange, handleFormSubmit: handleFormSubmit, resetState: resetState })
       ),
       React.createElement(
         'div',
@@ -268,12 +269,14 @@ module.exports.pathArrayToString = function (pathArray) {
 'use strict';
 
 var React = require('react');
+var ResetButton = require('./reset-button.jsx');
 
 //Contains the text input and left 1/3 of the app
 module.exports = function (_ref) {
   var textContent = _ref.textContent;
   var handleTextChange = _ref.handleTextChange;
   var handleFormSubmit = _ref.handleFormSubmit;
+  var resetState = _ref.resetState;
   return React.createElement(
     'div',
     { className: 'input-pane' },
@@ -284,13 +287,15 @@ module.exports = function (_ref) {
         'div',
         { className: 'form-group' },
         React.createElement('textarea', { className: 'form-control', rows: '15', value: textContent, onChange: handleTextChange, placeholder: 'Paste a JSON string here (without any surrounding quote marks)...' }),
-        React.createElement('input', { className: 'btn btn-primary', id: 'btn-data-submit', type: 'submit', value: 'Go!' })
+        React.createElement('input', { className: 'btn btn-primary', id: 'btn-data-submit', type: 'submit', value: 'Go!' }),
+        React.createElement(ResetButton, { resetState: resetState }),
+        React.createElement('div', { className: 'clearfix' })
       )
     )
   );
 };
 
-},{"react":"react"}],8:[function(require,module,exports){
+},{"./reset-button.jsx":12,"react":"react"}],8:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -363,7 +368,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":8,"./terminal-property-row.jsx":12,"react":"react"}],10:[function(require,module,exports){
+},{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":8,"./terminal-property-row.jsx":13,"react":"react"}],10:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -374,15 +379,8 @@ var ExplorerApp = require('./explorer-app.jsx');
 
 // Reducer:
 
-var defaultState = {
-  data: {},
-  currentPath: [],
-  showError: false,
-  textContent: ''
-};
-
 var stateReducer = function stateReducer() {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? defaultState : arguments[0];
+  var state = arguments.length <= 0 || arguments[0] === undefined ? { data: {}, currentPath: [], showError: false, textContent: '' } : arguments[0];
   var action = arguments[1];
 
   switch (action.type) {
@@ -403,7 +401,14 @@ var stateReducer = function stateReducer() {
       if (action.newProperty) {
         state.currentPath = state.currentPath.concat([action.newProperty]);
       }
-
+      return state;
+    case 'RESET_STATE':
+      state = {
+        data: {},
+        currentPath: [],
+        showError: false,
+        textContent: ''
+      };
       return state;
     default:
       return state;
@@ -442,9 +447,18 @@ function render() {
         reduxStore.dispatch({ type: 'SHOW_ERROR' });
         reduxStore.dispatch({ type: 'UPDATE_DATA', data: {} });
       }
+    },
+    resetState: function resetState(e) {
+      e.preventDefault();
+      reduxStore.dispatch({ type: 'RESET_STATE' });
     }
   }), document.getElementById('explorer-app'));
 }
+
+$(document).ready(function () {
+
+  $('body').css('backgroundImage', 'url(../images/footer_lodyas.png)');
+});
 
 },{"./explorer-app.jsx":4,"react":"react","react-dom":"react-dom","redux":"redux"}],11:[function(require,module,exports){
 'use strict';
@@ -481,6 +495,20 @@ module.exports = function (_ref) {
 };
 
 },{"./helper.jsx":6,"react":"react"}],12:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+
+module.exports = function (_ref) {
+  var resetState = _ref.resetState;
+  return React.createElement(
+    'button',
+    { className: 'btn btn-primary pull-right', onClick: resetState },
+    ' Reset'
+  );
+};
+
+},{"react":"react"}],13:[function(require,module,exports){
 'use strict';
 
 var React = require('react');

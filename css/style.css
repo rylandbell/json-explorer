@@ -6,7 +6,7 @@ $highlight: #CC2A41; */
 /*Assigned colors: */
 body {
   background-color: #222526;
-  background: url(../images/footer_lodyas.png) repeat 0 0;
+  /*background: url(../images/footer_lodyas.png) repeat 0 0;*/
   background-attachment: fixed;
   color: #eee; }
 
@@ -55,11 +55,11 @@ a {
   border: 0px;
   color: black; }
 
-#btn-data-submit {
+.btn-primary {
   background-color: #284657;
   border-color: #232729; }
 
-#btn-data-submit:hover {
+.btn-primary:hover {
   background-color: #416071; }
 
 .error-msg {
@@ -86,14 +86,10 @@ a {
   height: 398px !important;
   border-radius: 5px; }
 
-#btn-data-submit {
-  position: absolute;
-  bottom: -80px;
-  height: 50px;
-  width: 150px; }
-
 .btn {
-  margin-top: 20px; }
+  margin-top: 20px;
+  height: 50px;
+  width: 120px; }
 
 /*Column View*/
 .column-view {
@@ -172,12 +168,7 @@ a {
     height: 200px !important; }
 
   #explorer-app {
-    margin-bottom: 50px; }
-
-  #btn-data-submit {
-    position: relative;
-    bottom: 10px;
-    float: right; } }
+    margin-bottom: 50px; } }
 /*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
 body {
   font-size: 1.6em; }
@@ -194,7 +185,7 @@ body {
 .explorer-help-text {
   font-size: 1.5em; }
 
-#btn-data-submit {
+.btn {
   font-size: 1.2em; }
 
 textarea::-webkit-input-placeholder {
