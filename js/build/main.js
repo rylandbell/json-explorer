@@ -293,7 +293,7 @@ module.exports = function (_ref) {
         { className: 'form-group' },
         React.createElement('textarea', { className: 'form-control', rows: '15', value: reduxState.textContent, onChange: handleTextChange, placeholder: 'Paste a JSON string here (without any surrounding quote marks)...' }),
         React.createElement('input', { className: 'btn btn-primary', id: 'btn-data-submit', type: 'submit', value: 'Go!' }),
-        React.createElement(ResetButton, { resetState: resetState }),
+        React.createElement(ResetButton, { resetState: resetState, reduxState: reduxState }),
         React.createElement('div', { className: 'clearfix' })
       )
     )
@@ -518,17 +518,19 @@ module.exports = function (_ref) {
 'use strict';
 
 var React = require('react');
+var Helper = require('./helper.jsx');
 
 module.exports = function (_ref) {
+  var reduxState = _ref.reduxState;
   var resetState = _ref.resetState;
   return React.createElement(
     'button',
-    { className: 'btn btn-primary pull-right', onClick: resetState },
+    { className: 'btn btn-primary pull-right ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden'), onClick: resetState },
     ' Reset'
   );
 };
 
-},{"react":"react"}],14:[function(require,module,exports){
+},{"./helper.jsx":7,"react":"react"}],14:[function(require,module,exports){
 'use strict';
 
 var React = require('react');

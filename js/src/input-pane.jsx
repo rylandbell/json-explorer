@@ -9,7 +9,7 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, resetState }
         <textarea className='form-control' rows='15' value={reduxState.textContent} onChange={handleTextChange} placeholder='Paste a JSON string here (without any surrounding quote marks)...'>
         </textarea>
         <input className='btn btn-primary' id='btn-data-submit' type='submit' value='Go!' />
-        <ResetButton resetState={resetState} />
+        <ResetButton resetState={resetState} reduxState={reduxState} />
         <div className='clearfix'></div>
       </div>
     </form>

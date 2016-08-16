@@ -1,5 +1,6 @@
 var React = require('react');
+var Helper = require('./helper.jsx');
 
-module.exports = ({ resetState }) => (
-  <button className='btn btn-primary pull-right' onClick={resetState}> Reset</button>
+module.exports = ({ reduxState, resetState }) => (
+  <button className={'btn btn-primary pull-right ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden')} onClick={resetState}> Reset</button>
 );
