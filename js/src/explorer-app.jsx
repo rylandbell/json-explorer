@@ -2,6 +2,7 @@ var React = require('react');
 
 var InputPane = require('./input-pane.jsx');
 var ExplorerPane = require('./explorer-pane.jsx');
+var ErrorDisplay = require('./error-display.jsx');
 var ContentPane = require('./content-pane.jsx');
 
 module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, resetState }) => (
@@ -20,13 +21,11 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
       </div>  
     </div>
     <div className='row'>
-      <div>
-        <div className={'error-msg alert alert-danger ' + (reduxState.showError ? '' : 'hidden')} role='alert'>Sorry, but that doesn't appear to be a valid JSON string. Please try again.</div>
-      </div>
+      <ErrorDisplay reduxState={reduxState} />
     </div>
     <div className='row'>
       <div className='col-xs-12'>
-        <ContentPane reduxState={reduxState} currentPath= {reduxState.currentPath} />
+        <ContentPane reduxState={reduxState} />
       </div>
     </div>
   </div>

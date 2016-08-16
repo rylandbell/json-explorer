@@ -1,16 +1,16 @@
 //React component hierarchy:
 //
-// ExplorerApp
-//   -InputPane
+//ExplorerApp
+//  -InputPane
 //    -ResetButton
-//   -ExplorerPane
+//  -ExplorerPane
 //    -ColumnView
 //      -[LevelColumn]
 //        -[ClickablePropertyRow]
 //        -TerminalPropertyRow
 //        -LevelColumnCaption
 //    -PathView
-//   -ContentPane
+//  -ContentPane
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -19,7 +19,6 @@ var Redux = require('redux');
 var ExplorerApp = require('./explorer-app.jsx');
 
 // Reducer:
-
 var stateReducer = (state = { data: {}, currentPath: [], showError: false, textContent: '' }, action) => {
   switch (action.type){
     case 'UPDATE_DATA':
@@ -54,10 +53,12 @@ var stateReducer = (state = { data: {}, currentPath: [], showError: false, textC
   }
 };
 
+//create a store from the above reducer, then subscribe a React render function to it
 var reduxStore = Redux.createStore(stateReducer);
 reduxStore.subscribe(render);
 render();
 
+//React render function, with callbacks
 function render() {
   ReactDOM.render(
     <ExplorerApp

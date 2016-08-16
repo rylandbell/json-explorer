@@ -57,7 +57,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":6,"./level-column.jsx":9,"react":"react"}],3:[function(require,module,exports){
+},{"./helper.jsx":7,"./level-column.jsx":10,"react":"react"}],3:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -66,11 +66,10 @@ var Helper = require('./helper.jsx');
 //displays the JSON-encoded content of the chosen path, with whitespace for readability:
 module.exports = function (_ref) {
   var reduxState = _ref.reduxState;
-  var currentPath = _ref.currentPath;
 
   var displayedData = reduxState.data;
-  for (var i = 0; i < currentPath.length; i++) {
-    displayedData = displayedData[currentPath[i]];
+  for (var i = 0; i < reduxState.currentPath.length; i++) {
+    displayedData = displayedData[reduxState.currentPath[i]];
   }
 
   return React.createElement(
@@ -90,13 +89,29 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":6,"react":"react"}],4:[function(require,module,exports){
+},{"./helper.jsx":7,"react":"react"}],4:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+
+//Contains all of the columns, captions, and path displays.
+module.exports = function (_ref) {
+  var reduxState = _ref.reduxState;
+  return React.createElement(
+    'div',
+    { className: 'error-msg alert alert-danger ' + (reduxState.showError ? '' : 'hidden'), role: 'alert' },
+    'Sorry, but that doesn\'t appear to be a valid JSON string. Please try again.'
+  );
+};
+
+},{"react":"react"}],5:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
 
 var InputPane = require('./input-pane.jsx');
 var ExplorerPane = require('./explorer-pane.jsx');
+var ErrorDisplay = require('./error-display.jsx');
 var ContentPane = require('./content-pane.jsx');
 
 module.exports = function (_ref) {
@@ -144,15 +159,7 @@ module.exports = function (_ref) {
     React.createElement(
       'div',
       { className: 'row' },
-      React.createElement(
-        'div',
-        null,
-        React.createElement(
-          'div',
-          { className: 'error-msg alert alert-danger ' + (reduxState.showError ? '' : 'hidden'), role: 'alert' },
-          'Sorry, but that doesn\'t appear to be a valid JSON string. Please try again.'
-        )
-      )
+      React.createElement(ErrorDisplay, { reduxState: reduxState })
     ),
     React.createElement(
       'div',
@@ -160,13 +167,13 @@ module.exports = function (_ref) {
       React.createElement(
         'div',
         { className: 'col-xs-12' },
-        React.createElement(ContentPane, { reduxState: reduxState, currentPath: reduxState.currentPath })
+        React.createElement(ContentPane, { reduxState: reduxState })
       )
     )
   );
 };
 
-},{"./content-pane.jsx":3,"./explorer-pane.jsx":5,"./input-pane.jsx":7,"react":"react"}],5:[function(require,module,exports){
+},{"./content-pane.jsx":3,"./error-display.jsx":4,"./explorer-pane.jsx":6,"./input-pane.jsx":8,"react":"react"}],6:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -202,7 +209,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./column-view.jsx":2,"./path-view.jsx":11,"react":"react"}],6:[function(require,module,exports){
+},{"./column-view.jsx":2,"./path-view.jsx":12,"react":"react"}],7:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -263,7 +270,7 @@ module.exports.pathArrayToString = function (pathArray) {
   }).join('');
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -293,7 +300,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./reset-button.jsx":12,"react":"react"}],8:[function(require,module,exports){
+},{"./reset-button.jsx":13,"react":"react"}],9:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -313,7 +320,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":6,"react":"react"}],9:[function(require,module,exports){
+},{"./helper.jsx":7,"react":"react"}],10:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -366,22 +373,22 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":8,"./terminal-property-row.jsx":13,"react":"react"}],10:[function(require,module,exports){
+},{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":9,"./terminal-property-row.jsx":14,"react":"react"}],11:[function(require,module,exports){
 'use strict';
 
 //React component hierarchy:
 //
-// ExplorerApp
-//   -InputPane
+//ExplorerApp
+//  -InputPane
 //    -ResetButton
-//   -ExplorerPane
+//  -ExplorerPane
 //    -ColumnView
 //      -[LevelColumn]
 //        -[ClickablePropertyRow]
 //        -TerminalPropertyRow
 //        -LevelColumnCaption
 //    -PathView
-//   -ContentPane
+//  -ContentPane
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -390,7 +397,6 @@ var Redux = require('redux');
 var ExplorerApp = require('./explorer-app.jsx');
 
 // Reducer:
-
 var stateReducer = function stateReducer() {
   var state = arguments.length <= 0 || arguments[0] === undefined ? { data: {}, currentPath: [], showError: false, textContent: '' } : arguments[0];
   var action = arguments[1];
@@ -428,10 +434,12 @@ var stateReducer = function stateReducer() {
   }
 };
 
+//create a store from the above reducer, then subscribe a React render function to it
 var reduxStore = Redux.createStore(stateReducer);
 reduxStore.subscribe(render);
 render();
 
+//React render function, with callbacks
 function render() {
   ReactDOM.render(React.createElement(ExplorerApp, {
     reduxState: reduxStore.getState(),
@@ -473,7 +481,7 @@ $(document).ready(function () {
   $('body').css('backgroundImage', 'url(../images/footer_lodyas.png)');
 });
 
-},{"./explorer-app.jsx":4,"react":"react","react-dom":"react-dom","redux":"redux"}],11:[function(require,module,exports){
+},{"./explorer-app.jsx":5,"react":"react","react-dom":"react-dom","redux":"redux"}],12:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -506,7 +514,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":6,"react":"react"}],12:[function(require,module,exports){
+},{"./helper.jsx":7,"react":"react"}],13:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -520,7 +528,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"react":"react"}],13:[function(require,module,exports){
+},{"react":"react"}],14:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -535,4 +543,4 @@ module.exports = function (_ref) {
   );
 };
 
-},{"react":"react"}]},{},[10]);
+},{"react":"react"}]},{},[11]);
