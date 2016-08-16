@@ -1,3 +1,17 @@
+//React component hierarchy:
+//
+// ExplorerApp
+//   -InputPane
+//    -ResetButton
+//   -ExplorerPane
+//    -ColumnView
+//      -[LevelColumn]
+//        -[ClickablePropertyRow]
+//        -TerminalPropertyRow
+//        -LevelColumnCaption
+//    -PathView
+//   -ContentPane
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
@@ -91,8 +105,7 @@ function render() {
   );
 }
 
+//wait for background image to load before displaying it:
 $(document).ready(function () {
-
   $('body').css('backgroundImage', 'url(../images/footer_lodyas.png)');
-
 });

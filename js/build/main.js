@@ -32,17 +32,16 @@ var LevelColumn = require('./level-column.jsx');
 
 //Container for all of the LevelColumns
 module.exports = function (_ref) {
-  var data = _ref.data;
-  var currentPath = _ref.currentPath;
+  var reduxState = _ref.reduxState;
   var updatePath = _ref.updatePath;
 
 
   //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath
-  var visibleLevels = Helper.getAllLevels(data, currentPath);
+  var visibleLevels = Helper.getAllLevels(reduxState.data, reduxState.currentPath);
 
   //convert the levels from JS values to LevelColumn components
   visibleLevels = visibleLevels.map(function (levelContent, levelDepth) {
-    return React.createElement(LevelColumn, { data: levelContent, levelDepth: levelDepth, currentPath: currentPath, updatePath: updatePath, key: levelDepth });
+    return React.createElement(LevelColumn, { levelContent: levelContent, levelDepth: levelDepth, currentPath: reduxState.currentPath, updatePath: updatePath, key: levelDepth });
   });
 
   //draw all of the LevelColumn components:
@@ -51,7 +50,7 @@ module.exports = function (_ref) {
     { className: 'column-view clearfix' },
     React.createElement(
       'div',
-      { className: 'explorer-help-text ' + (!Helper.isNonEmpty(data) ? '' : 'hidden') },
+      { className: 'explorer-help-text ' + (!Helper.isNonEmpty(reduxState.data) ? '' : 'hidden') },
       '...and then explore its nested structure in this pane.'
     ),
     visibleLevels
@@ -66,17 +65,17 @@ var Helper = require('./helper.jsx');
 
 //displays the JSON-encoded content of the chosen path, with whitespace for readability:
 module.exports = function (_ref) {
-  var data = _ref.data;
+  var reduxState = _ref.reduxState;
   var currentPath = _ref.currentPath;
 
-  var displayedData = data;
+  var displayedData = reduxState.data;
   for (var i = 0; i < currentPath.length; i++) {
     displayedData = displayedData[currentPath[i]];
   }
 
   return React.createElement(
     'div',
-    { className: 'content-pane ' + (Helper.isNonEmpty(data) ? '' : 'hidden') },
+    { className: 'content-pane ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden') },
     React.createElement('br', null),
     React.createElement(
       'p',
@@ -134,12 +133,12 @@ module.exports = function (_ref) {
       React.createElement(
         'div',
         { className: 'col-xs-12 col-md-4' },
-        React.createElement(InputPane, { textContent: reduxState.textContent, handleTextChange: handleTextChange, handleFormSubmit: handleFormSubmit, resetState: resetState })
+        React.createElement(InputPane, { reduxState: reduxState, handleTextChange: handleTextChange, handleFormSubmit: handleFormSubmit, resetState: resetState })
       ),
       React.createElement(
         'div',
         { className: 'col-xs-12 col-md-8' },
-        React.createElement(ExplorerPane, { data: reduxState.data, currentPath: reduxState.currentPath, updatePath: updatePath })
+        React.createElement(ExplorerPane, { reduxState: reduxState, updatePath: updatePath })
       )
     ),
     React.createElement(
@@ -161,7 +160,7 @@ module.exports = function (_ref) {
       React.createElement(
         'div',
         { className: 'col-xs-12' },
-        React.createElement(ContentPane, { data: reduxState.data, currentPath: reduxState.currentPath })
+        React.createElement(ContentPane, { reduxState: reduxState, currentPath: reduxState.currentPath })
       )
     )
   );
@@ -177,8 +176,7 @@ var PathView = require('./path-view.jsx');
 
 //Contains all of the columns, captions, and path displays.
 module.exports = function (_ref) {
-  var data = _ref.data;
-  var currentPath = _ref.currentPath;
+  var reduxState = _ref.reduxState;
   var updatePath = _ref.updatePath;
   return React.createElement(
     'div',
@@ -189,7 +187,7 @@ module.exports = function (_ref) {
       React.createElement(
         'div',
         { className: 'col-xs-12' },
-        React.createElement(ColumnView, { data: data, currentPath: currentPath, updatePath: updatePath })
+        React.createElement(ColumnView, { reduxState: reduxState, updatePath: updatePath })
       )
     ),
     React.createElement(
@@ -198,7 +196,7 @@ module.exports = function (_ref) {
       React.createElement(
         'div',
         { className: 'col-xs-12' },
-        React.createElement(PathView, { currentPath: currentPath, data: data })
+        React.createElement(PathView, { reduxState: reduxState })
       )
     )
   );
@@ -273,7 +271,7 @@ var ResetButton = require('./reset-button.jsx');
 
 //Contains the text input and left 1/3 of the app
 module.exports = function (_ref) {
-  var textContent = _ref.textContent;
+  var reduxState = _ref.reduxState;
   var handleTextChange = _ref.handleTextChange;
   var handleFormSubmit = _ref.handleFormSubmit;
   var resetState = _ref.resetState;
@@ -286,7 +284,7 @@ module.exports = function (_ref) {
       React.createElement(
         'div',
         { className: 'form-group' },
-        React.createElement('textarea', { className: 'form-control', rows: '15', value: textContent, onChange: handleTextChange, placeholder: 'Paste a JSON string here (without any surrounding quote marks)...' }),
+        React.createElement('textarea', { className: 'form-control', rows: '15', value: reduxState.textContent, onChange: handleTextChange, placeholder: 'Paste a JSON string here (without any surrounding quote marks)...' }),
         React.createElement('input', { className: 'btn btn-primary', id: 'btn-data-submit', type: 'submit', value: 'Go!' }),
         React.createElement(ResetButton, { resetState: resetState }),
         React.createElement('div', { className: 'clearfix' })
@@ -303,14 +301,14 @@ var Helper = require('./helper.jsx');
 
 //assign a caption depending on the type of the value represented in the column
 module.exports = function (_ref) {
-  var data = _ref.data;
+  var levelContent = _ref.levelContent;
   return React.createElement(
     'div',
     { className: 'level-column-caption-container' },
     React.createElement(
       'div',
       { className: 'level-column-caption' },
-      Helper.getType(data)
+      Helper.getType(levelContent)
     )
   );
 };
@@ -328,7 +326,7 @@ var LevelColumnCaption = require('./level-column-caption.jsx');
 
 //Column with all properties for a single level in the current path
 module.exports = function (_ref) {
-  var data = _ref.data;
+  var levelContent = _ref.levelContent;
   var currentPath = _ref.currentPath;
   var levelDepth = _ref.levelDepth;
   var updatePath = _ref.updatePath;
@@ -336,12 +334,12 @@ module.exports = function (_ref) {
   var propertyRows = [];
 
   //if the column represents an object, print its properties as rows
-  if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object') {
+  if ((typeof levelContent === 'undefined' ? 'undefined' : _typeof(levelContent)) === 'object') {
     var markActive;
 
     //test if each entry is part of the currently selected path
     var keyCounter = 0;
-    for (var property in data) {
+    for (var property in levelContent) {
       markActive = false;
       if (currentPath[levelDepth] == property) {
         markActive = true;
@@ -353,7 +351,7 @@ module.exports = function (_ref) {
 
     //for non-object columns, just print the value as a single, click-disabled row
   } else {
-    propertyRows.push(React.createElement(TerminalPropertyRow, { propertyName: data, key: 0 }));
+    propertyRows.push(React.createElement(TerminalPropertyRow, { propertyName: levelContent, key: 0 }));
   }
 
   return React.createElement(
@@ -364,12 +362,26 @@ module.exports = function (_ref) {
       { className: 'list-group' },
       propertyRows
     ),
-    React.createElement(LevelColumnCaption, { data: data })
+    React.createElement(LevelColumnCaption, { levelContent: levelContent })
   );
 };
 
 },{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":8,"./terminal-property-row.jsx":13,"react":"react"}],10:[function(require,module,exports){
 'use strict';
+
+//React component hierarchy:
+//
+// ExplorerApp
+//   -InputPane
+//    -ResetButton
+//   -ExplorerPane
+//    -ColumnView
+//      -[LevelColumn]
+//        -[ClickablePropertyRow]
+//        -TerminalPropertyRow
+//        -LevelColumnCaption
+//    -PathView
+//   -ContentPane
 
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -401,6 +413,7 @@ var stateReducer = function stateReducer() {
       if (action.newProperty) {
         state.currentPath = state.currentPath.concat([action.newProperty]);
       }
+
       return state;
     case 'RESET_STATE':
       state = {
@@ -455,8 +468,8 @@ function render() {
   }), document.getElementById('explorer-app'));
 }
 
+//wait for background image to load before displaying it:
 $(document).ready(function () {
-
   $('body').css('backgroundImage', 'url(../images/footer_lodyas.png)');
 });
 
@@ -468,13 +481,12 @@ var Helper = require('./helper.jsx');
 
 //Displays the path string needed to reference the chosen path:
 module.exports = function (_ref) {
-  var data = _ref.data;
-  var currentPath = _ref.currentPath;
+  var reduxState = _ref.reduxState;
 
 
   //Show appropriate helpText message, depending on if path is empty:
   var helpText = 'Click on a row to view its contents.';
-  if (currentPath.length > 0) {
+  if (reduxState.currentPath.length > 0) {
     helpText = 'Selected path: ';
   }
 
@@ -483,13 +495,13 @@ module.exports = function (_ref) {
     { className: 'path-view' },
     React.createElement(
       'div',
-      { className: 'help-text-small ' + (Helper.isNonEmpty(data) ? '' : 'hidden') },
+      { className: 'help-text-small ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden') },
       helpText
     ),
     React.createElement(
       'div',
       { className: 'current-path lead' },
-      Helper.pathArrayToString(currentPath)
+      Helper.pathArrayToString(reduxState.currentPath)
     )
   );
 };

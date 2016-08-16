@@ -13,10 +13,10 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
     </div>
     <div className='row main-app-row'>
       <div className='col-xs-12 col-md-4'>
-        <InputPane textContent={reduxState.textContent} handleTextChange={handleTextChange} handleFormSubmit={handleFormSubmit} resetState={resetState}/>
+        <InputPane reduxState={reduxState} handleTextChange={handleTextChange} handleFormSubmit={handleFormSubmit} resetState={resetState}/>
       </div> 
       <div className='col-xs-12 col-md-8'>
-        <ExplorerPane data= {reduxState.data} currentPath= {reduxState.currentPath} updatePath= {updatePath} />
+        <ExplorerPane reduxState={reduxState} updatePath= {updatePath} />
       </div>  
     </div>
     <div className='row'>
@@ -26,7 +26,7 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
     </div>
     <div className='row'>
       <div className='col-xs-12'>
-        <ContentPane data= {reduxState.data} currentPath= {reduxState.currentPath} />
+        <ContentPane reduxState={reduxState} currentPath= {reduxState.currentPath} />
       </div>
     </div>
   </div>
