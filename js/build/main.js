@@ -53,6 +53,11 @@ module.exports = function (_ref) {
       { className: 'explorer-help-text ' + (!Helper.isNonEmpty(reduxState.data) ? '' : 'hidden') },
       '...and then explore its nested structure in this pane.'
     ),
+    React.createElement(
+      'div',
+      { className: 'explorer-help-text ' + (Helper.isNonEmpty(reduxState.data) && reduxState.currentPath.length === 0 ? '' : 'hidden') },
+      'Click on any row to view its contents.'
+    ),
     visibleLevels
   );
 };
@@ -300,7 +305,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./reset-button.jsx":13,"react":"react"}],9:[function(require,module,exports){
+},{"./reset-button.jsx":14,"react":"react"}],9:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -373,7 +378,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":9,"./terminal-property-row.jsx":14,"react":"react"}],11:[function(require,module,exports){
+},{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":9,"./terminal-property-row.jsx":15,"react":"react"}],11:[function(require,module,exports){
 'use strict';
 
 //React component hierarchy:
@@ -394,48 +399,11 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
 
+var Reducers = require('./reducers.jsx');
 var ExplorerApp = require('./explorer-app.jsx');
 
-// Reducer:
-var stateReducer = function stateReducer() {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? { data: {}, currentPath: [], showError: false, textContent: '' } : arguments[0];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'UPDATE_DATA':
-      state.data = action.data;
-      return state;
-    case 'TEXT_ENTRY':
-      state.textContent = action.textContent;
-      return state;
-    case 'SHOW_ERROR':
-      state.showError = true;
-      return state;
-    case 'HIDE_ERROR':
-      state.showError = false;
-      return state;
-    case 'UPDATE_PATH':
-      state.currentPath = state.currentPath.slice(0, action.level);
-      if (action.newProperty) {
-        state.currentPath = state.currentPath.concat([action.newProperty]);
-      }
-
-      return state;
-    case 'RESET_STATE':
-      state = {
-        data: {},
-        currentPath: [],
-        showError: false,
-        textContent: ''
-      };
-      return state;
-    default:
-      return state;
-  }
-};
-
 //create a store from the above reducer, then subscribe a React render function to it
-var reduxStore = Redux.createStore(stateReducer);
+var reduxStore = Redux.createStore(Reducers.parentReducer);
 reduxStore.subscribe(render);
 render();
 
@@ -481,7 +449,7 @@ $(document).ready(function () {
   $('body').css('backgroundImage', 'url(../images/footer_lodyas.png)');
 });
 
-},{"./explorer-app.jsx":5,"react":"react","react-dom":"react-dom","redux":"redux"}],12:[function(require,module,exports){
+},{"./explorer-app.jsx":5,"./reducers.jsx":13,"react":"react","react-dom":"react-dom","redux":"redux"}],12:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -491,20 +459,13 @@ var Helper = require('./helper.jsx');
 module.exports = function (_ref) {
   var reduxState = _ref.reduxState;
 
-
-  //Show appropriate helpText message, depending on if path is empty:
-  var helpText = 'Click on a row to view its contents.';
-  if (reduxState.currentPath.length > 0) {
-    helpText = 'Selected path: ';
-  }
-
-  return React.createElement(
+  React.createElement(
     'div',
     { className: 'path-view' },
     React.createElement(
       'div',
       { className: 'help-text-small ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden') },
-      helpText
+      'Selected path:'
     ),
     React.createElement(
       'div',
@@ -515,6 +476,45 @@ module.exports = function (_ref) {
 };
 
 },{"./helper.jsx":7,"react":"react"}],13:[function(require,module,exports){
+'use strict';
+
+module.exports.parentReducer = function () {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? { data: {}, currentPath: [], showError: false, textContent: '' } : arguments[0];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'UPDATE_DATA':
+      return Object.assign({}, state, { data: action.data });
+    case 'TEXT_ENTRY':
+      return Object.assign({}, state, { textContent: action.textContent });
+    case 'SHOW_ERROR':
+      return Object.assign({}, state, { showError: true });
+    case 'HIDE_ERROR':
+      return Object.assign({}, state, { showError: false });
+    case 'UPDATE_PATH':
+      if (action.newProperty) {
+        return Object.assign({}, state, {
+          currentPath: state.currentPath.slice(0, action.level).concat([action.newProperty])
+        });
+      } else {
+        return Object.assign({}, state, {
+          currentPath: state.currentPath.slice(0, action.level)
+        });
+      }
+
+    case 'RESET_STATE':
+      return {
+        data: {},
+        currentPath: [],
+        showError: false,
+        textContent: ''
+      };
+    default:
+      return state;
+  }
+};
+
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -530,7 +530,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":7,"react":"react"}],14:[function(require,module,exports){
+},{"./helper.jsx":7,"react":"react"}],15:[function(require,module,exports){
 'use strict';
 
 var React = require('react');

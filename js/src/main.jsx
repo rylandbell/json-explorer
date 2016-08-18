@@ -16,45 +16,11 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
 
+var Reducers = require('./reducers.jsx');
 var ExplorerApp = require('./explorer-app.jsx');
 
-// Reducer:
-var stateReducer = (state = { data: {}, currentPath: [], showError: false, textContent: '' }, action) => {
-  switch (action.type){
-    case 'UPDATE_DATA':
-      state.data = action.data;
-      return state;
-    case 'TEXT_ENTRY':
-      state.textContent = action.textContent;
-      return state;
-    case 'SHOW_ERROR':
-      state.showError = true;
-      return state;
-    case 'HIDE_ERROR':
-      state.showError = false;
-      return state;
-    case 'UPDATE_PATH':
-      state.currentPath = (state.currentPath).slice(0, action.level);
-      if (action.newProperty) {
-        state.currentPath = (state.currentPath).concat([action.newProperty]);
-      }
-
-      return state;
-    case 'RESET_STATE':
-      state = {
-        data: {},
-        currentPath: [],
-        showError: false,
-        textContent: ''
-      };
-      return state;
-    default:
-      return state;
-  }
-};
-
 //create a store from the above reducer, then subscribe a React render function to it
-var reduxStore = Redux.createStore(stateReducer);
+var reduxStore = Redux.createStore(Reducers.parentReducer);
 reduxStore.subscribe(render);
 render();
 
@@ -110,3 +76,4 @@ function render() {
 $(document).ready(function () {
   $('body').css('backgroundImage', 'url(../images/footer_lodyas.png)');
 });
+

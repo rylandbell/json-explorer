@@ -1,0 +1,5 @@
+--require jsdom
+--require expect
+--require jsdom-global/register
+--compilers js:babel-register
+--reporter spec

@@ -8,6 +8,8 @@
     "grunt": "^1.0.1",
     "grunt-eslint": "^19.0.0",
     "grunt-jscs": "^3.0.1",
+    "jsdom": "^9.4.2",
+    "jsdom-global": "^2.0.0",
     "mocha": "^3.0.2"
   },
   "dependencies": {
@@ -23,7 +25,7 @@
     "build-vendor": "browserify -t [babelify] -r react -r react-dom -r redux -r expect -o js/build/vendor.js",
     "build-watch": "watchify -t [babelify] -x react -x react-dom -x redux -x expect js/src/main.jsx -o js/build/main.js",
     "sass-watch": "sass --watch scss:css",
-    "test": "mocha --compilers js:babel-register --recursive",
+    "test": "mocha --compilers js:babel-register ./test",
     "test:watch": "npm test -- --watch"
   },
   "babel": {
@@ -51,10 +53,13 @@
       "react"
     ],
     "react": {
-      "pragma": "React", 
+      "pragma": "React",
       "version": "15.0"
     },
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
     "rules": {
       "react/prop-types": 0,
       "react/display-name": 0

@@ -21,6 +21,8 @@ module.exports = ({ reduxState, updatePath }) => {
     <div className='column-view clearfix'>
       <div className={'explorer-help-text ' + (!Helper.isNonEmpty(reduxState.data) ? '' : 'hidden')}>...and then explore its nested structure in this pane.
       </div>
+      <div className={'explorer-help-text ' + (Helper.isNonEmpty(reduxState.data) && reduxState.currentPath.length === 0 ? '' : 'hidden')}>Click on any row to view its contents.
+      </div>
       {visibleLevels}
     </div>
   );

@@ -1,21 +1,11 @@
 module.exports = function (grunt) {
 
-  //pure javascript:
-  // var nodePaths = ['app_server/**/*.js', 'app_api/**/*.js'];
-  // var browserPaths = ['public/javascripts/*.js', 'public/javascripts/**/*.js'];
-  // var jsPaths = nodePaths.concat(browserPaths);
-
   //JSX:
-  var jsxPaths = ['js/src/*.jsx'];
-  var browserPaths = jsxPaths;
-
-  // jsPaths.push('Gruntfile.js');
+  var jsxPaths = ['js/src/*.jsx', 'test/*.js', 'Gruntfile.js'];
 
   //load plugins
-  // grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-eslint');
-
 
   //configure plugins
   grunt.initConfig({
@@ -46,7 +36,6 @@ module.exports = function (grunt) {
           requirePaddingNewLinesAfterBlocks: true,
           requireLineFeedAtFileEnd: true,
           disallowTrailingWhitespace: true,
-          requireSpaceBetweenArguments: true,
           validateQuoteMarks: true,
           requirePaddingNewLinesBeforeLineComments: true,
           disallowSpacesInCallExpression: true,
