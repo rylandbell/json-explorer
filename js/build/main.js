@@ -458,8 +458,7 @@ var Helper = require('./helper.jsx');
 //Displays the path string needed to reference the chosen path:
 module.exports = function (_ref) {
   var reduxState = _ref.reduxState;
-
-  React.createElement(
+  return React.createElement(
     'div',
     { className: 'path-view' },
     React.createElement(
