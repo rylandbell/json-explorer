@@ -21,6 +21,7 @@
     "redux": "^3.5.2"
   },
   "scripts": {
+    "start": "node ./bin/www",
     "build": "browserify -t [babelify] -x react -x react-dom -x redux -x expect js/src/main.jsx -o js/build/main.js",
     "build-vendor": "browserify -t [babelify] -r react -r react-dom -r redux -r expect -o js/build/vendor.js",
     "build-watch": "watchify -t [babelify] -x react -x react-dom -x redux -x expect js/src/main.jsx -o js/build/main.js",
