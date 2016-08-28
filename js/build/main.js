@@ -403,7 +403,7 @@ var Reducers = require('./reducers.jsx');
 var ExplorerApp = require('./explorer-app.jsx');
 
 //create a store from the above reducer, then subscribe a React render function to it
-var reduxStore = Redux.createStore(Reducers.parentReducer);
+var reduxStore = Redux.createStore(Reducers.explorerApp);
 reduxStore.subscribe(render);
 render();
 
@@ -477,43 +477,78 @@ module.exports = function (_ref) {
 },{"./helper.jsx":7,"react":"react"}],13:[function(require,module,exports){
 'use strict';
 
-module.exports.parentReducer = function () {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? { data: {}, currentPath: [], showError: false, textContent: '' } : arguments[0];
+var Redux = require('redux');
+
+var data = function data() {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
   var action = arguments[1];
 
   switch (action.type) {
     case 'UPDATE_DATA':
-      return Object.assign({}, state, { data: action.data });
-    case 'TEXT_ENTRY':
-      return Object.assign({}, state, { textContent: action.textContent });
-    case 'SHOW_ERROR':
-      return Object.assign({}, state, { showError: true });
-    case 'HIDE_ERROR':
-      return Object.assign({}, state, { showError: false });
-    case 'UPDATE_PATH':
-      if (action.newProperty) {
-        return Object.assign({}, state, {
-          currentPath: state.currentPath.slice(0, action.level).concat([action.newProperty])
-        });
-      } else {
-        return Object.assign({}, state, {
-          currentPath: state.currentPath.slice(0, action.level)
-        });
-      }
-
+      return Object.assign({}, action.data);
     case 'RESET_STATE':
-      return {
-        data: {},
-        currentPath: [],
-        showError: false,
-        textContent: ''
-      };
+      return {};
     default:
       return state;
   }
 };
 
-},{}],14:[function(require,module,exports){
+var currentPath = function currentPath() {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'UPDATE_PATH':
+      if (action.newProperty) {
+        return state.slice(0, action.level).concat([action.newProperty]);
+      } else {
+        return state.slice(0, action.level);
+      }
+    case 'RESET_STATE':
+      return {};
+    default:
+      return state;
+  }
+};
+
+var textContent = function textContent() {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'TEXT_ENTRY':
+      return action.textContent;
+    case 'RESET_STATE':
+      return [];
+    default:
+      return state;
+  }
+};
+
+var showError = function showError() {
+  var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'SHOW_ERROR':
+      return true;
+    case 'HIDE_ERROR':
+      return false;
+    case 'RESET_STATE':
+      return false;
+    default:
+      return state;
+  }
+};
+
+module.exports.explorerApp = Redux.combineReducers({
+  data: data,
+  currentPath: currentPath,
+  textContent: textContent,
+  showError: showError
+});
+
+},{"redux":"redux"}],14:[function(require,module,exports){
 'use strict';
 
 var React = require('react');

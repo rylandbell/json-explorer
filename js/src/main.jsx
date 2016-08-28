@@ -20,7 +20,7 @@ var Reducers = require('./reducers.jsx');
 var ExplorerApp = require('./explorer-app.jsx');
 
 //create a store from the above reducer, then subscribe a React render function to it
-var reduxStore = Redux.createStore(Reducers.parentReducer);
+var reduxStore = Redux.createStore(Reducers.explorerApp);
 reduxStore.subscribe(render);
 render();
 
