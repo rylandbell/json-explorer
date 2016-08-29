@@ -10,14 +10,13 @@ module.exports = function (_ref) {
   var isActive = _ref.isActive;
   var updatePath = _ref.updatePath;
 
-  var activeClass = isActive ? 'active' : '';
   function handleClick() {
     updatePath(levelDepth, propertyName.toString());
   }
 
   return React.createElement(
     'a',
-    { className: 'list-group-item property-row ' + activeClass, onClick: handleClick },
+    { className: 'list-group-item property-row ' + (isActive ? 'active' : ''), onClick: handleClick },
     propertyName.toString()
   );
 };
@@ -34,17 +33,6 @@ var LevelColumn = require('./level-column.jsx');
 module.exports = function (_ref) {
   var reduxState = _ref.reduxState;
   var updatePath = _ref.updatePath;
-
-
-  //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath
-  var visibleLevels = Helper.getAllLevels(reduxState.data, reduxState.currentPath);
-
-  //convert the levels from JS values to LevelColumn components
-  visibleLevels = visibleLevels.map(function (levelContent, levelDepth) {
-    return React.createElement(LevelColumn, { levelContent: levelContent, levelDepth: levelDepth, currentPath: reduxState.currentPath, updatePath: updatePath, key: levelDepth });
-  });
-
-  //draw all of the LevelColumn components:
   return React.createElement(
     'div',
     { className: 'column-view clearfix' },
@@ -58,7 +46,13 @@ module.exports = function (_ref) {
       { className: 'explorer-help-text ' + (Helper.isNonEmpty(reduxState.data) && reduxState.currentPath.length === 0 ? '' : 'hidden') },
       'Click on any row to view its contents.'
     ),
-    visibleLevels
+
+
+    //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath, then
+    //convert the levels from JS values to LevelColumn components
+    Helper.getAllLevels(reduxState.data, reduxState.currentPath).map(function (levelContent, levelDepth) {
+      return React.createElement(LevelColumn, { levelContent: levelContent, levelDepth: levelDepth, currentPath: reduxState.currentPath, updatePath: updatePath, key: levelDepth });
+    })
   );
 };
 
@@ -72,10 +66,10 @@ var Helper = require('./helper.jsx');
 module.exports = function (_ref) {
   var reduxState = _ref.reduxState;
 
-  var displayedData = reduxState.data;
-  for (var i = 0; i < reduxState.currentPath.length; i++) {
-    displayedData = displayedData[reduxState.currentPath[i]];
-  }
+  var displayedData = Object.assign({}, reduxState.data);
+  reduxState.currentPath.forEach(function (pathStep) {
+    displayedData = Object.assign({}, displayedData[pathStep]);
+  });
 
   return React.createElement(
     'div',
@@ -504,6 +498,7 @@ var currentPath = function currentPath() {
       } else {
         return state.slice(0, action.level);
       }
+
     case 'RESET_STATE':
       return {};
     default:

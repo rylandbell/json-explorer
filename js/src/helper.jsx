@@ -31,7 +31,7 @@ module.exports.isNonEmpty = function (obj) {
 };
 
 module.exports.getType = function (data) {
-  var type = typeof data;
+  let type = typeof data;
   if (Array.isArray(data)) {
     type = 'array';
   }

@@ -3,10 +3,10 @@ var Helper = require('./helper.jsx');
 
 //displays the JSON-encoded content of the chosen path, with whitespace for readability:
 module.exports = ({ reduxState }) => {
-  var displayedData = reduxState.data;
-  for (var i = 0; i < reduxState.currentPath.length; i++) {
-    displayedData = displayedData[reduxState.currentPath[i]];
-  }
+  let displayedData = Object.assign({}, reduxState.data);
+  reduxState.currentPath.forEach((pathStep) => {
+    displayedData = Object.assign({}, displayedData[pathStep]);
+  });
 
   return (
     <div className={'content-pane ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden')}>

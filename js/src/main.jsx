@@ -20,7 +20,7 @@ var Reducers = require('./reducers.jsx');
 var ExplorerApp = require('./explorer-app.jsx');
 
 //create a store from the above reducer, then subscribe a React render function to it
-var reduxStore = Redux.createStore(Reducers.explorerApp);
+const reduxStore = Redux.createStore(Reducers.explorerApp);
 reduxStore.subscribe(render);
 render();
 
@@ -50,7 +50,7 @@ function render() {
       handleFormSubmit = {
         (e) => {
           e.preventDefault();
-          var dataString = reduxStore.getState().textContent;
+          const dataString = reduxStore.getState().textContent;
           reduxStore.dispatch({ type: 'HIDE_ERROR' });
           reduxStore.dispatch({ type: 'UPDATE_PATH', level: 0 });
           try {
@@ -76,4 +76,3 @@ function render() {
 $(document).ready(function () {
   $('body').css('backgroundImage', 'url(../images/footer_lodyas.png)');
 });
-
