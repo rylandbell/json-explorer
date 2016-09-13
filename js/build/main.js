@@ -439,9 +439,9 @@ function render() {
 }
 
 //wait for background image to load before displaying it:
-$(document).ready(function () {
-  $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
-});
+// $(document).ready(function () {
+//   $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
+// });
 
 },{"./explorer-app.jsx":5,"./reducers.jsx":13,"react":"react","react-dom":"react-dom","redux":"redux"}],12:[function(require,module,exports){
 'use strict';

@@ -73,6 +73,6 @@ function render() {
 }
 
 //wait for background image to load before displaying it:
-$(document).ready(function () {
-  $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
-});
+// $(document).ready(function () {
+//   $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
+// });
