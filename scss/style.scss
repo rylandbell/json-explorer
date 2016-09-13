@@ -1,12 +1,10 @@
 /*~~~~~~~~~~~~~~~~~~~~~COLOR~~~~~~~~~~~~~~~~
 /*Base colors: */
 
-/* $primary: #036564;
-$highlight: #CC2A41; */
 $greyish: #222526;
 $primary: #284657;
 $highlight: #cf412e;
-$light-text: #eee;
+$off-white: #eee;
 $dark-text: black;
 
 /*Computed colors: */
@@ -29,7 +27,7 @@ $greyish-lighter: lighten($greyish,25%);
 body {
 	background-color: $greyish;
 	background-attachment: fixed;
-	color: $light-text;
+	color: $off-white;
 }
 
 .modal {
@@ -49,7 +47,7 @@ a {
 }
 
 .explorer-help-text {
-	color: $light-text;
+	color: $off-white;
 }
 
 .level-column {
@@ -60,21 +58,21 @@ a {
 .property-row {
 	background-color: $primary;
 	border-color: $primary-bold;
-	color: $light-text !important;
-}
+	color: $off-white !important;
 
-.property-row:hover {
-	color: $dark-text !important;
+	&:hover {
+		color: $dark-text !important;		
+	}
 }
 
 .property-row.active, .property-row.active:hover {
 	background-color: $highlight;
 	border-color: $primary-bold;
-	color: $light-text !important;
+	color: $off-white !important;
 }
 
 .property-row.disabled, .property-row.disabled:hover {
-	color: $light-text !important;
+	color: $off-white !important;
 	background-color: $primary-washed;
 }
 
@@ -84,7 +82,7 @@ a {
 }
 
 .input-pane textarea {
-	background-color: $light-text;
+	background-color: $off-white;
 	border: 0px;
 	color: $dark-text;
 }
@@ -92,20 +90,20 @@ a {
 .btn-primary {
 	background-color: $primary;
 	border-color: $primary-bold;
-}
 
-.btn-primary:hover {
-	background-color: lighten(desaturate($primary,10%),10%);
+	&:hover {
+		background-color: lighten(desaturate($primary,10%),10%);		
+	}
 }
 
 .error-msg {
 	color: $highlight;
-	background-color: $light-text;
+	background-color: $off-white;
 	font-weight: bold;
 }
 
 .content-pane>pre {
-	background-color: $light-text;
+	background-color: $off-white;
 }
 
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
@@ -149,13 +147,12 @@ a {
 	display: inline-block;
 	vertical-align: top;
 	height: 100%;
-
 	border-top-width: 0px;
-}
 
-.level-column:first-child {
-	border-left-width: 0;
-	border-top-left-radius: 20px;
+	&:first-child {
+		border-left-width: 0;
+		border-top-left-radius: 20px;
+	}
 }
 
 .level-column-caption-container {
@@ -180,10 +177,10 @@ a {
 .list-group-item {
 	border-left-width: 0;
 	border-right-width: 0;
-}
 
-.list-group-item:first-child {
-	border-top-width: 0;
+	&:first-child {
+		border-top-width: 0;
+	}
 }
 
 .property-row {

@@ -1,7 +1,5 @@
 /*~~~~~~~~~~~~~~~~~~~~~COLOR~~~~~~~~~~~~~~~~
 /*Base colors: */
-/* $primary: #036564;
-$highlight: #CC2A41; */
 /*Computed colors: */
 /*Assigned colors: */
 body {
@@ -32,9 +30,8 @@ a {
   background-color: #284657;
   border-color: #232729;
   color: #eee !important; }
-
-.property-row:hover {
-  color: black !important; }
+  .property-row:hover {
+    color: black !important; }
 
 .property-row.active, .property-row.active:hover {
   background-color: #cf412e;
@@ -57,9 +54,8 @@ a {
 .btn-primary {
   background-color: #284657;
   border-color: #232729; }
-
-.btn-primary:hover {
-  background-color: #416071; }
+  .btn-primary:hover {
+    background-color: #416071; }
 
 .error-msg {
   color: #cf412e;
@@ -103,10 +99,9 @@ a {
   vertical-align: top;
   height: 100%;
   border-top-width: 0px; }
-
-.level-column:first-child {
-  border-left-width: 0;
-  border-top-left-radius: 20px; }
+  .level-column:first-child {
+    border-left-width: 0;
+    border-top-left-radius: 20px; }
 
 .level-column-caption-container {
   position: absolute;
@@ -127,9 +122,8 @@ a {
 .list-group-item {
   border-left-width: 0;
   border-right-width: 0; }
-
-.list-group-item:first-child {
-  border-top-width: 0; }
+  .list-group-item:first-child {
+    border-top-width: 0; }
 
 .property-row {
   padding-top: 3px;
