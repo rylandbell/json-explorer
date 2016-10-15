@@ -126,19 +126,24 @@ module.exports = function (_ref) {
       'div',
       { className: 'row' },
       React.createElement(
-        'div',
-        { className: 'col-xs-12 col-md-12' },
+        'h1',
+        null,
+        ' JSON Navigator '
+      )
+    ),
+    React.createElement(
+      'div',
+      { className: 'row' },
+      React.createElement(
+        'p',
+        { className: 'non-app-text' },
+        'Don\'t have any JSON strings handy? ',
         React.createElement(
-          'p',
-          { className: 'non-app-text' },
-          'Don\'t have any JSON strings handy? ',
-          React.createElement(
-            'a',
-            { href: '', 'data-toggle': 'modal', 'data-target': '#sample-strings' },
-            'Click here'
-          ),
-          ' for a few samples to copy and paste.'
-        )
+          'a',
+          { href: '', 'data-toggle': 'modal', 'data-target': '#sample-strings' },
+          'Click here'
+        ),
+        ' for a few samples to copy and paste.'
       )
     ),
     React.createElement(
@@ -530,7 +535,7 @@ var currentPath = function currentPath() {
         return state.slice(0, action.level);
       }
     case 'RESET_STATE':
-      return {};
+      return [];
     default:
       return state;
   }
@@ -544,7 +549,7 @@ var textContent = function textContent() {
     case 'TEXT_ENTRY':
       return action.textContent;
     case 'RESET_STATE':
-      return [];
+      return '';
     default:
       return state;
   }

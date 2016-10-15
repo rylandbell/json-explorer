@@ -3,7 +3,7 @@
 /*Computed colors: */
 /*Assigned colors: */
 body {
-  background-color: #222526;
+  background-color: #171a1b;
   background-image: url("../images/footerlodyas.png");
   background-attachment: fixed;
   color: #eee; }
@@ -74,7 +74,7 @@ a {
   min-height: 525px; }
 
 #explorer-app {
-  margin-top: 50px; }
+  margin-top: 25px; }
 
 /*Input pane*/
 .input-pane textarea {
@@ -164,6 +164,15 @@ a {
   #explorer-app {
     margin-bottom: 50px; } }
 /*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
+h1 {
+  font-family: 'Raleway', Helvetica, Arial, sans-serif;
+  font-size: 50px; }
+
+* {
+  font-family: 'Open Sans', Georgia, Times, serif;
+  font-size: 15px;
+  line-height: 25px; }
+
 body {
   font-size: 1.6em; }
 

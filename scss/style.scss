@@ -14,6 +14,7 @@ $primary-blander: lighten(desaturate($primary,80%),25%);
 $primary-blandest: lighten(desaturate($primary,80%),35%);
 
 $primary-bold: darken(desaturate($primary,30%),10%);
+$primary-bolder: darken(desaturate($primary,30%),15%);
 
 $primary-washed: desaturate(lighten($primary,20%),20%);
 
@@ -25,7 +26,7 @@ $greyish-lighter: lighten($greyish,25%);
 
 /*Assigned colors: */
 body {
-	background-color: $greyish;
+	background-color: $primary-bolder;
 	background-image: url("../images/footerlodyas.png");
 	background-attachment: fixed;
 	color: $off-white;
@@ -118,7 +119,7 @@ a {
 }
 
 #explorer-app {
-	margin-top: 50px;
+	margin-top: 25px;
 }
 
 /*Input pane*/
@@ -233,6 +234,17 @@ a {
 }
 
 /*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
+
+h1 {
+	font-family: 'Raleway', Helvetica, Arial, sans-serif;
+	font-size: 50px;
+}
+ 
+* {
+	font-family: 'Open Sans', Georgia, Times, serif;
+	font-size: 15px;
+	line-height: 25px;
+}
 
 body {
 	font-size: 1.6em;

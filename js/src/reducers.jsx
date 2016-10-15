@@ -21,7 +21,7 @@ const currentPath = (state=[], action) => {
         return state.slice(0, action.level);
       }
     case 'RESET_STATE':
-      return {};
+      return [];
     default:
       return state;
   }
@@ -32,7 +32,7 @@ const textContent = (state='', action) => {
     case 'TEXT_ENTRY':
       return action.textContent;
     case 'RESET_STATE':
-      return [];
+      return '';
     default:
       return state;
   }
