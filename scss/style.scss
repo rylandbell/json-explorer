@@ -26,6 +26,7 @@ $greyish-lighter: lighten($greyish,25%);
 /*Assigned colors: */
 body {
 	background-color: $greyish;
+	background-image: url("../images/footerlodyas.png");
 	background-attachment: fixed;
 	color: $off-white;
 }
