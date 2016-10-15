@@ -1,5 +1,5 @@
 var React = require('react');
-var Helper = require('./helper.jsx');
+var Helper = require('../helper.jsx');
 
 //Displays the path string needed to reference the chosen path:
 module.exports = ({ reduxState }) => (

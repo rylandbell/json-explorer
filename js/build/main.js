@@ -25,11 +25,11 @@ module.exports = function (_ref) {
 'use strict';
 
 var React = require('react');
-var Helper = require('./helper.jsx');
+var Helper = require('../helper.jsx');
 
 var LevelColumn = require('./level-column.jsx');
 
-//Container for all of the LevelColumns
+//Container for all of the LevelColumns 
 module.exports = function (_ref) {
   var reduxState = _ref.reduxState;
   var updatePath = _ref.updatePath;
@@ -56,11 +56,11 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":7,"./level-column.jsx":10,"react":"react"}],3:[function(require,module,exports){
+},{"../helper.jsx":13,"./level-column.jsx":9,"react":"react"}],3:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
-var Helper = require('./helper.jsx');
+var Helper = require('../helper.jsx');
 
 //displays the JSON-encoded content of the chosen path, with whitespace for readability:
 module.exports = function (_ref) {
@@ -88,7 +88,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./helper.jsx":7,"react":"react"}],4:[function(require,module,exports){
+},{"../helper.jsx":13,"react":"react"}],4:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -172,7 +172,7 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./content-pane.jsx":3,"./error-display.jsx":4,"./explorer-pane.jsx":6,"./input-pane.jsx":8,"react":"react"}],6:[function(require,module,exports){
+},{"./content-pane.jsx":3,"./error-display.jsx":4,"./explorer-pane.jsx":6,"./input-pane.jsx":7,"react":"react"}],6:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -208,7 +208,166 @@ module.exports = function (_ref) {
   );
 };
 
-},{"./column-view.jsx":2,"./path-view.jsx":12,"react":"react"}],7:[function(require,module,exports){
+},{"./column-view.jsx":2,"./path-view.jsx":10,"react":"react"}],7:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var ResetButton = require('./reset-button.jsx');
+
+//Contains the text input and left 1/3 of the app
+module.exports = function (_ref) {
+  var reduxState = _ref.reduxState;
+  var handleTextChange = _ref.handleTextChange;
+  var handleFormSubmit = _ref.handleFormSubmit;
+  var resetState = _ref.resetState;
+  return React.createElement(
+    'div',
+    { className: 'input-pane' },
+    React.createElement(
+      'form',
+      { action: '', onSubmit: handleFormSubmit },
+      React.createElement(
+        'div',
+        { className: 'form-group' },
+        React.createElement('textarea', { className: 'form-control', rows: '15', value: reduxState.textContent, onChange: handleTextChange, placeholder: 'Paste a JSON string here (without any surrounding quote marks)...' }),
+        React.createElement('input', { className: 'btn btn-primary', id: 'btn-data-submit', type: 'submit', value: 'Go!' }),
+        React.createElement(ResetButton, { resetState: resetState, reduxState: reduxState }),
+        React.createElement('div', { className: 'clearfix' })
+      )
+    )
+  );
+};
+
+},{"./reset-button.jsx":11,"react":"react"}],8:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Helper = require('../helper.jsx');
+
+//assign a caption depending on the type of the value represented in the column
+module.exports = function (_ref) {
+  var levelContent = _ref.levelContent;
+  return React.createElement(
+    'div',
+    { className: 'level-column-caption-container' },
+    React.createElement(
+      'div',
+      { className: 'level-column-caption' },
+      Helper.getType(levelContent)
+    )
+  );
+};
+
+},{"../helper.jsx":13,"react":"react"}],9:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+var React = require('react');
+
+var ClickablePropertyRow = require('./clickable-property-row.jsx');
+var TerminalPropertyRow = require('./terminal-property-row.jsx');
+var LevelColumnCaption = require('./level-column-caption.jsx');
+
+//Column with all properties for a single level in the current path
+module.exports = function (_ref) {
+  var levelContent = _ref.levelContent;
+  var currentPath = _ref.currentPath;
+  var levelDepth = _ref.levelDepth;
+  var updatePath = _ref.updatePath;
+
+  var propertyRows = [];
+
+  //if the column represents an object, print its properties as rows
+  if ((typeof levelContent === 'undefined' ? 'undefined' : _typeof(levelContent)) === 'object') {
+    var markActive;
+
+    //test if each entry is part of the currently selected path
+    var keyCounter = 0;
+    for (var property in levelContent) {
+      markActive = false;
+      if (currentPath[levelDepth] == property) {
+        markActive = true;
+      }
+
+      propertyRows.push(React.createElement(ClickablePropertyRow, { propertyName: property, levelDepth: levelDepth, isActive: markActive, updatePath: updatePath, key: keyCounter }));
+      keyCounter++;
+    }
+
+    //for non-object columns, just print the value as a single, click-disabled row
+  } else {
+    propertyRows.push(React.createElement(TerminalPropertyRow, { propertyName: levelContent, key: 0 }));
+  }
+
+  return React.createElement(
+    'div',
+    { className: 'level-column' },
+    React.createElement(
+      'div',
+      { className: 'list-group' },
+      propertyRows
+    ),
+    React.createElement(LevelColumnCaption, { levelContent: levelContent })
+  );
+};
+
+},{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":8,"./terminal-property-row.jsx":12,"react":"react"}],10:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Helper = require('../helper.jsx');
+
+//Displays the path string needed to reference the chosen path:
+module.exports = function (_ref) {
+  var reduxState = _ref.reduxState;
+  return React.createElement(
+    'div',
+    { className: 'path-view' },
+    React.createElement(
+      'div',
+      { className: 'help-text-small ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden') },
+      'Selected path:'
+    ),
+    React.createElement(
+      'div',
+      { className: 'current-path lead' },
+      Helper.pathArrayToString(reduxState.currentPath)
+    )
+  );
+};
+
+},{"../helper.jsx":13,"react":"react"}],11:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var Helper = require('../helper.jsx');
+
+module.exports = function (_ref) {
+  var reduxState = _ref.reduxState;
+  var resetState = _ref.resetState;
+  return React.createElement(
+    'button',
+    { className: 'btn btn-primary pull-right ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden'), onClick: resetState },
+    ' Reset'
+  );
+};
+
+},{"../helper.jsx":13,"react":"react"}],12:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+
+//Displays a value for non-objects at the end of the tree; is not clickable
+module.exports = function (_ref) {
+  var propertyName = _ref.propertyName;
+  return React.createElement(
+    'a',
+    { className: 'list-group-item property-row disabled' },
+    propertyName.toString()
+  );
+};
+
+},{"react":"react"}],13:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -269,110 +428,7 @@ module.exports.pathArrayToString = function (pathArray) {
   }).join('');
 };
 
-},{}],8:[function(require,module,exports){
-'use strict';
-
-var React = require('react');
-var ResetButton = require('./reset-button.jsx');
-
-//Contains the text input and left 1/3 of the app
-module.exports = function (_ref) {
-  var reduxState = _ref.reduxState;
-  var handleTextChange = _ref.handleTextChange;
-  var handleFormSubmit = _ref.handleFormSubmit;
-  var resetState = _ref.resetState;
-  return React.createElement(
-    'div',
-    { className: 'input-pane' },
-    React.createElement(
-      'form',
-      { action: '', onSubmit: handleFormSubmit },
-      React.createElement(
-        'div',
-        { className: 'form-group' },
-        React.createElement('textarea', { className: 'form-control', rows: '15', value: reduxState.textContent, onChange: handleTextChange, placeholder: 'Paste a JSON string here (without any surrounding quote marks)...' }),
-        React.createElement('input', { className: 'btn btn-primary', id: 'btn-data-submit', type: 'submit', value: 'Go!' }),
-        React.createElement(ResetButton, { resetState: resetState, reduxState: reduxState }),
-        React.createElement('div', { className: 'clearfix' })
-      )
-    )
-  );
-};
-
-},{"./reset-button.jsx":14,"react":"react"}],9:[function(require,module,exports){
-'use strict';
-
-var React = require('react');
-var Helper = require('./helper.jsx');
-
-//assign a caption depending on the type of the value represented in the column
-module.exports = function (_ref) {
-  var levelContent = _ref.levelContent;
-  return React.createElement(
-    'div',
-    { className: 'level-column-caption-container' },
-    React.createElement(
-      'div',
-      { className: 'level-column-caption' },
-      Helper.getType(levelContent)
-    )
-  );
-};
-
-},{"./helper.jsx":7,"react":"react"}],10:[function(require,module,exports){
-'use strict';
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-var React = require('react');
-
-var ClickablePropertyRow = require('./clickable-property-row.jsx');
-var TerminalPropertyRow = require('./terminal-property-row.jsx');
-var LevelColumnCaption = require('./level-column-caption.jsx');
-
-//Column with all properties for a single level in the current path
-module.exports = function (_ref) {
-  var levelContent = _ref.levelContent;
-  var currentPath = _ref.currentPath;
-  var levelDepth = _ref.levelDepth;
-  var updatePath = _ref.updatePath;
-
-  var propertyRows = [];
-
-  //if the column represents an object, print its properties as rows
-  if ((typeof levelContent === 'undefined' ? 'undefined' : _typeof(levelContent)) === 'object') {
-    var markActive;
-
-    //test if each entry is part of the currently selected path
-    var keyCounter = 0;
-    for (var property in levelContent) {
-      markActive = false;
-      if (currentPath[levelDepth] == property) {
-        markActive = true;
-      }
-
-      propertyRows.push(React.createElement(ClickablePropertyRow, { propertyName: property, levelDepth: levelDepth, isActive: markActive, updatePath: updatePath, key: keyCounter }));
-      keyCounter++;
-    }
-
-    //for non-object columns, just print the value as a single, click-disabled row
-  } else {
-    propertyRows.push(React.createElement(TerminalPropertyRow, { propertyName: levelContent, key: 0 }));
-  }
-
-  return React.createElement(
-    'div',
-    { className: 'level-column' },
-    React.createElement(
-      'div',
-      { className: 'list-group' },
-      propertyRows
-    ),
-    React.createElement(LevelColumnCaption, { levelContent: levelContent })
-  );
-};
-
-},{"./clickable-property-row.jsx":1,"./level-column-caption.jsx":9,"./terminal-property-row.jsx":15,"react":"react"}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 //React component hierarchy:
@@ -394,7 +450,7 @@ var ReactDOM = require('react-dom');
 var Redux = require('redux');
 
 var Reducers = require('./reducers.jsx');
-var ExplorerApp = require('./explorer-app.jsx');
+var ExplorerApp = require('./components/explorer-app.jsx');
 
 //create a store from the above reducer, then subscribe a React render function to it
 var reduxStore = Redux.createStore(Reducers.explorerApp);
@@ -439,36 +495,11 @@ function render() {
 }
 
 //wait for background image to load before displaying it:
-// $(document).ready(function () {
-//   $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
-// });
+$(document).ready(function () {
+  $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
+});
 
-},{"./explorer-app.jsx":5,"./reducers.jsx":13,"react":"react","react-dom":"react-dom","redux":"redux"}],12:[function(require,module,exports){
-'use strict';
-
-var React = require('react');
-var Helper = require('./helper.jsx');
-
-//Displays the path string needed to reference the chosen path:
-module.exports = function (_ref) {
-  var reduxState = _ref.reduxState;
-  return React.createElement(
-    'div',
-    { className: 'path-view' },
-    React.createElement(
-      'div',
-      { className: 'help-text-small ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden') },
-      'Selected path:'
-    ),
-    React.createElement(
-      'div',
-      { className: 'current-path lead' },
-      Helper.pathArrayToString(reduxState.currentPath)
-    )
-  );
-};
-
-},{"./helper.jsx":7,"react":"react"}],13:[function(require,module,exports){
+},{"./components/explorer-app.jsx":5,"./reducers.jsx":15,"react":"react","react-dom":"react-dom","redux":"redux"}],15:[function(require,module,exports){
 'use strict';
 
 var Redux = require('redux');
@@ -498,7 +529,6 @@ var currentPath = function currentPath() {
       } else {
         return state.slice(0, action.level);
       }
-
     case 'RESET_STATE':
       return {};
     default:
@@ -543,35 +573,4 @@ module.exports.explorerApp = Redux.combineReducers({
   showError: showError
 });
 
-},{"redux":"redux"}],14:[function(require,module,exports){
-'use strict';
-
-var React = require('react');
-var Helper = require('./helper.jsx');
-
-module.exports = function (_ref) {
-  var reduxState = _ref.reduxState;
-  var resetState = _ref.resetState;
-  return React.createElement(
-    'button',
-    { className: 'btn btn-primary pull-right ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden'), onClick: resetState },
-    ' Reset'
-  );
-};
-
-},{"./helper.jsx":7,"react":"react"}],15:[function(require,module,exports){
-'use strict';
-
-var React = require('react');
-
-//Displays a value for non-objects at the end of the tree; is not clickable
-module.exports = function (_ref) {
-  var propertyName = _ref.propertyName;
-  return React.createElement(
-    'a',
-    { className: 'list-group-item property-row disabled' },
-    propertyName.toString()
-  );
-};
-
-},{"react":"react"}]},{},[11]);
+},{"redux":"redux"}]},{},[14]);

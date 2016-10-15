@@ -1,5 +1,5 @@
 var React = require('react');
-var Helper = require('./helper.jsx');
+var Helper = require('../helper.jsx');
 
 //displays the JSON-encoded content of the chosen path, with whitespace for readability:
 module.exports = ({ reduxState }) => {

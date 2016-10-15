@@ -20,7 +20,6 @@ const currentPath = (state=[], action) => {
       } else {
         return state.slice(0, action.level);
       }
-
     case 'RESET_STATE':
       return {};
     default:

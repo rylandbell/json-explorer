@@ -16,8 +16,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
 
-var Reducers = require('./reducers.jsx');
-var ExplorerApp = require('./explorer-app.jsx');
+var Reducers = require('./reducers.jsx'); 
+var ExplorerApp = require('./components/explorer-app.jsx');
 
 //create a store from the above reducer, then subscribe a React render function to it
 const reduxStore = Redux.createStore(Reducers.explorerApp);
@@ -73,6 +73,6 @@ function render() {
 }
 
 //wait for background image to load before displaying it:
-// $(document).ready(function () {
-//   $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
-// });
+$(document).ready(function () {
+  $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
+});

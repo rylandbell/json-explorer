@@ -1,9 +1,9 @@
 var React = require('react');
-var Helper = require('./helper.jsx');
+var Helper = require('../helper.jsx');
 
 var LevelColumn = require('./level-column.jsx');
 
-//Container for all of the LevelColumns
+//Container for all of the LevelColumns 
 module.exports = ({ reduxState, updatePath }) => (
   <div className='column-view clearfix'>
     <div className={'explorer-help-text ' + (!Helper.isNonEmpty(reduxState.data) ? '' : 'hidden')}>...and then explore its nested structure in this pane.
