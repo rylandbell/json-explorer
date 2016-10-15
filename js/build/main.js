@@ -68,7 +68,7 @@ module.exports = function (_ref) {
 
   var displayedData = Object.assign({}, reduxState.data);
   reduxState.currentPath.forEach(function (pathStep) {
-    displayedData = Object.assign({}, displayedData[pathStep]);
+    displayedData = displayedData[pathStep];
   });
 
   return React.createElement(
@@ -133,10 +133,10 @@ module.exports = function (_ref) {
     ),
     React.createElement(
       'div',
-      { className: 'row' },
+      { className: 'row clearfix' },
       React.createElement(
         'p',
-        { className: 'non-app-text' },
+        { className: 'non-app-text pull-left' },
         'Don\'t have any JSON strings handy? ',
         React.createElement(
           'a',
@@ -144,6 +144,15 @@ module.exports = function (_ref) {
           'Click here'
         ),
         ' for a few samples to copy and paste.'
+      ),
+      React.createElement(
+        'p',
+        { className: 'pull-right' },
+        React.createElement(
+          'a',
+          { href: 'https://github.com/rylandbell/json-navigator', target: '_blank' },
+          'View project on GitHub'
+        )
       )
     ),
     React.createElement(

@@ -5,7 +5,7 @@ var Helper = require('../helper.jsx');
 module.exports = ({ reduxState }) => {
   let displayedData = Object.assign({}, reduxState.data);
   reduxState.currentPath.forEach((pathStep) => {
-    displayedData = Object.assign({}, displayedData[pathStep]);
+    displayedData = displayedData[pathStep];
   });
 
   return (
