@@ -177,11 +177,7 @@ module.exports = function (_ref) {
     React.createElement(
       'div',
       { className: 'row' },
-      React.createElement(
-        'div',
-        { className: 'col-xs-12' },
-        React.createElement(ContentPane, { reduxState: reduxState })
-      )
+      React.createElement(ContentPane, { reduxState: reduxState })
     )
   );
 };
@@ -543,6 +539,7 @@ var currentPath = function currentPath() {
       } else {
         return state.slice(0, action.level);
       }
+
     case 'RESET_STATE':
       return [];
     default:

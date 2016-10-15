@@ -16,7 +16,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
 
-var Reducers = require('./reducers.jsx'); 
+var Reducers = require('./reducers.jsx');
 var ExplorerApp = require('./components/explorer-app.jsx');
 
 //create a store from the above reducer, then subscribe a React render function to it

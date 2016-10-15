@@ -1,4 +1,4 @@
-# JSON Explorer
+# JSON Navigator
 
 JSON-encoded objects can be challenging to navigate, whether you are working with your own code or data you've found elsewhere. To help, I made a simple tool that offers a visual way to navigate JSON data. My hope is that this tool can help with gaining a general sense of the object's data structure, or with finding the path needed to reference a specific value.
 

@@ -28,9 +28,7 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
       <ErrorDisplay reduxState={reduxState} />
     </div>
     <div className='row'>
-      <div className='col-xs-12'>
-        <ContentPane reduxState={reduxState} />
-      </div>
+      <ContentPane reduxState={reduxState} />
     </div>
   </div>
 );

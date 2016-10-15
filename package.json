@@ -1,8 +1,7 @@
 {
-  "name": "json-explorer",
+  "name": "json-navigator",
   "version": "1.0.0",
   "devDependencies": {
-    "@kadira/storybook": "^2.6.1",
     "babel-register": "^6.11.6",
     "deep-freeze": "0.0.1",
     "expect": "^1.20.2",
@@ -28,8 +27,7 @@
     "build-watch": "watchify -t [babelify] -x react -x react-dom -x redux -x expect js/src/main.jsx -o js/build/main.js",
     "sass-watch": "sass --watch scss:css",
     "test": "mocha --compilers js:babel-register ./test",
-    "test:watch": "npm test -- --watch",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "test:watch": "npm test -- --watch"
   },
   "babel": {
     "presets": [
