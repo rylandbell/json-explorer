@@ -163,6 +163,14 @@ a {
   white-space: pre-wrap;
   word-wrap: break-word; }
 
+/*Links and helper text*/
+.non-app-text-row {
+  position: relative; }
+
+.non-app-text {
+  position: absolute;
+  bottom: 0; }
+
 /*Smaller screens: */
 @media (max-width: 991px) {
   .input-pane textarea {

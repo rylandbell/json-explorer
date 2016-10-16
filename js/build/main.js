@@ -78,7 +78,7 @@ module.exports = function (_ref) {
     React.createElement(
       'p',
       { className: 'help-text-small' },
-      ' Contents of selected path: '
+      ' Content of selected path: '
     ),
     React.createElement(
       'pre',
@@ -133,7 +133,7 @@ module.exports = function (_ref) {
     ),
     React.createElement(
       'div',
-      { className: 'row clearfix' },
+      { className: 'row clearfix non-app-text-row' },
       React.createElement(
         'p',
         { className: 'non-app-text pull-left' },
@@ -151,7 +151,7 @@ module.exports = function (_ref) {
         React.createElement(
           'a',
           { href: 'https://github.com/rylandbell/json-navigator', target: '_blank' },
-          'View project on GitHub'
+          React.createElement('img', { src: '../images/github.png', 'data-toggle': 'tooltip', 'data-placement': 'bottom', title: 'View Project on GitHub' })
         )
       )
     ),
@@ -508,6 +508,11 @@ function render() {
 // $(document).ready(function () {
 //   $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
 // });
+
+//initialize Bootstrap tooltips
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
 
 },{"./components/explorer-app.jsx":5,"./reducers.jsx":15,"react":"react","react-dom":"react-dom","redux":"redux"}],15:[function(require,module,exports){
 'use strict';

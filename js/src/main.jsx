@@ -76,3 +76,8 @@ function render() {
 // $(document).ready(function () {
 //   $('body').css('backgroundImage', 'url(../images/footerlodyas.png)');
 // });
+
+//initialize Bootstrap tooltips
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})

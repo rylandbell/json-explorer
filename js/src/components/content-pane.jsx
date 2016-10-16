@@ -11,7 +11,7 @@ module.exports = ({ reduxState }) => {
   return (
     <div className={'content-pane ' + (Helper.isNonEmpty(reduxState.data) ? '' : 'hidden')}>
       <br />
-      <p className='help-text-small'> Contents of selected path: </p>
+      <p className='help-text-small'> Content of selected path: </p>
       <pre>{JSON.stringify(displayedData, null, 2)}</pre>
     </div>
   );
