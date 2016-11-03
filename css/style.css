@@ -4,7 +4,7 @@
 /*Assigned colors: */
 body {
   background-color: #171a1b;
-  background-image: url("../images/footerlodyas.png");
+  background-image: url("../images/bg-small.png");
   background-attachment: fixed;
   color: #eee; }
 
@@ -207,18 +207,22 @@ body {
   font-size: 1.2em; }
 
 textarea::-webkit-input-placeholder {
+  color: red;
   font-size: 1.5em; }
 
 textarea:-moz-placeholder {
   /* FF 4-18 */
+  color: red;
   font-size: 1.5em; }
 
 textarea::-moz-placeholder {
   /* FF 19+ */
+  color: red;
   font-size: 1.5em; }
 
 textarea:-ms-input-placeholder {
   /* IE 10+ */
+  color: red;
   font-size: 1.5em; }
 
 /*# sourceMappingURL=style.css.map */
