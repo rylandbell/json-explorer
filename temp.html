@@ -39,15 +39,18 @@
     </div>
   </div>
 
+  
   <!-- Boostrap and jQuery -->
 	<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-  <!-- React, React-DOM, Redux bundled w/ Browserify: -->
-  <script src='js/build/bundle.js'></script>
+  <!-- When this page is generated from the json-columns CLI, the user's provided JSON string is defined below: -->
+  <script id="preload-data">var preloadedUserData = '{"name":"json-navigator","version":"1.0.0","devDependencies":{"babel-core":"^6.18.2","babel-loader":"^6.2.7","babel-plugin-transform-object-assign":"^6.8.0","babel-polyfill":"^6.16.0","babel-preset-es2015":"^6.18.0","babel-preset-react":"^6.16.0","babel-register":"^6.11.6","deep-freeze":"0.0.1","expect":"^1.20.2","grunt":"^1.0.1","grunt-eslint":"^19.0.0","grunt-jscs":"^3.0.1","jsdom":"^9.4.2","jsdom-global":"^2.0.0","mocha":"^3.0.2","webpack":"^1.13.3","webpack-uglify-js-plugin":"^1.1.9"},"dependencies":{"babel-preset-es2015":"^6.13.2","babel-preset-react":"^6.11.1","babelify":"^7.3.0","open":"0.0.5","react":"^15.3.0","react-dom":"^15.3.0","redux":"^3.5.2","through2":"^2.0.3","trumpet":"^1.7.2"},"scripts":{"start":"node ./bin/www","build":"browserify -t [babelify] -x react -x react-dom -x redux -x expect js/src/main.jsx -o js/build/main.js","build-vendor":"browserify -t [babelify] -r react -r react-dom -r redux -r expect -o js/build/vendor.js","build-watch":"watchify -t [babelify] -x react -x react-dom -x redux -x expect js/src/main.jsx -o js/build/main.js","sass-watch":"sass --watch scss:css","test":"mocha --compilers js:babel-register ./test","test:watch":"npm test -- --watch"},"babel":{"presets":["react","es2015"]},"eslintConfig":{"parserOptions":{"ecmaVersion":6,"sourceType":"module","ecmaFeatures":{"jsx":true}},"env":{"browser":true,"commonjs":true,"es6":true,"mocha":true,"jquery":true},"plugins":["react"],"react":{"pragma":"React","version":"15.0"},"extends":["eslint:recommended","plugin:react/recommended"],"rules":{"react/prop-types":0,"react/display-name":0}}}'</script>
 
- <!-- When this page is generated from the json-columns CLI, the user's provided JSON string is defined below: -->
-  <script id="preload-data"></script>
+  <!-- React, React-DOM, Redux bundled w/ Browserify: -->
+<!--   <script src='js/build/vendor.js'></script>
+  <script src='js/build/main.js'></script>
+ -->  <script src='js/build/bundle.js'></script>
 </body>
 </html>
 

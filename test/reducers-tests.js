@@ -3,7 +3,7 @@ var deepFreeze = require('deep-freeze');
 
 var Reducers = require('../js/src/reducers.jsx');
 
-describe('parentReducer action handling', function () {
+describe('explorerApp action handling', function () {
   describe('action type: UPDATE_DATA', function () {
     it('should add data to initial state', function () {
       var stateBefore = { data: {}, currentPath: [], showError: false, textContent: '' };
@@ -14,7 +14,7 @@ describe('parentReducer action handling', function () {
       deepFreeze(testAction);
 
       expect(
-        Reducers.parentReducer(stateBefore, testAction)
+        Reducers.explorerApp(stateBefore, testAction)
       ).toEqual(stateAfter);
     });
 
@@ -27,7 +27,7 @@ describe('parentReducer action handling', function () {
       deepFreeze(testAction);
 
       expect(
-        Reducers.parentReducer(stateBefore, testAction)
+        Reducers.explorerApp(stateBefore, testAction)
       ).toEqual(stateAfter);
     });
 
@@ -40,7 +40,7 @@ describe('parentReducer action handling', function () {
       deepFreeze(testAction);
 
       expect(
-        Reducers.parentReducer(stateBefore, testAction)
+        Reducers.explorerApp(stateBefore, testAction)
       ).toEqual(stateAfter);
     });
   });
@@ -59,7 +59,7 @@ describe('parentReducer action handling', function () {
       deepFreeze(testAction);
 
       expect(
-        Reducers.parentReducer(stateBefore, testAction)
+        Reducers.explorerApp(stateBefore, testAction)
       ).toEqual(stateAfter);
     });
 
@@ -75,10 +75,10 @@ describe('parentReducer action handling', function () {
       deepFreeze(testAction);
 
       expect(
-        Reducers.parentReducer(stateBefore, testAction).currentPath.length
+        Reducers.explorerApp(stateBefore, testAction).currentPath.length
       ).toEqual(2);
       expect(
-        Reducers.parentReducer(stateBefore, testAction).currentPath[1]
+        Reducers.explorerApp(stateBefore, testAction).currentPath[1]
       ).toEqual('newPathStep');
     });
   });
@@ -96,7 +96,7 @@ describe('parentReducer action handling', function () {
       deepFreeze(testAction);
 
       expect(
-        Reducers.parentReducer(stateBefore, testAction)
+        Reducers.explorerApp(stateBefore, testAction)
       ).toEqual(stateAfter);
     });
   });
@@ -113,7 +113,7 @@ describe('parentReducer action handling', function () {
       deepFreeze(testAction);
 
       expect(
-        Reducers.parentReducer(stateBefore, testAction)
+        Reducers.explorerApp(stateBefore, testAction)
       ).toEqual(stateAfter);
     });
   });
@@ -130,7 +130,7 @@ describe('parentReducer action handling', function () {
       deepFreeze(testAction);
 
       expect(
-        Reducers.parentReducer(stateBefore, testAction)
+        Reducers.explorerApp(stateBefore, testAction)
       ).toEqual(stateAfter);
     });
   });
@@ -147,7 +147,7 @@ describe('parentReducer action handling', function () {
       deepFreeze(testAction);
 
       expect(
-        Reducers.parentReducer(stateBefore, testAction)
+        Reducers.explorerApp(stateBefore, testAction)
       ).toEqual(stateAfter);
     });
   });
