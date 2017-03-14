@@ -24,6 +24,8 @@ const reduxStore = Redux.createStore(Reducers.explorerApp);
 reduxStore.subscribe(render);
 render();
 
+injectPreloadedData();
+
 //React render function, with callbacks
 function render() {
   ReactDOM.render(
@@ -70,6 +72,20 @@ function render() {
     />,
     document.getElementById('explorer-app')
   );
+}
+
+//If the app was opened from the command line with a user-selected JSON file, populate the redux store with this data on page load.
+function injectPreloadedData() {
+  if (typeof preloadedUserData !== 'undefined') {
+    try {
+      reduxStore.dispatch({ type: 'UPDATE_DATA', data: JSON.parse(preloadedUserData) });
+      reduxStore.dispatch({ type: 'TEXT_ENTRY', textContent: preloadedUserData });
+    } catch (err) {
+      reduxStore.dispatch({ type: 'SHOW_ERROR' });
+      reduxStore.dispatch({ type: 'UPDATE_DATA', data: {} });
+    }
+  }
+  return;
 }
 
 //initialize Bootstrap tooltips
