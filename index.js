@@ -1,9 +1,12 @@
+#!/usr/bin/env node
 "use strict";
 
 const fs = require('fs'),
   through = require('through2'),
   open = require('open'),
-  trumpet = require('trumpet');
+  trumpet = require('trumpet'),
+  program = require('commander'),
+  jsStringEscape = require('js-string-escape');
 
 fs.readFile(process.argv[2], processData);
 
@@ -20,8 +23,10 @@ function processData(err, data) {
   //abort the process and display an error msg if the provided user data isn't valid JSON
   function checkForValidJson(string) {
     try {
-      const condensedString = JSON.stringify(JSON.parse(string));
-      return condensedString;
+      // const condensedString = JSON.stringify(JSON.parse(string));
+      JSON.parse(string);
+      const escapedString = jsStringEscape(string);
+      return escapedString;
     } catch (err) {
       if (err instanceof SyntaxError) {
         console.log('Error: not a valid JSON string. ', err.message);
@@ -49,34 +54,3 @@ function createPageWithData(userData, openPage) {
     .pipe(writeTempFile)
     .on('finish', () => openPage ? open('temp.html','google chrome') : console.log('all done!'))
 }
-
-// createPageWithData('abcd', () => open('temp.html','google chrome'));
-
-// function getDataFromFile(path, callback) {
-//   // const checkValidJson = through(write, end);
-
-  // function write (buffer, encoding, next) {
-  //   try {
-  //     JSON.parse(buffer.toString())
-  //     this.push(buffer);
-  //   } catch (err) {
-  //     if (err instanceof SyntaxError) {
-  //       console.log('Error: not a valid JSON string. ', err.message);
-  //     } else {
-  //       console.log('Unexpected error.');
-  //       console.error(err);
-  //     }
-  //   }
-  //   next();
-  // }
-
-//   // function end (done) {
-//   //   this.push('\n');
-//   //   done();
-//   // }
-
-//   fs.createReadStream(path)
-//     // .pipe(checkValidJson)
-//     .on('data', (err, data) => data.toString())
-//     .on('end', (err, data) => callback(data))
-// }
