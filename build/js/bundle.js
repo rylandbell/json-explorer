@@ -21452,7 +21452,7 @@
 	        React.createElement(
 	          'a',
 	          { href: 'https://github.com/rylandbell/json-navigator', target: '_blank' },
-	          React.createElement('img', { src: 'images/github.png', 'data-toggle': 'tooltip', 'data-placement': 'bottom', title: 'View Project on GitHub' })
+	          React.createElement('img', { src: './build/images/github.png', 'data-toggle': 'tooltip', 'data-placement': 'bottom', title: 'View Project on GitHub' })
 	        )
 	      )
 	    ),

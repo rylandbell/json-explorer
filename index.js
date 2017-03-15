@@ -2,11 +2,17 @@
 "use strict";
 
 const fs = require('fs'),
-  through = require('through2'),
+  // through = require('through2'),
+  tmp = require('tmp'),
   open = require('open'),
   trumpet = require('trumpet'),
   program = require('commander'),
   jsStringEscape = require('js-string-escape');
+
+const tmpobj = tmp.fileSync();
+tmpobj.name += '.html'
+// console.log("File: ", tmpobj.name);
+// console.log("Filedescriptor: ", tmpobj.fd);
 
 fs.readFile(process.argv[2], processData);
 
@@ -47,10 +53,14 @@ function createPageWithData(userData, openPage) {
     .createWriteStream()
     .end(`var preloadedUserData = '${userData}'`);
 
-  const writeTempFile = fs.createWriteStream(__dirname + '/temp.html');
+  // const writeTempFile = fs.createWriteStream(__dirname + '/temp.html');
+  const writeTempFile = fs.createWriteStream(tmpobj.name);
 
   fs.createReadStream(__dirname + '/index.html')
     .pipe(tr)
     .pipe(writeTempFile)
-    .on('finish', () => openPage ? open('temp.html','google chrome') : console.log('all done!'))
+    // .on('finish', () => openPage ? open('temp.html','google chrome') : console.log('all done!'))
+    .on('finish', () => openPage ? open(tmpobj.name,'google chrome') : console.log('all done!'))
 }
+
+var timer = setTimeout(()=>{}, 5000);

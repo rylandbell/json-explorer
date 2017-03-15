@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const path = require('path');
 
 const PATHS = {
-  app: './js/src/main.jsx',
-  dist: path.join(__dirname, './js/build')
+  app: './src/js/main.jsx',
+  dist: path.join(__dirname, './build/js')
 };
  
 module.exports = {
