@@ -24,7 +24,7 @@ $highlight-bold: darken(desaturate($highlight,30%),30%);
 $greyish-light: lighten($greyish,10%);
 $greyish-lighter: lighten($greyish,25%);
 
-/*Assigned colors: */
+/*Assigned colors & backgrounds: */
 body {
 	background-color: $primary-bolder;
 	background-image: url("../images/bg-small.png");
@@ -106,6 +106,13 @@ a {
 
 .content-pane>pre {
 	background-color: $off-white;
+}
+
+.github-logo {
+	display: block;
+	height: 32px;
+	width: 32px;
+	background-image: url("../images/github.png");
 }
 
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
