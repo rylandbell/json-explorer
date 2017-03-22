@@ -1,17 +1,20 @@
-# JSON Navigator
+# JSON Columns
 
-JSON-encoded objects can be challenging to navigate, whether you are working with your own code or data you've found elsewhere. To help, I made a simple tool that offers a visual way to navigate JSON data. My hope is that this tool can help with gaining a general sense of the object's data structure, or with finding the path needed to reference a specific value.
+Navigate JSON-encoded data in a simple column-based interface, either to gain a general sense of the data structure or to create a copy-pastable path to a given value. 
 
 ## Usage
 
-Find a JSON string, and copy it to your clipboard. This app allows you to explore the data structure of the encoded object, and provides a copy-able Javascript path to reference any value in the object.
+For now, the best way to use this tool is by visiting [json-navigator.com](http://json-navigator.com).
+
+## Why is this on NPM?
+I'm working on a command line tool to generate a JSON Columns page that's pre-loaded with data from a user-supplied file, and am using this package as a module in that project.
 
 
 ## License
 
 MIT License
 
-Copyright (c) 2016 Ryland Bell
+Copyright (c) 2017 Ryland Bell
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

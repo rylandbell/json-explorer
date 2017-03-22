@@ -12,6 +12,8 @@
 //    -PathView
 //  -ContentPane
 
+var $ = require('jquery');
+var bootstrap = require('bootstrap');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');

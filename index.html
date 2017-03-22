@@ -1,9 +1,8 @@
 <!DOCTYPE = html>
 <html>
 <head>
-	<title>JSON Navigator</title>
-  <!-- Bootstrap CSS: -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<title>JSON Columns</title>
+  <!-- style.css bundles Bootstrap w/ my CSS: -->
 	<link id="my-css" type="text/css" rel="stylesheet" href="build/css/style.css"/>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Raleway:200' rel='stylesheet' type='text/css'>
@@ -39,15 +38,11 @@
     </div>
   </div>
 
-  <!-- Boostrap and jQuery -->
-	<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  
   <!-- When this page is generated from the json-columns CLI, the user's provided JSON string is defined below: -->
   <script id="preload-data"></script>
-  <!-- React, React-DOM, Redux bundled w/ Browserify: -->
-  <script id="bundle" src='build/js/bundle.js'></script>
-
+  
+  <!-- React, React-DOM, Redux, jQuery, Bootstrap bundled w/ Webpack: -->
+  <script id="bundle" src='build/js/bundle.min.js'></script>
  
 </body>
 </html>
