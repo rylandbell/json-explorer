@@ -1,5 +1,4 @@
 var React = require('react');
-// <img src="build/images/github.png" data-toggle="tooltip" data-placement="bottom" title="View Project on GitHub" alt="github"/>
 var InputPane = require('./input-pane.jsx');
 var ExplorerPane = require('./explorer-pane.jsx');
 var ErrorDisplay = require('./error-display.jsx');
@@ -11,7 +10,9 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
       <h1> JSON Columns </h1>
     </div>
     <div className='row clearfix non-app-text-row'>
-      <p className='non-app-text pull-left'>Don't have any JSON strings handy? <a href='' data-toggle='modal' data-target='#sample-strings'>Click here</a> for a few samples to copy and paste.</p>
+      {reduxState.dataIsPreloaded ? null :
+        <p className='non-app-text pull-left'>Don't have any JSON strings handy? <a href='' data-toggle='modal' data-target='#sample-strings'>Click here</a> for a few samples to copy and paste.</p>
+      }
       <p className='pull-right'>
         <a href='https://github.com/rylandbell/json-columns' target='_blank'>
           <div className='github-logo' data-toggle="tooltip" data-placement="bottom" alt="View Project on GitHub" title="View Project on GitHub"></div>

@@ -52,9 +52,19 @@ const showError = (state=false, action) => {
   }
 };
 
+const dataIsPreloaded = (state = false, action) => {
+  switch (action.type) {
+    case 'PRELOAD_DATA':
+      return true;
+    default:
+      return false;
+  }
+}
+
 module.exports.explorerApp = Redux.combineReducers({
   data: data,
   currentPath: currentPath,
   textContent: textContent,
-  showError: showError
+  showError: showError,
+  dataIsPreloaded: dataIsPreloaded
 });
