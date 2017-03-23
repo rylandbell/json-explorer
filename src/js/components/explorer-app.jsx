@@ -15,7 +15,7 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
       }
       <p className='pull-right'>
         <a href='https://www.npmjs.com/package/json-columns' target='_blank'>
-          <img className='npm-logo' data-toggle="tooltip" data-placement="bottom" alt="Install a command-line version on NPM" title="Install a command-line version on NPM" src="build/images/npmlogo.svg" />
+          <img className='npm-logo' data-toggle="tooltip" data-placement="bottom" alt="Install a command-line version on NPM" title="Install a command-line version on NPM" src="./build/images/npmlogo.svg" />
         </a>
         <a href='https://github.com/rylandbell/json-columns' target='_blank'>
           <div className='github-logo' data-toggle="tooltip" data-placement="bottom" alt="View source code on GitHub" title="View source code on GitHub"></div>
