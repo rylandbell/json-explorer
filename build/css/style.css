@@ -5999,11 +5999,13 @@ a {
 
   #explorer-app {
     margin-bottom: 50px; } }
+.web-only-row {
+  margin-top: -20px; }
+
 /*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
 h1 {
   font-family: 'Raleway', Helvetica, Arial, sans-serif;
-  font-size: 50px;
-  margin-bottom: -10px; }
+  font-size: 50px; }
 
 * {
   font-family: 'Open Sans', Georgia, Times, serif;
