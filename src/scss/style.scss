@@ -111,10 +111,19 @@ a {
 }
 
 .github-logo {
-	display: block;
+	display: inline-block;
 	height: 32px;
 	width: 32px;
 	background-image: url("../images/github.png");
+	position: relative;
+	top: 9px;
+}
+
+.npm-logo {
+	display: inline-block;
+	height: 32px;
+	margin-right: 16px;
+	// width: 32px;
 }
 
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
@@ -265,6 +274,7 @@ a {
 h1 {
 	font-family: 'Raleway', Helvetica, Arial, sans-serif;
 	font-size: 50px;
+	margin-bottom: -10px;
 }
  
 * {

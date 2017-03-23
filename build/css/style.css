@@ -5875,10 +5875,17 @@ a {
   background-color: #eee; }
 
 .github-logo {
-  display: block;
+  display: inline-block;
   height: 32px;
   width: 32px;
-  background-image: url("../images/github.png"); }
+  background-image: url("../images/github.png");
+  position: relative;
+  top: 9px; }
+
+.npm-logo {
+  display: inline-block;
+  height: 32px;
+  margin-right: 16px; }
 
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
 /*Big pieces*/
@@ -5995,7 +6002,8 @@ a {
 /*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
 h1 {
   font-family: 'Raleway', Helvetica, Arial, sans-serif;
-  font-size: 50px; }
+  font-size: 50px;
+  margin-bottom: -10px; }
 
 * {
   font-family: 'Open Sans', Georgia, Times, serif;
