@@ -4,7 +4,21 @@ Navigate JSON-encoded data in a simple column-based interface, either to gain a 
 
 ## Usage
 
-For now, the best way to use this tool is by visiting [json-navigator.com](http://json-navigator.com).
+**Web version:**
+
+The simplest way to use this tool is to copy some JSON to your clipboard and visit [json-navigator.com](http://json-navigator.com).
+
+**Command line:**
+
+Install:
+
+`npm install -g json-columns`
+
+To use, pass the app a JSON-encoded file.
+
+`json-columns my-file.json`
+
+This will generate a JSON Columns page pre-loaded with data from the supplied JSON file.
 
 ## Why is this on NPM?
 I'm working on a command line tool to generate a JSON Columns page that's pre-loaded with data from a user-supplied file, and am using this package as a module in that project.

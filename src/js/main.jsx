@@ -78,7 +78,6 @@ function render() {
 
 //If the app was opened from the command line with a user-selected JSON file, populate the redux store with this data on page load.
 function injectPreloadedData() {
-  console.log('preloadedUserData', typeof preloadedUserData);
   if (typeof preloadedUserData !== 'undefined') {
     try {
       reduxStore.dispatch({ type: 'UPDATE_DATA', data: JSON.parse(preloadedUserData) });
