@@ -57,7 +57,7 @@ const dataIsPreloaded = (state = false, action) => {
     case 'PRELOAD_DATA':
       return true;
     default:
-      return false;
+      return state;
   }
 }
 
