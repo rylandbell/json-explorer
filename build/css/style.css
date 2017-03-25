@@ -5879,13 +5879,16 @@ a {
   height: 32px;
   width: 32px;
   background-image: url("../images/github.png");
-  position: relative;
-  top: 9px; }
+  position: relative; }
 
 .npm-logo {
   display: inline-block;
   height: 32px;
-  margin-right: 16px; }
+  width: 82px;
+  margin-right: 16px;
+  background-image: url("../images/npmlogo.svg");
+  background-size: 82px 32px;
+  position: relative; }
 
 /*~~~~~~~~~~~~~~~~~~~LAYOUT~~~~~~~~~~~~~~~~*/
 /*Big pieces*/
@@ -6000,7 +6003,7 @@ a {
   #explorer-app {
     margin-bottom: 50px; } }
 .web-only-row {
-  margin-top: -20px; }
+  margin-top: -10px; }
 
 /*~~~~~~~~~~~~~~~~~~~TYPOGRAPHY~~~~~~~~~~~~~~~~~~*/
 h1 {
