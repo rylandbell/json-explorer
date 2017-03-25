@@ -10,20 +10,17 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
       <h1> JSON Columns </h1>
     </div>
     <div className='row clearfix non-app-text-row'>
-      {reduxState.dataIsPreloaded ? null :
-        <div className='web-only-row'>
-          <p className='non-app-text pull-left'>Don't have any JSON strings handy? <a href='' data-toggle='modal' data-target='#sample-strings'>Click here</a> for a few samples to copy and paste.</p>
-          <p className='pull-right'>
-            <a href='https://www.npmjs.com/package/json-columns' target='_blank'>
-              {/*<img className='npm-logo' data-toggle="tooltip" data-placement="bottom" alt="Install a command-line version on NPM" title="Install a command-line version on NPM" src="./build/images/npmlogo.svg" />*/}
-              <div className='npm-logo' data-toggle="tooltip" data-placement="bottom" alt="Install a command-line version on NPM" title="Install a command-line version on NPM" />
-            </a>
-            <a href='https://github.com/rylandbell/json-columns' target='_blank'>
-              <div className='github-logo' data-toggle="tooltip" data-placement="bottom" alt="View source code on GitHub" title="View source code on GitHub"></div>
-            </a>
-          </p>
-        </div>
-      }
+      <div className='web-only-row'>
+        <p className='non-app-text pull-left'>Don't have any JSON strings handy? <a href='' data-toggle='modal' data-target='#sample-strings'>Click here</a> for a few samples to copy and paste.</p>
+        <p className='pull-right'>
+          <a href='https://www.npmjs.com/package/json-columns' target='_blank'>
+            <div className='npm-logo' data-toggle="tooltip" data-placement="bottom" alt="Install a command-line version on NPM" title="Install a command-line version on NPM" />
+          </a>
+          <a href='https://github.com/rylandbell/json-columns' target='_blank'>
+            <div className='github-logo' data-toggle="tooltip" data-placement="bottom" alt="View source code on GitHub" title="View source code on GitHub"></div>
+          </a>
+        </p>
+      </div>
     </div>
     <div className='row main-app-row'>
       <div className='col-xs-12 col-md-4'>
