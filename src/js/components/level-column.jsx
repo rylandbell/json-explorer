@@ -8,8 +8,8 @@ var LevelColumnCaption = require('./level-column-caption.jsx');
 module.exports = ({ levelContent, currentPath, levelDepth, updatePath }) => {
   var propertyRows = [];
 
-  //if the column represents an object, print its properties as rows
-  if (typeof levelContent === 'object') {
+  //if the column represents an object or array, print its properties as rows
+  if (typeof levelContent === 'object' && levelContent !== null) {
     var markActive;
 
     //test if each entry is part of the currently selected path

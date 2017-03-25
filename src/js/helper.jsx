@@ -34,10 +34,10 @@ module.exports.getType = function (data) {
   let type = typeof data;
   if (Array.isArray(data)) {
     type = 'array';
-  }
-
-  if (!isNaN(data) && (typeof data !== 'object') && (typeof data !== 'boolean')) {
+  } else if (!isNaN(data) && (typeof data !== 'object') && (typeof data !== 'boolean')) {
     type = 'number';
+  } else if (data === null) {
+    type = 'null';
   }
 
   return type;
