@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "Create a column-based visualization of JSON structure.",
   "author": "Ryland Bell <ryland.belL@gmail.com> (http://ryland-bell.com)",
+  "keywords": ["json","visualization"],
   "license": "MIT",
   "repository": {
     "type": "git",
