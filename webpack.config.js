@@ -53,11 +53,8 @@ module.exports = {
   },
   output: {
     path: PATHS.dist,
-    publicPath: '/',
+    publicPath: '/build/js/',
     filename: 'bundle.min.js'
-  },
-  eslint: {
-    emitWarning: true
   },
   module: {
     // preLoaders: [

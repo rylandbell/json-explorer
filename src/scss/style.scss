@@ -172,10 +172,23 @@ a {
 	vertical-align: top;
 	height: 100%;
 	border-top-width: 0px;
+	z-index: 1;
 
 	&:first-child {
 		border-left-width: 0;
 		border-top-left-radius: 20px;
+	}
+
+	&.level-column-appear {
+	  opacity: 0.5;
+	  transform: translateX(-100%);
+	  z-index: 0;
+	}
+
+	&.level-column-appear.level-column-appear-active {
+	  opacity: 1;
+	  transform: translateX(0);
+	  transition: opacity .3s ease-out, transform .3s ease-out;
 	}
 }
 
@@ -334,3 +347,5 @@ textarea:-ms-input-placeholder {
     color: red;
     font-size: 1.5em;
 }
+
+

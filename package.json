@@ -29,7 +29,8 @@
     "jsdom": "^9.4.2",
     "jsdom-global": "^2.0.0",
     "mocha": "^3.0.2",
-    "webpack": "^1.13.3",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.4",
     "webpack-uglify-js-plugin": "^1.1.9",
     "babelify": "^7.3.0",
     "bootstrap": "^3.3.7",
@@ -39,7 +40,6 @@
     "react-dom": "^15.3.0",
     "redux": "^3.5.2"
   },
-  "dependencies": {},
   "scripts": {
     "start": "node ./bin/www",
     "build": "browserify -t [babelify] -x react -x react-dom -x redux -x expect js/src/main.jsx -o js/build/main.js",
@@ -85,5 +85,8 @@
       "react/prop-types": 0,
       "react/display-name": 0
     }
+  },
+  "dependencies": {
+    "react-transition-group": "^1.1.2"
   }
 }

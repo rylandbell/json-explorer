@@ -1,4 +1,5 @@
 var React = require('react');
+var CSSTransitionGroup = require('react-transition-group/CSSTransitionGroup');
 var Helper = require('../helper.jsx');
 
 var LevelColumn = require('./level-column.jsx');
@@ -16,7 +17,15 @@ module.exports = ({ reduxState, updatePath }) => (
         //convert the levels from JS values to LevelColumn components
         Helper.getAllLevels(reduxState.data, reduxState.currentPath).map(
           (levelContent, levelDepth) => (
-            <LevelColumn levelContent={levelContent} levelDepth={levelDepth} currentPath={reduxState.currentPath} updatePath={updatePath} key={levelDepth} />
+            <CSSTransitionGroup
+              transitionName="level-column"
+              transitionAppear={true}
+              transitionAppearTimeout={300}
+              transitionEnter={false}
+              transitionLeave={true}
+              transitionLeaveTimeout={300}>
+              <LevelColumn levelContent={levelContent} levelDepth={levelDepth} currentPath={reduxState.currentPath} updatePath={updatePath} key={levelDepth} />
+            </CSSTransitionGroup>
           )
         )
       }
