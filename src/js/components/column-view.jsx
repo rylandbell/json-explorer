@@ -11,24 +11,20 @@ module.exports = ({ reduxState, updatePath }) => (
     </div>
     <div className={'explorer-help-text ' + (Helper.isNonEmpty(reduxState.data) && reduxState.currentPath.length === 0 ? '' : 'hidden')}>Click on any row to view its contents.
     </div>
-      {
-
-        //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath, then
-        //convert the levels from JS values to LevelColumn components
-        Helper.getAllLevels(reduxState.data, reduxState.currentPath).map(
-          (levelContent, levelDepth) => (
-            <CSSTransitionGroup
-              transitionName="level-column"
-              transitionAppear={true}
-              transitionAppearTimeout={300}
-              transitionEnter={false}
-              transitionLeave={true}
-              transitionLeaveTimeout={300}>
-              <LevelColumn levelContent={levelContent} levelDepth={levelDepth} currentPath={reduxState.currentPath} updatePath={updatePath} key={levelDepth} />
-            </CSSTransitionGroup>
+      <CSSTransitionGroup
+        transitionName="level-column"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}>
+        {
+          //get array of all visible levels, beginning with the full data object and getting more specific by traveling along currentPath, then
+          //convert the levels from JS values to LevelColumn components
+          Helper.getAllLevels(reduxState.data, reduxState.currentPath).map(
+            (levelContent, levelDepth) => (
+                <LevelColumn levelContent={levelContent} levelDepth={levelDepth} currentPath={reduxState.currentPath} updatePath={updatePath} key={levelDepth} />
+            )
           )
-        )
-      }
+        }
+      </CSSTransitionGroup>
   </div>
 );
 

@@ -348,4 +348,26 @@ textarea:-ms-input-placeholder {
     font-size: 1.5em;
 }
 
+.level-column-enter {
+  // opacity: 0.5;
+  transform: translateX(-100%);
+  z-index: 0;
+}
 
+.level-column-enter.level-column-enter-active {
+  // opacity: 1;
+  transform: translateX(0);
+  transition: opacity .3s ease-out, transform .3s ease-out;
+}
+
+.level-column-leave {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.level-column-leave.level-column-leave-active {
+  opacity: 0.01;
+  transform: translateX(-100%);
+  z-index: 0;
+  transition: opacity .3s ease-out, transform .3s ease-out;
+}
