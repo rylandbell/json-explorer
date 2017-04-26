@@ -7,7 +7,7 @@ module.exports = ({ propertyName, levelDepth, isActive, updatePath }) => {
   }
 
   return (
-    <a className={'list-group-item property-row ' + (isActive ? 'active' : '')} onClick={handleClick}>
+    <a className={'list-group-item property-row clickable' + (isActive ? 'active' : '')} onClick={handleClick}>
       {propertyName.toString()}
     </a>
   );

@@ -1,4 +1,5 @@
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+// @import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+@import './bootstrap-custom.scss';
 
 /*~~~~~~~~~~~~~~~~~~~~~COLOR~~~~~~~~~~~~~~~~
 /*Base colors: */
@@ -232,7 +233,7 @@ a {
 	float: left;
 	min-width: 100%;
 	border-radius: 0 !important;
-	cursor: default;
+	cursor: pointer;
 }
 
 .level-column-caption {
