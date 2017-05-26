@@ -39,6 +39,18 @@
 
   <!-- When this page is generated from the json-columns CLI, the user's provided JSON string is defined below: -->
   <script id="preload-data"></script>
+
+  <!-- Google Analytics: -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-81895206-3', 'auto');
+    ga('send', 'pageview');
+
+  </script>
   
   <!-- React, React-DOM, Redux, jQuery, Bootstrap bundled w/ Webpack: -->
   <script id="bundle" src='build/js/bundle.min.js'></script>
