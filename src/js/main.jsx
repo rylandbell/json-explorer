@@ -1,19 +1,3 @@
-//React component hierarchy:
-//
-//ExplorerApp
-//  -InputPane
-//    -ResetButton
-//  -ExplorerPane
-//    -ColumnView
-//      -[LevelColumn]
-//        -[ClickablePropertyRow]
-//        -TerminalPropertyRow
-//        -LevelColumnCaption
-//    -PathView
-//  -ContentPane
-
-var $ = require('jquery');
-var bootstrap = require('./bootstrap.min.js');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Redux = require('redux');
@@ -26,6 +10,7 @@ const reduxStore = Redux.createStore(Reducers.explorerApp);
 reduxStore.subscribe(render);
 render();
 
+//If the app was opened from the command line with a user-selected JSON file, populate the Redux store with this data on page load.
 injectPreloadedData();
 
 //React render function, with callbacks
@@ -83,7 +68,6 @@ function render() {
   );
 }
 
-//If the app was opened from the command line with a user-selected JSON file, populate the redux store with this data on page load.
 function injectPreloadedData() {
   if (typeof preloadedUserData !== 'undefined') {
     try {
@@ -97,8 +81,3 @@ function injectPreloadedData() {
   }
   return;
 }
-
-//initialize Bootstrap tooltips
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})

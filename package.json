@@ -33,7 +33,6 @@
     "grunt-eslint": "^19.0.0",
     "grunt-jscs": "^3.0.1",
     "grunt-postcss": "^0.8.0",
-    "jquery": "^3.2.1",
     "jsdom": "^9.4.2",
     "jsdom-global": "^2.0.0",
     "react": "^15.3.0",

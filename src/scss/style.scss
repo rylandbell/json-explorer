@@ -33,7 +33,6 @@ body {
 	background-image: url("../images/bg-small.png");
 	background-attachment: fixed;
 	color: $off-white;
-	overflow: hidden;
 }
 
 .modal {
@@ -112,6 +111,7 @@ a:hover, a:hover:focus, a:hover:active {
 	color: $highlight;
 	background-color: $off-white;
 	font-weight: bold;
+	padding-left: 5px;
 }
 
 .content-pane>pre {

@@ -14,10 +14,10 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
         <p className='non-app-text pull-left'>Don't have any JSON strings handy? <a href='#' onClick={loadSampleData}>Click here</a> to load some sample data.</p>
         <p className='pull-right'>
           <a href='https://www.npmjs.com/package/json-columns' target='_blank'>
-            <div className='npm-logo' data-toggle="tooltip" data-placement="bottom" alt="Install a command-line version on NPM" title="Install a command-line version on NPM" />
+            <div className='npm-logo' alt="Install a command-line version on NPM" title="Install a command-line version on NPM" />
           </a>
           <a href='https://github.com/rylandbell/json-columns' target='_blank'>
-            <div className='github-logo' data-toggle="tooltip" data-placement="bottom" alt="View source code on GitHub" title="View source code on GitHub"></div>
+            <div className='github-logo' alt="View source code on GitHub" title="View source code on GitHub"></div>
           </a>
         </p>
       </div>

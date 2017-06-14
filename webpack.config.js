@@ -15,10 +15,6 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    }),
     new webpack.optimize.UglifyJsPlugin({
 
       // Don't beautify output (enable for neater output)
