@@ -13,7 +13,6 @@
 //  -ContentPane
 
 var $ = require('jquery');
-// var bootstrap = require('bootstrap');
 var bootstrap = require('./bootstrap.min.js');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -70,6 +69,13 @@ function render() {
         (e) => {
           e.preventDefault();
           reduxStore.dispatch({ type: 'RESET_STATE' });
+        }
+      }
+      loadSampleData = {
+        (e) => {
+          e.preventDefault();
+          console.log('click');
+          reduxStore.dispatch({ type: 'LOAD_SAMPLE_DATA' })
         }
       }
     />,

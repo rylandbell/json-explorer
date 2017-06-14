@@ -1,4 +1,5 @@
 var Redux = require('redux');
+var sampleData = require('./sample-data');
 
 const data = (state={}, action) => {
   switch (action.type){
@@ -32,6 +33,8 @@ const textContent = (state='', action) => {
   switch (action.type){
     case 'TEXT_ENTRY':
       return action.textContent;
+    case 'LOAD_SAMPLE_DATA':
+      return sampleData;
     case 'RESET_STATE':
       return '';
     default:

@@ -4,14 +4,14 @@ var ExplorerPane = require('./explorer-pane.jsx');
 var ErrorDisplay = require('./error-display.jsx');
 var ContentPane = require('./content-pane.jsx');
 
-module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, resetState }) => (
-  <div className='container'>
+module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, resetState, loadSampleData }) => {
+  return (<div className='container'>
     <div className='row'>
       <h1> JSON Columns </h1>
     </div>
     <div className='row clearfix non-app-text-row'>
       <div className='web-only-row'>
-        <p className='non-app-text pull-left'>Don't have any JSON strings handy? <a href='' data-toggle='modal' data-target='#sample-strings'>Click here</a> for a few samples to copy and paste.</p>
+        <p className='non-app-text pull-left'>Don't have any JSON strings handy? <a href='#' onClick={loadSampleData}>Click here</a> to load some sample data.</p>
         <p className='pull-right'>
           <a href='https://www.npmjs.com/package/json-columns' target='_blank'>
             <div className='npm-logo' data-toggle="tooltip" data-placement="bottom" alt="Install a command-line version on NPM" title="Install a command-line version on NPM" />
@@ -36,6 +36,6 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
     <div className='row'>
       <ContentPane reduxState={reduxState} />
     </div>
-  </div>
-);
+  </div>);
+};
 

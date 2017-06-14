@@ -39,8 +39,14 @@ body {
 	color: $dark-text;
 }
 
-a {
+a, a:active, a:focus {
 	color: $highlight;
+	text-decoration: none;
+}
+
+a:hover, a:hover:focus, a:hover:active {
+	color: #23527c;
+	text-decoration: none;
 }
 
 .main-app-row {
