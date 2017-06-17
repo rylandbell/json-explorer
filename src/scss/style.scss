@@ -142,6 +142,12 @@ a:hover, a:hover:focus, a:hover:active {
 
 /*Big pieces*/
 
+.container-outer {
+	width: 90%;
+	max-width: 1600px;
+	min-width: 900px;
+}
+
 .main-app-row {
 	border-radius: 5px;
 	padding-top: 14px;
@@ -285,14 +291,14 @@ a:hover, a:hover:focus, a:hover:active {
 }
 
 /*Smaller screens: */
-@media (max-width: 991px){
-	.input-pane textarea{
-		height: 200px !important;
-	}
-	#explorer-app {
-		margin-bottom: 50px;
-	}
-}
+// @media (max-width: 991px){
+// 	.input-pane textarea{
+// 		height: 200px !important;
+// 	}
+// 	#explorer-app {
+// 		margin-bottom: 50px;
+// 	}
+// }
 
 .web-only-row {
 	margin-top: -10px;

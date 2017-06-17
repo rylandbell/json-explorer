@@ -5,7 +5,7 @@ var ErrorDisplay = require('./error-display.jsx');
 var ContentPane = require('./content-pane.jsx');
 
 module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, resetState, loadSampleData }) => {
-  return (<div className='container'>
+  return (<div className='container container-outer'>
     <div className='row'>
       <h1> JSON Columns </h1>
     </div>
@@ -23,10 +23,10 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
       </div>
     </div>
     <div className='row main-app-row'>
-      <div className='col-xs-12 col-md-4'>
+      <div className='col-xs-4'>
         <InputPane reduxState={reduxState} handleTextChange={handleTextChange} handleFormSubmit={handleFormSubmit} resetState={resetState}/>
       </div> 
-      <div className='col-xs-12 col-md-8'>
+      <div className='col-xs-8'>
         <ExplorerPane reduxState={reduxState} updatePath= {updatePath} />
       </div>  
     </div>
