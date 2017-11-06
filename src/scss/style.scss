@@ -269,6 +269,17 @@ a:hover, a:hover:focus, a:hover:active {
 	margin-top: 20px;
 }
 
+.bracket-checkbox {
+	position: absolute !important;
+	bottom: -13px;
+	right: 12px;
+}
+
+.bracket-checkbox.checkbox input {
+	position: relative;
+	bottom: 1px;
+}
+
 /*Content Pane*/
 .content-pane {
 	margin-bottom: 20px;
@@ -332,6 +343,7 @@ body {
 
 .current-path {
 	font-size: 2em;
+	min-height: 42px;
 }
 
 .explorer-help-text {
