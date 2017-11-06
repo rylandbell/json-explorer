@@ -42,6 +42,15 @@ const textContent = (state='', action) => {
   }
 };
 
+const bracketNotation = (state=false, action) => {
+  switch (action.type) {
+    case 'UPDATE_BRACKET_CHECKBOX':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 const showError = (state=false, action) => {
   switch (action.type){
     case 'SHOW_ERROR':
