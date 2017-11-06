@@ -8,7 +8,7 @@ module.exports = ({ reduxState, handleBracketCheckboxClick }) => (
     {Helper.isNonEmpty(reduxState.data) ? 
       <div>
         <div className="help-text-small">Selected path:</div>
-        <div className='current-path lead'>{Helper.pathArrayToString(reduxState.currentPath)}</div>
+        <div className='current-path lead'>{Helper.pathArrayToString(reduxState.currentPath, reduxState.useBracketNotation)}</div>
         <div class="checkbox">
           <BracketCheckbox reduxState={reduxState} handleBracketCheckboxClick={handleBracketCheckboxClick} />
         </div>

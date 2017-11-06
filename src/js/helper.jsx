@@ -44,14 +44,26 @@ module.exports.getType = function (data) {
 };
 
 //converts the arrays used to represent paths in state to a JS-valid path string.
-module.exports.pathArrayToString = function (pathArray) {
-  return pathArray
-    .map(function (propertyName) {
-      if (isNaN(propertyName)) {
-        return '.' + propertyName;
-      } else {
-        return '[' + propertyName + ']';
-      }
-    })
-    .join('');
+module.exports.pathArrayToString = function (pathArray, useBracketNotation) {
+  if (useBracketNotation) {
+    return pathArray
+      .map(function (propertyName) {
+        if (isNaN(propertyName)) {
+          return '["' + propertyName + '"]';
+        } else {
+          return '[' + propertyName + ']';
+        }
+      })
+      .join('');
+  } else {
+    return pathArray
+      .map(function (propertyName) {
+        if (isNaN(propertyName)) {
+          return '.' + propertyName;
+        } else {
+          return '[' + propertyName + ']';
+        }
+      })
+      .join('');
+  }
 };
