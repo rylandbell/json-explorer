@@ -45,7 +45,7 @@ const textContent = (state='', action) => {
 const bracketNotation = (state=false, action) => {
   switch (action.type) {
     case 'UPDATE_BRACKET_CHECKBOX':
-      return action.payload;
+      return !state;
     default:
       return state;
   }
@@ -77,6 +77,7 @@ module.exports.explorerApp = Redux.combineReducers({
   data: data,
   currentPath: currentPath,
   textContent: textContent,
+  bracketNotation: bracketNotation,
   showError: showError,
   dataIsPreloaded: dataIsPreloaded
 });

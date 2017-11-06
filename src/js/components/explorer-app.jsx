@@ -4,7 +4,7 @@ var ExplorerPane = require('./explorer-pane.jsx');
 var ErrorDisplay = require('./error-display.jsx');
 var ContentPane = require('./content-pane.jsx');
 
-module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, resetState, loadSampleData }) => {
+module.exports = ({ reduxState, handleTextChange, handleBracketCheckboxClick, handleFormSubmit, updatePath, resetState, loadSampleData }) => {
   return (<div className='container container-outer'>
     <div className='row'>
       <h1> JSON Columns </h1>
@@ -27,7 +27,7 @@ module.exports = ({ reduxState, handleTextChange, handleFormSubmit, updatePath, 
         <InputPane reduxState={reduxState} handleTextChange={handleTextChange} handleFormSubmit={handleFormSubmit} resetState={resetState}/>
       </div> 
       <div className='col-xs-8'>
-        <ExplorerPane reduxState={reduxState} updatePath= {updatePath} />
+        <ExplorerPane reduxState={reduxState} updatePath= {updatePath} handleBracketCheckboxClick={handleBracketCheckboxClick} />
       </div>  
     </div>
     <div className='row'>

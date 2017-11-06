@@ -27,6 +27,13 @@ function render() {
           });
         }
       }
+      handleBracketCheckboxClick = {
+        (e) => {
+          reduxStore.dispatch({
+            type: 'UPDATE_BRACKET_CHECKBOX'
+          })
+        }
+      }
       updatePath = {
         (level, newProperty) => {
           reduxStore.dispatch({
@@ -59,7 +66,6 @@ function render() {
       loadSampleData = {
         (e) => {
           e.preventDefault();
-          console.log('click');
           reduxStore.dispatch({ type: 'LOAD_SAMPLE_DATA' })
         }
       }
